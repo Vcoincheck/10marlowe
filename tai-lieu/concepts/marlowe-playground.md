@@ -2,216 +2,239 @@
 
 This tutorial gives an overview of the [Marlowe Playground](https://play.marlowe.iohk.io/#/), an online tool that allows users to create, to analyse, to interact with and to simulate the operation of embedded Marlowe contracts.
 
-## Introducing the Marlowe Playground​ <a href="#introducing-the-marlowe-playground" id="introducing-the-marlowe-playground"></a>
+**Marlowe Playground** là công cụ trực tuyến hỗ trợ người dùng tạo, phân tích, tương tác, và mô phỏng hợp đồng thông minh viết bằng Marlowe.&#x20;
 
-For Marlowe to be usable in practice, users need to be able to understand how contracts will behave once deployed to the blockchain, but without doing the deployment. We can do that by simulating their behaviour off-chain, interactively stepping through the evaluation of a contract in the browser-based tool, the Marlowe Playground, a web tool that supports the interactive construction, revision, and simulation of smart-contracts written in Marlowe.
+Đây là công cụ quan trọng để giúp người dùng hiểu cách hợp đồng sẽ hoạt động sau khi triển khai lên blockchain mà không cần phải thực sự triển khai.&#x20;
 
-Contracts can be authored in four different ways in the Playground. We can write directly in Marlowe, or use the Blockly representation of Marlowe. Marlowe is also embedded in Haskell and JavaScript, and we can author contracts in these languages and then convert ("compile") them to Marlowe in the Playground. Once a contract has been written in Blockly, Haskell, or JavaScript, we can move to the Simulator to analyse and simulate the contract.
+Người dùng có thể mô phỏng hành vi của hợp đồng theo từng bước trong trình duyệt với Marlowe Playground.
 
-Work from the Playground can be saved as a github gist. Projects can be reloaded or duplicated at a later time. Even without using github the project is saved between sessions, but this is _volatile_, and will be lost if browser caches are updated.
+**Cách sử dụng Marlowe Playground**:
 
-The rest of this section will cover the operation of the Playground in more detail. Note that we use **bold** type for buttons and other components in what follows.
+1.  **Các cách viết hợp đồng**: Người dùng có thể viết hợp đồng theo bốn cách:
 
-## Getting started​ <a href="#getting-started" id="getting-started"></a>
+    * Trực tiếp bằng ngôn ngữ Marlowe.
+    * Sử dụng biểu diễn qua giao diện kéo-thả **Blockly** của Marlowe.
+    * Nhúng Marlowe vào **Haskell** hoặc **JavaScript**.
 
-The landing page for the Marlowe Playground looks like this:
+    Các hợp đồng viết bằng Blockly, Haskell, hoặc JavaScript có thể được "biên dịch" thành Marlowe trong Playground để xem trước và mô phỏng.
+2. **Mô phỏng và phân tích hợp đồng**: Sau khi viết xong, bạn có thể chuyển sang trình mô phỏng (_**Simulator**_) để phân tích và mô phỏng hợp đồng.
+3. **Lưu trữ và tải lại dự án**: Dự án có thể được lưu dưới dạng github gist hoặc lưu tạm thời trong trình duyệt giữa các phiên làm việc (tuy nhiên dữ liệu này sẽ mất khi bộ nhớ cache của trình duyệt được cập nhật).
+
+Phần còn lại của phần này sẽ đi sâu vào chi tiết về cách thức hoạt động của Marlowe Playground. Trên trang chủ của Marlowe Playground, bạn sẽ thấy các tùy chọn và công cụ cho từng bước mô phỏng, chỉnh sửa, và xây dựng hợp đồng.
+
+## Bước đầu​ <a href="#getting-started" id="getting-started"></a>
+
+​ Trang chính của **Marlowe Playground** cung cấp một giao diện thân thiện và dễ sử dụng với các tùy chọn để bắt đầu tạo, tải hoặc khám phá các hợp đồng thông minh. Dưới đây là những gì bạn sẽ thấy:
 
 <figure><img src="../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
 
 The title bar has a link to this tutorial at the right-hand side, and the footer has some general links.
 
-The page offers three options:
+Trang cung cấp ba tùy chọn:
 
-* **Open existing project** This opens a project that has been saved previously. See the section on Saving and Opening Projects below for more details on setting this up.
-* **Open an example** This will load an example into the existing project, in the environment chosen by the user.
+1. **Mở dự án hiện có**: Tùy chọn này sẽ mở một dự án đã được lưu trước đó. Xem phần "Lưu và Mở Dự Án" bên dưới để biết thêm chi tiết về cách thiết lập thao tác này.
+2. **Mở ví dụ**: Tùy chọn này sẽ tải một ví dụ vào dự án hiện tại trong môi trường được người dùng chọn.
+3. **Bắt đầu dự án mới**: Tại đây, bạn có thể chọn bắt đầu bằng Javascript, Haskell, Marlowe hoặc Blockly.
 
 <figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 
-* **Start something new** Here you're given the **choice** to start in Javascript, Haskell, Marlowe or Blockly.
-* Each of these choices is covered now.
-* Wherever you start, you will have the chance to **simulate** the contracts that you develop.
+Mỗi lựa chọn này sẽ được giải thích chi tiết ngay sau đây. Bất kể bạn bắt đầu từ đâu, bạn đều có cơ hội mô phỏng các hợp đồng mà mình phát triển.
 
-The program editor used in the Playground is the Monaco editor -- [https://microsoft.github.io/monaco-editor/](https://microsoft.github.io/monaco-editor/) -- and many of its features are available, including the menu available on right-click.
+**Trình soạn thảo chương trình** trong Playground là Monaco editor — [Monaco Editor](https://microsoft.github.io/monaco-editor/) — và có sẵn nhiều tính năng của nó, bao gồm cả menu xuất hiện khi nhấp chuột phải.
 
-## The JavaScript editor: developing embedded contracts​ <a href="#the-javascript-editor-developing-embedded-contracts" id="the-javascript-editor-developing-embedded-contracts"></a>
+### **Trình soạn thảo JavaScript: phát triển hợp đồng nhúng**
 
-For details of how the JavaScript embedding for Marlowe is defined, see Marlowe embedded in JavaScript.
+\
+Để biết chi tiết về cách định nghĩa Marlowe nhúng trong JavaScript, bạn có thể tham khảo phần Marlowe nhúng trong JavaScript.&#x20;
 
-We can use JavaScript to make contract definitions more readable by using JS definitions for sub-components, abbreviations, and simple template functions. The JS editor is shown here.
+Chúng ta có thể sử dụng JavaScript để làm cho các định nghĩa hợp đồng dễ đọc hơn bằng cách sử dụng các định nghĩa JS cho các thành phần phụ, viết tắt, và các hàm mẫu đơn giản. Hình dưới đây minh họa trình soạn thảo JS.
 
 <figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
 
-The JS editor is open here on the _Escrow with collateral_ example contained in the examples. To describe a Marlowe contract in the editor, a value of the type `Contract` must be returned as result of the provided function by using the instruction `return`.
+**Trình soạn thảo JS** ở ví dụ dưới là **Escrow with Collateral**. Để mô tả một hợp đồng Marlowe trong trình soạn thảo này, một giá trị thuộc kiểu **Contract** phải được trả về như kết quả của hàm đã cung cấp bằng cách sử dụng lệnh `return`.
 
 <figure><img src="../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
 
-The editor supports auto-complete, error checking during editing, and information about bindings on mouse over. In particular, using mouse over on any of the imported bindings will show its type (in TypeScript).
+Trình soạn thảo hỗ trợ tính năng tự động hoàn thành, kiểm tra lỗi trong khi chỉnh sửa và cung cấp thông tin về các liên kết khi di chuột. Đặc biệt, khi di chuột qua bất kỳ liên kết nào đã nhập sẽ hiển thị kiểu của nó (trong TypeScript). Các nút trong thanh tiêu đề cung cấp các chức năng tiêu chuẩn:
 
-The buttons in the header bar provide standard functionality:
+* **Tạo dự án mới**
+* **Mở một dự án đã có**
+* **Mở một trong các ví dụ tích hợp**
+* **Đổi tên dự án hiện tại**
+* **Lưu dự án hiện tại với tên hiện có (nếu có)**
+* **Lưu dự án hiện tại dưới một tên mới**
 
-* Create a **New Project**
-* **Open** an existing project
-* **Open** one of the built in **examples**
-* **Rename** the existing project
-* **Save** the current project under its current name (if it has one)
-* **Save** the current project **as** a newly named one
+Khi bạn nhấn nút **Compile** (ở góc trên bên phải), mã trong trình soạn thảo sẽ được thực thi, và đối tượng JSON được trả về từ hàm sẽ được phân tích thành một hợp đồng Marlowe thực tế; sau đó, bạn có thể nhấn **Send to simulator** để bắt đầu mô phỏng hợp đồng.
 
-When you click the **Compile** button (in the top right-hand corner), the code in the editor is executed, and the JSON object returned by the function resulting from the execution is parsed into an actual Marlowe contract; you can then press **Send to simulator** to begin contract simulation.
-
-If compilation is successful, the compiled code is shown by selecting **Generated code** in the footer of the page; this can subsequently be minimized, too.
+Nếu biên dịch thành công, mã đã biên dịch sẽ được hiển thị bằng cách chọn **Generated code** ở chân trang; mã này cũng có thể được thu nhỏ lại sau đó.
 
 <figure><img src="../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
 
-If the contract cannot successfully be converted to Marlowe, the errors are also shown in an overlay accessible as **Errors** in the footer.
+Nếu hợp đồng không thể chuyển đổi thành công sang Marlowe, các lỗi cũng sẽ được hiển thị trong một lớp phủ, có thể truy cập bằng cách chọn **Errors** ở chân trang.
 
 <figure><img src="../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
 
-Looking again at the footer you can see that you can access the results of **Static analysis**, as described below, as well as examine and edit the contract **Metadata**.
+Nhìn lại chân trang, bạn có thể thấy rằng có thể truy cập vào kết quả của **Static analysis**, như được mô tả dưới đây, cũng như kiểm tra và chỉnh sửa **Metadata** của hợp đồng.
 
 <figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
-The metadata editor contains fields for general descriptions of every contract, but also supports the entry of information describing these:
+Trình chỉnh sửa metadata chứa các trường để mô tả chung về mỗi hợp đồng, nhưng cũng hỗ trợ việc nhập thông tin mô tả cho các yếu tố như:
 
-* roles
-* parameters
-* choices
+* **Vai trò (roles)**
+* **Tham số (parameters)**
+* **Lựa chọn (choices)**
 
-When a contract is compiled successfully, the metadata editor will prompt you to add metadata for the fields that correspond to the appropriate elements of the contract, and to delete the fields that do not correspond to anything in the contract.
+Khi một hợp đồng được biên dịch thành công, trình chỉnh sửa metadata sẽ nhắc bạn thêm metadata cho các trường tương ứng với các phần tử phù hợp của hợp đồng và xóa các trường không tương ứng với bất kỳ điều gì trong hợp đồng.
 
-## The Haskell editor: developing embedded contracts​ <a href="#the-haskell-editor-developing-embedded-contracts" id="the-haskell-editor-developing-embedded-contracts"></a>
+### Trình chỉnh sửa Haskell: phát triển hợp đồng nhúng
 
-The editor supports the development of Marlowe contracts described in Haskell. We can use Haskell to make contract definitions more readable by using Haskell definitions for sub-components, abbreviations, and simple template functions. The Haskell editor is shown in the following image.
+Trình chỉnh sửa hỗ trợ việc phát triển các hợp đồng Marlowe được mô tả bằng Haskell. Chúng ta có thể sử dụng Haskell để làm cho các định nghĩa hợp đồng trở nên rõ ràng hơn bằng cách sử dụng các định nghĩa Haskell cho các thành phần phụ, viết tắt, và các hàm mẫu đơn giản.&#x20;
+
+Trình chỉnh sửa Haskell được hiển thị trong hình ảnh dưới đây.
 
 <figure><img src="../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 
-The editor supports auto-complete, error checking during editing, and information about bindings on mouse over. The buttons in the header bar provide standard functionality:
+Trình chỉnh sửa hỗ trợ tính năng tự động hoàn thành, kiểm tra lỗi trong quá trình chỉnh sửa và thông tin về các biến khi di chuột qua. Các nút trên thanh tiêu đề cung cấp các chức năng tiêu chuẩn như sau:
 
-* Create a **New Project**
-* **Open** an existing project
-* **Open** one of the built in **examples**
-* **Rename** the existing project
-* **Save** the current project under its current name (if it has one)
-* **Save** the current project **as** a newly named one
+* **Tạo một dự án mới**
+* **Mở một dự án đã tồn tại**
+* **Mở một trong những ví dụ có sẵn**
+* **Đổi tên dự án hiện tại**
+* **Lưu dự án hiện tại với tên hiện tại (nếu có)**
+* **Lưu dự án hiện tại với tên mới**
 
-The Haskell editor is open here on the Escrow example contained in the examples. To describe a Marlowe contract in the editor, we have to define a top-level value `contract` of type `Contract`; it is this value that is converted to pure Marlowe with the **Compile** button (in the top right-hand corner). If compilation is successful, the compiled code is shown by selecting **Generated code** in the footer:
+Trình chỉnh sửa Haskell đang mở trên ví dụ về hợp đồng Escrow có sẵn trong các ví dụ. Để mô tả một hợp đồng Marlowe trong trình chỉnh sửa, chúng ta phải định nghĩa một giá trị cấp cao nhất có tên là `contract` thuộc loại `Contract`; chính giá trị này sẽ được chuyển đổi thành Marlowe thuần khi nhấn nút **Compile** (ở góc trên bên phải).&#x20;
+
+Nếu biên dịch thành công, mã đã biên dịch sẽ được hiển thị bằng cách chọn **Generated code** ở chân trang.
 
 <figure><img src="../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
 
-On successful compilation the result can be sent to the simulator or to Blockly: these options are provided by the **Send to Simulator** and **Send to Blockly** buttons in the top right-hand corner of the page.
+Khi biên dịch thành công, kết quả có thể được gửi đến trình mô phỏng hoặc đến Blockly: các tùy chọn này được cung cấp bởi các nút **Send to Simulator** và **Send to Blockly** ở góc trên bên phải của trang.
 
-If the contract cannot successfully be converted to Marlowe, the errors are also shown by selecting **Errors** in the footer:
+Nếu hợp đồng không thể được chuyển đổi thành công sang Marlowe, các lỗi cũng sẽ được hiển thị bằng cách chọn **Errors** ở chân trang.
 
 <figure><img src="../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
 
-Looking again at the footer you can see that you can access the results of **Static analysis**, as described below, as well as examine and edit the contract **Metadata**.
+Khi xem lại phần chân trang, bạn có thể thấy rằng bạn có thể truy cập kết quả của phân tích tĩnh, như được mô tả bên dưới, cũng như xem và chỉnh sửa **metadata** của hợp đồng.
 
 <figure><img src="../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
 
-The metadata editor contains fields for general descriptions of every contract, but also supports the entry of information describing these:
+Trình chỉnh sửa metadata chứa các trường mô tả tổng quát cho từng hợp đồng, nhưng cũng hỗ trợ việc nhập thông tin mô tả về các yếu tố sau:
 
-* roles
-* parameters
-* choices
+* **Vai trò (roles)**
+* **Tham số (parameters)**
+* **Lựa chọn (choices)**
 
-When a contract is compiled successfully, the metadata editor will prompt you to add metadata for the fields that correspond to the appropriate elements of the contract, and to delete the fields that do not correspond to anything in the contract.
+Khi một hợp đồng được biên dịch thành công, trình chỉnh sửa siêu dữ liệu sẽ nhắc bạn thêm siêu dữ liệu cho các trường tương ứng với các phần tử thích hợp của hợp đồng, và xóa các trường không tương ứng với bất kỳ phần nào trong hợp đồng.
 
-Contract metadata not only provides documentation for Marlowe contracts, but is also used in the front end web app, the end-user client that is to be used to run Marlowe contacts on the Cardano blockchain in conjunction with Marlowe Runtime.
+Metadata của hợp đồng không chỉ cung cấp tài liệu cho các hợp đồng Marlowe, mà còn được sử dụng trong ứng dụng web front-end, là ứng dụng khách cuối sẽ được sử dụng để chạy các hợp đồng Marlowe trên blockchain Cardano cùng với Marlowe Runtime.
 
-## The Blockly editor​ <a href="#the-blockly-editor" id="the-blockly-editor"></a>
+### Trình chỉnh sửa Blockly
 
-The Blockly editor provides a mechanism for creating and viewing contracts in a visual form rather than in text.
+Trình chỉnh sửa Blockly cung cấp một cơ chế để tạo và xem các hợp đồng dưới dạng hình ảnh thay vì văn bản. Lưu ý rằng trình chỉnh sửa Blockly cũng cung cấp quyền truy cập vào trình chỉnh sửa siêu dữ liệu và phân tích tĩnh.
 
-Note that the Blockly editor also offers access to the metadata editor and static analysis.
+### Phát triển hợp đồng trong Marlowe
 
-## Developing contracts in Marlowe​ <a href="#developing-contracts-in-marlowe" id="developing-contracts-in-marlowe"></a>
-
-It is also possible to create contracts in "raw" Marlowe too. Marlowe is edited in the Marlowe editor, and this gives automatic formatting (on right click) and supports **holes** too.
+Cũng có thể tạo các hợp đồng trong Marlowe "thô". Marlowe được chỉnh sửa trong trình chỉnh sửa Marlowe, và điều này cung cấp định dạng tự động (khi nhấp chuột phải) và hỗ trợ cả các ô trống.
 
 <figure><img src="../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
 
-Holes allow a program to be built top-down. Clicking the lightbulb next to a hole presents a completion menu, in each case replacing each sub component by a new hole. For example, choosing `Pay` to fill the top-level hole will result in this (after formatting on right click):
+Các ô trống cho phép một chương trình được xây dựng theo cách từ trên xuống. Nhấp vào biểu tượng bóng đèn bên cạnh một ô trống sẽ hiển thị một menu hoàn thiện, trong mỗi trường hợp sẽ thay thế từng thành phần con bằng một ô trống mới.&#x20;
+
+Ví dụ, chọn "`Pay`" để lấp đầy ô trống cấp cao sẽ dẫn đến kết quả như sau (sau khi định dạng bằng cách nhấp chuột phải):
 
 <figure><img src="../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
 
-Holes can be combined with ordinary text editing, so that you can use a mixture of bottom-up and top-down constructs in building Marlowe contracts. Moreover, contracts with holes can be transferred to and from Blockly: holes in Marlowe become literal holes in Blockly. To transfer to Blockly use the **View as blocks** in the top right-hand corner of the screen, and _vice versa_.
+Các ô trống có thể được kết hợp với việc chỉnh sửa văn bản thông thường, cho phép bạn sử dụng sự kết hợp của các cấu trúc từ dưới lên và từ trên xuống trong việc xây dựng các hợp đồng Marlowe.&#x20;
 
-## Simulating Marlowe contracts and templates​ <a href="#simulating-marlowe-contracts-and-templates" id="simulating-marlowe-contracts-and-templates"></a>
+Hơn nữa, các hợp đồng có ô trống có thể được chuyển đổi giữa Marlowe và Blockly: các ô trống trong Marlowe trở thành các ô trống nguyên bản trong Blockly.&#x20;
 
-However a contract is written, when it is sent to simulation this is the view seen first. Here we're looking at the _Zero coupon bond_ example.
+Để chuyển sang Blockly, hãy sử dụng tùy chọn "Xem dưới dạng khối-View as blocks" ở góc trên bên phải của màn hình, và ngược lại.
+
+#### Mô phỏng các hợp đồng và mẫu Marlowe
+
+Dù hợp đồng được viết theo cách nào, khi nó được gửi đi để mô phỏng, đây là giao diện được nhìn thấy đầu tiên. Ở đây, chúng ta đang xem ví dụ về trái phiếu không lãi suất.
 
 <figure><img src="../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
 
-Before a simulation can be started you need to supply some information.
+Trước khi bắt đầu mô phỏng, bạn cần cung cấp một số thông tin sau:
 
-* The simulated _initial time_ at which to start the simulation.
-* Any _timeout parameters_: here we give the time by which the lender has to deposit the amount, and the time by which the borrower needs to repay that amount with interest.
-* Any _value parameters_: in this case the amount loaned and the (added) amount of interest to be paid.
+1. **Thời gian ban đầu(**initial time): Thời gian bắt đầu mà mô phỏng sẽ được thực hiện.
+2. **Các tham số thời gian**(timeout parameters): Tại đây, bạn cung cấp thời gian mà người cho vay phải gửi số tiền, và thời gian mà người vay cần phải trả số tiền đó cùng với lãi suất.
+3. **Các tham số giá trị**(value parameters): Trong trường hợp này, số tiền đã cho vay và số tiền lãi (thêm vào) cần phải trả.
 
-The code shown here presents the complete contract that is being simulated. Once the simulation has begun, whatever of the contract remains to be simulated is highlighted. The footer gives data about the simulation.
+Mã code được hiển thị ở đây trình bày hợp đồng hoàn chỉnh đang được mô phỏng. Khi mô phỏng bắt đầu, phần còn lại của hợp đồng cần được mô phỏng sẽ được đánh dấu. Phần chân trang cung cấp dữ liệu về quá trình mô phỏng.
 
-For our example let's fill in the parameters like this.
+#### Ví dụ
+
+Đối với ví dụ của chúng ta, hãy điền các tham số như sau:
 
 <figure><img src="../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
 
-Simulation is started by clicking the **Start simulation** button, and once this is done, the available actions that will advance the contract are presented. Note too that the whole contract is highlighted, showing that none of it has yet been executed.
+Mô phỏng được bắt đầu bằng cách nhấn nút **Start simulation**. Khi điều này được thực hiện, các hành động có sẵn để tiến triển hợp đồng sẽ được hiển thị. Lưu ý rằng toàn bộ hợp đồng sẽ được đánh dấu, cho thấy rằng chưa có phần nào của hợp đồng được thực thi.
 
 <figure><img src="../../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
 
-In this case, there are 4 potential actions: the _Lender_ can make a deposit of 10,000 Ada, or the time can advance to the next minute, the next timeout (in this case the _Loan deadline_ timeout that we just set, at which the wait for a deposit times out), or directly to the expiration time of the contract. Two other generic actions can be taken too:
+Trong trường hợp này, có 4 hành động tiềm năng: Người cho vay (_Lender_) có thể thực hiện một khoản tiền gửi 10,000 Ada, hoặc thời gian có thể tiến đến phút tiếp theo, thời gian chờ (trong trường hợp này là thời hạn vay (_Loan_) mà chúng ta vừa thiết lập, tại đó việc chờ đợi khoản tiền gửi sẽ hết thời gian), hoặc trực tiếp đến thời điểm hết hạn của hợp đồng.&#x20;
 
-* **Undo** will undo the last action made in the simulator. This means that we can explore a contract interactively, making some moves, undoing some of them, and then proceeding in a different direction.
-* **Reset** will reset the contract and its state back to their initial values: the full contract and an empty state. It also _stops_ the simulation.
+Hai hành động tổng quát khác cũng có thể được thực hiện:
 
-For our example, let us select for the _Lender_ to make the deposit of 10,000 Ada. We can do that with the **+** button next to this input. After doing that we see:
+* **Hoàn tác** sẽ hoàn tác hành động cuối cùng được thực hiện trong mô phỏng. Điều này có nghĩa là chúng ta có thể khám phá một hợp đồng một cách tương tác, thực hiện một số bước, hoàn tác một số bước và sau đó tiến hành theo một hướng khác.
+* **Đặt lại** sẽ đưa hợp đồng và trạng thái của nó trở về các giá trị ban đầu: hợp đồng đầy đủ và trạng thái trống. Nó cũng dừng mô phỏng.
+
+Đối với ví dụ của chúng ta, hãy chọn để Người cho vay thực hiện khoản tiền gửi 10,000 Ada. Chúng ta có thể làm điều đó bằng cách nhấn nút **+** bên cạnh đầu vào này. Sau khi làm như vậy, chúng ta thấy:
 
 <figure><img src="../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
 
-where we see to the right of the screen that the deposit has been made, followed by an automatic payment to the _Borrower_. We can also see that the highlighted part has changed to reflect the fact that the initial deposit and pay have been performed.
+Ở bên phải màn hình chúng ta thấy rằng khoản tiền gửi đã được thực hiện, tiếp theo là một khoản thanh toán tự động cho Người vay (_Borrower_). Chúng ta cũng có thể thấy rằng phần được làm nổi bật đã thay đổi để phản ánh rằng việc gửi tiền ban đầu và thanh toán đã được thực hiện.
 
-The remaining part of the contract is the repayment: if we select this action by the _Borrower_ we see that the contract has completed.
+Phần còn lại của hợp đồng là việc trả nợ: nếu chúng ta chọn hành động này bởi Người vay, chúng ta sẽ thấy rằng hợp đồng đã hoàn tất.
 
 <figure><img src="../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
 
-The log on the right hand side of the screen now gives a complete list of the actions undertaken by the participants and by the contract itself. One final note: we chose not to advance the time at any point: this is consistent with the contract design; on the other hand we didn't see any _timeout_ actions happening. Why not try this yourself?
+Nhật ký ở bên phải màn hình hiện cung cấp danh sách đầy đủ các hành động được thực hiện bởi các bên tham gia và bởi chính hợp đồng.&#x20;
 
-## Oracle simulation​ <a href="#oracle-simulation" id="oracle-simulation"></a>
+Một ghi chú cuối cùng: chúng tôi đã chọn không tiến hành thời gian vào bất kỳ thời điểm nào; điều này nhất quán với thiết kế hợp đồng. Mặt khác, chúng tôi không thấy bất kỳ hành động timeout nào xảy ra. Tại sao bạn không thử điều này một mình?
 
-As we noted earlier in the section on Marlowe step by step, the Playground provides oracle values to simulations for the role `"kraken"`. When the simulation reaches the point of simulating this construct:
+### **Mô phỏng Oracle**
 
-<figure><img src="../../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
+Như chúng tôi đã đề cập trước đó trong phần về Marlowe từng bước, Playground cung cấp các giá trị oracle cho các mô phỏng cho vai trò "kraken". Khi mô phỏng đến điểm simulating này:
 
-then the value is _pre-filled_ in the simulation like this:
+<figure><img src="../../.gitbook/assets/image (29).png" alt="" width="375"><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (30).png" alt=""><figcaption></figcaption></figure>
+Giá trị được điền trước (_pre-filled_) như sau:
 
-## Saving and Opening Projects​ <a href="#saving-and-opening-projects" id="saving-and-opening-projects"></a>
+<figure><img src="../../.gitbook/assets/image (30).png" alt="" width="563"><figcaption></figcaption></figure>
 
-Projects can be saved on github, and so when you first save a project you will be prompted thus:
+## Lưu trữ và mở các hợp đồng​ <a href="#saving-and-opening-projects" id="saving-and-opening-projects"></a>
+
+Các dự án có thể được lưu trên GitHub, và vì vậy, khi bạn lưu một dự án lần đầu tiên, bạn sẽ được nhắc như sau:
 
 <figure><img src="../../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
 
-and, if you choose to **Login** there, you will be taken to a login screen for github:
+Nếu bạn chọn **Login**, bạn sẽ được "chuyển" tới màn hình đăng nhập Github:
 
 <figure><img src="../../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
 
-When you opt to **Open Project** you will be presented with a choice like this:
+Khi bạn chọn "Mở Dự Án", bạn sẽ được trình bày với một lựa chọn như thế này:
 
-<figure><img src="../../.gitbook/assets/image (33).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (33).png" alt="" width="563"><figcaption></figcaption></figure>
 
-The Marlowe Playground does not provide a mechanism for deleting projects, but this can be done directly on github.
+Marlow Playground không cung cấp cơ chế để xóa các dự án, nhưng điều này có thể được thực hiện trực tiếp trên GitHub.
 
-## Analysing a contract​ <a href="#analysing-a-contract" id="analysing-a-contract"></a>
+### **Phân tích hợp đồng**
 
-The static analysis of a contract is performed by selecting the **Static analysis** tab in footer at the bottom of the page.
+Phân tích _tĩnh_ của một hợp đồng được thực hiện bằng cách chọn tab "Phân tích tĩnh-Static analysis" ở cuối trang.
 
 <figure><img src="../../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
 
-In order to analyse a _template_ it is necessary to give values to any of its parameters, as you can see in the screenshot.
+Để phân tích một mẫu hợp đồng, cần cung cấp giá trị cho bất kỳ tham số nào của nó, như bạn có thể thấy trong ảnh chụp màn hình.
 
-Clicking the **Analyse for warnings** button results in the current contract _in the current state_ being analysed. The result is either to say that the contract passed all the tests, or to explain how it fails, and giving the sequence of transactions that lead to the error. As an exercise, try this with the `Escrow` contract, changing the initial deposit from Alice to something smaller than 450 lovelace. More details are given in the section on **static analysis**.
+* Nút "**Phân tích cảnh báo-Analyse for warnings**" sẽ dẫn đến việc phân tích hợp đồng hiện tại trong trạng thái hiện tại. Kết quả có thể là hợp đồng đã vượt qua tất cả các kiểm tra, hoặc giải thích cách nó thất bại, kèm theo chuỗi giao dịch dẫn đến lỗi.&#x20;
 
-The **Analyse reachability** button will check whether any parts of a contract will never be executed, however participants interact with the contract.
+_Ví dụ: hãy thử điều này với hợp đồng `Escrow`, thay đổi số tiền ký quỹ ban đầu từ Alice thành một giá trị nhỏ hơn 450 lovelace. Thông tin chi tiết hơn được cung cấp trong phần phân tích tĩnh._
 
-The **Analyse for refunds on Close** will check whether it is possible for any of the `Close` constructs to refund funds, or whether at every `Close` all the funds in the contract have already been refunded.
+* Nút "**Phân tích khả năng tiếp cận-Analyse reachability**" sẽ kiểm tra xem có bất kỳ phần nào của hợp đồng sẽ không bao giờ được thực hiện, bất kể cách các bên tham gia tương tác với hợp đồng.
+* Nút "**Phân tích hoàn trả trên Close-Analyse for refunds on Close**" sẽ kiểm tra xem có thể xảy ra hoàn trả cho bất kỳ cấu trúc `Close` nào hay không, hoặc liệu trong mọi trường hợp `Close`, tất cả các quỹ trong hợp đồng đã được hoàn trả.
 
-Use the Marlowe Playground to interact with the example contracts and, in particular try the contracts with different parameter values, and also modify them in various ways to see how contracts can fail to meet the analysis.
+Hãy sử dụng Marlowe Playground để tương tác với các hợp đồng mẫu và đặc biệt thử nghiệm các hợp đồng với các giá trị tham số khác nhau, cũng như điều chỉnh chúng theo nhiều cách để xem các hợp đồng có thể thất bại như thế nào trong việc đáp ứng phân tích.

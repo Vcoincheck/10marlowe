@@ -18,7 +18,7 @@
   * [Marlowe nhúng trong Haskell](tai-lieu/concepts/marlowe-nhung-trong-haskell.md)
   * [Marlowe nhúng trong JavaScript](tai-lieu/concepts/marlowe-nhung-trong-javascript.md)
   * [Marlowe Playground](tai-lieu/concepts/marlowe-playground.md)
-  * [Potential problems with contracts](tai-lieu/concepts/potential-problems-with-contracts.md)
+  * [Các vấn đề "tiềm ẩn" trong hợp đồng](tai-lieu/concepts/cac-van-de-tiem-an-trong-hop-dong.md)
   * [ACTUS and Marlowe](tai-lieu/concepts/actus-and-marlowe.md)
   * [Using Marlowe from the ghci command line](tai-lieu/concepts/using-marlowe-from-the-ghci-command-line.md)
   * [Marlowe escrow step-by-step](tai-lieu/concepts/marlowe-escrow-step-by-step.md)
