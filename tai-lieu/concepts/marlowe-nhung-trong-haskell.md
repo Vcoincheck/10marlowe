@@ -1,12 +1,12 @@
-# Embedded in Haskell
+# Marlowe nhúng trong Haskell
 
-In this tutorial we go back to the escrow example, and show how we can use the _embedding_ of Marlowe in Haskell to make more readable, modular and reusable descriptions of Marlowe contracts.
+Trong hướng dẫn này, chúng ta quay trở lại ví dụ về tài khoản ký quỹ và chỉ cho cách chúng ta có thể sử dụng việc nhúng Marlowe vào Haskell để tạo ra các mô tả hợp đồng Marlowe dễ đọc hơn, có tính mô-đun và có thể tái sử dụng.
 
-### A simple escrow contract, revisited[​](broken-reference) <a href="#a-simple-escrow-contract-revisited" id="a-simple-escrow-contract-revisited"></a>
+### Hợp đồng ký quỹ đơn giản, xem lại
 
-Recall that we developed this Marlowe contract in our earlier tutorial.
+Nhắc lại rằng chúng ta đã phát triển hợp đồng Marlowe này trong hướng dẫn trước. Mặc dù chúng ta đã trình bày nó ở đó như một hợp đồng "đơn khối", nhưng chúng ta có thể sử dụng các định nghĩa trong Haskell để làm cho nó dễ đọc hơn.&#x20;
 
-While we presented it there as a "monolithic" contract, we can use Haskell definitions to make it more readable. To start with, we can separate the initial commitment from the _inner_ working part of the contract:
+Để bắt đầu, chúng ta có thể tách biệt cam kết ban đầu khỏi phần hoạt động bên trong của hợp đồng:
 
 ```rust
 contract :: Contract
@@ -28,7 +28,7 @@ inner =
        Close
 ```
 
-Many of the terms here are themselves defined within Haskell. Principally, we have the two contracts that deal with what happens when there is `agreement` between Alice and Bob, and if not, how Carol should `arbitrate` between them:
+Nhiều thuật ngữ ở đây được định nghĩa trong Haskell. Chủ yếu, chúng ta có hai hợp đồng liên quan đến những gì xảy ra khi có sự đồng ý `agreement` giữa Alice và Bob, và nếu không, Carol ở giữa sẽ phân xử `arbitrate` như thế nào:
 
 ```rust
 agreement :: Contract
@@ -45,16 +45,16 @@ arbitrate =
        Close
 ```
 
-Within these contracts we are also using simple abbreviations such as:
+Trong các hợp đồng này, chúng tôi cũng sử dụng các cách viết tắt đơn giản như:
 
 ```rust
 price :: Value
 price = Constant 450
 ```
 
-which indicates the price of the cat, and so the value of the money under escrow.
+để chỉ định giá của con mèo, và do đó giá trị của số tiền đang bị giữ trong quỹ _ký quỹ_.
 
-We can also describe the choices made by Alice and Bob, noting that we're also asked for a default value `defValue` just in case the choices have not been made.
+Chúng tôi cũng có thể mô tả các lựa chọn mà Alice và Bob đã đưa ra, lưu ý rằng chúng tôi cũng yêu cầu một giá trị mặc định `defValue` trong trường hợp các lựa chọn chưa được thực hiện.
 
 ```rust
 aliceChosen, bobChosen :: Value
@@ -68,7 +68,7 @@ choiceName :: ChoiceName
 choiceName = "choice"
 ```
 
-In describing choices we can give sensible names to the numeric values:
+Trong việc mô tả các lựa chọn, chúng ta có thể đặt tên hợp lý cho các giá trị số:
 
 ```rust
 pay,refund,both :: [Bound]
@@ -78,7 +78,7 @@ refund = [Bound 1 1]
 both   = [Bound 0 1]
 ```
 
-and define new _functions_ (or "templates") for ourselves. In this case we define
+và định nghĩa các hàm mới (hoặc "mẫu") cho chính mình. Trong trường hợp này, chúng ta định nghĩa:
 
 ```rust
 choice :: Party -> [Bound] -> Action
@@ -87,7 +87,7 @@ choice party bounds =
   Choice (ChoiceId choiceName party) bounds
 ```
 
-as a way of making the expression of choices somewhat simpler and more readable:
+như một cách để làm cho việc diễn đạt các lựa chọn trở nên đơn giản và dễ đọc hơn:
 
 ```rust
 alicePay, aliceRefund, aliceChoice :: Action
@@ -96,7 +96,7 @@ aliceRefund = choice "alice" refund
 aliceChoice = choice "alice" both
 ```
 
-Given all these definitions, we are able to write the contract at the start of this section in a way that makes its intention clear. Writing in "pure" Marlowe, or by expanding out these definitions, we would have this contract instead:
+Với tất cả các định nghĩa này, chúng ta có thể viết lại hợp đồng ở đầu phần này theo cách làm rõ ý định của nó. Nếu viết bằng Marlowe "thuần túy" hoặc bằng cách mở rộng các định nghĩa này, chúng ta sẽ có hợp đồng này:
 
 ```rust
 When [
@@ -160,14 +160,13 @@ When [
       ]
 ```
 
-> **Exercises**
+> **Bài tập**
 >
-> What other abbreviations could you add to the contract at the top of the page?
+> Bạn có thể thêm những viết tắt nào khác vào hợp đồng ở đầu trang?
 >
-> Can you spot any _functions_ that you could define to make the contract shorter, or more modular?
+> Bạn có thể tìm thấy bất kỳ hàm nào mà bạn có thể định nghĩa để làm cho hợp đồng ngắn gọn hơn hoặc có cấu trúc hơn không?
 
-This example has shown how embedding in Haskell gives us a more expressive language, simply by reusing some of the basic features of Haskell, namely definitions of constants and functions. In the next tutorial you will learn about how to define contracts using the JavaScript embedding instead.
+Ví dụ này đã cho thấy cách nhúng trong Haskell mang lại cho chúng ta một ngôn ngữ diễn đạt hơn, chỉ đơn giản bằng cách tái sử dụng một số tính năng cơ bản của Haskell, cụ thể là định nghĩa các hằng số và hàm. Trong bài hướng dẫn tiếp theo, bạn sẽ tìm hiểu về cách định nghĩa hợp đồng bằng cách nhúng JavaScript.
 
-#### Note​ <a href="#note" id="note"></a>
-
-A number of other examples of using Haskell to build Marlowe contracts can be found in the Marlowe Playground, where it is also possible to build Haskell-embedded Marlowe contracts.
+**Ghi chú**\
+Nhiều ví dụ khác về việc sử dụng Haskell để xây dựng các hợp đồng Marlowe có thể được tìm thấy trong Marlowe Playground, nơi cũng có thể xây dựng các hợp đồng Marlowe được nhúng trong Haskell.
