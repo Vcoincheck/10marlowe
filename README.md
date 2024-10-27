@@ -1,9 +1,9 @@
-# Foreword
+# Lời mở đầu
 
-This project was created with the aim of promoting and expanding the Marlowe smart contract language to the end users of Cardano.&#x20;
+Dự án này được tạo ra với mục tiêu quảng bá và mở rộng ngôn ngữ hợp đồng thông minh Marlowe đến người dùng Cardano.&#x20;
 
-The project will also bring together professional and non-professional developers, as well as businesses, to collaboratively develop and create smart contract templates with practical applications.&#x20;
+Dự án cũng sẽ tập hợp các nhà phát triển chuyên nghiệp và không chuyên, cũng như các doanh nghiệp, để cùng nhau phát triển và tạo ra các mẫu hợp đồng thông minh có ứng dụng thực tiễn.&#x20;
 
-This project is sponsored by [Project Catalyst](https://https/projectcatalyst.io/) and Cardano's Community.
+Dự án này được tài trợ bởi Project Catalyst và Cộng đồng Cardano.
 
 <figure><img src=".gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>

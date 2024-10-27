@@ -1,37 +1,37 @@
 # Table of contents
 
-## INTRODUTION
+## Giới thiệu tổng quan
 
-* [Foreword](README.md)
-* [Core team](introdution/core-team.md)
-* [Plan](introdution/plan.md)
+* [Lời mở đầu](README.md)
+* [Core team](gioi-thieu-tong-quan/core-team.md)
+* [Plan](gioi-thieu-tong-quan/plan.md)
 
-## DOCUMENTS & RESOURCES
+## Tài liệu&#x20;
 
-* [Overview](documents-and-resources/editor.md)
-* [Marlowe introducion](documents-and-resources/marlowe-introducion.md)
-* [Concepts](documents-and-resources/concepts/README.md)
-  * [Marlowe model](documents-and-resources/concepts/marlowe-model.md)
-  * [Step-by-step](documents-and-resources/concepts/step-by-step.md)
-  * [The 1st example](documents-and-resources/concepts/the-1st-example.md)
-  * [Marlowe data types](documents-and-resources/concepts/marlowe-data-types.md)
-  * [Embedded in Haskell](documents-and-resources/concepts/embedded-in-haskell.md)
-  * [Embedded in JavaScript](documents-and-resources/concepts/embedded-in-javascript.md)
-  * [Marlowe Playground](documents-and-resources/concepts/marlowe-playground.md)
-  * [Potential problems with contracts](documents-and-resources/concepts/potential-problems-with-contracts.md)
-  * [ACTUS and Marlowe](documents-and-resources/concepts/actus-and-marlowe.md)
-  * [Using Marlowe from the ghci command line](documents-and-resources/concepts/using-marlowe-from-the-ghci-command-line.md)
-  * [Marlowe escrow step-by-step](documents-and-resources/concepts/marlowe-escrow-step-by-step.md)
-  * [Implementing Marlowe in Plutus](documents-and-resources/concepts/implementing-marlowe-in-plutus.md)
-  * [The semantics of Marlowe 2.0](documents-and-resources/concepts/the-semantics-of-marlowe-2.0.md)
-  * [Understanding minUTXO](documents-and-resources/concepts/understanding-minutxo.md)
-* [Stater kit](documents-and-resources/stater-kit.md)
-* [Marlowe Runner](documents-and-resources/images-and-media.md)
-* [Marlowe CLI](documents-and-resources/marlowe-cli.md)
-* [Marlowe runtime](documents-and-resources/marlowe-runtime/README.md)
-  * [Overview](documents-and-resources/marlowe-runtime/overview.md)
-  * [Preliminaries](documents-and-resources/marlowe-runtime/preliminaries.md)
-* [Useful & additional resources](documents-and-resources/markdown.md)
+* [Tổng quan](tai-lieu/editor.md)
+* [Marlowe](tai-lieu/marlowe.md)
+* [Concepts](tai-lieu/concepts/README.md)
+  * [Mô hình Marlowe](tai-lieu/concepts/mo-hinh-marlowe.md)
+  * [Step-by-step](tai-lieu/concepts/step-by-step.md)
+  * [The 1st example](tai-lieu/concepts/the-1st-example.md)
+  * [Marlowe data types](tai-lieu/concepts/marlowe-data-types.md)
+  * [Embedded in Haskell](tai-lieu/concepts/embedded-in-haskell.md)
+  * [Embedded in JavaScript](tai-lieu/concepts/embedded-in-javascript.md)
+  * [Marlowe Playground](tai-lieu/concepts/marlowe-playground.md)
+  * [Potential problems with contracts](tai-lieu/concepts/potential-problems-with-contracts.md)
+  * [ACTUS and Marlowe](tai-lieu/concepts/actus-and-marlowe.md)
+  * [Using Marlowe from the ghci command line](tai-lieu/concepts/using-marlowe-from-the-ghci-command-line.md)
+  * [Marlowe escrow step-by-step](tai-lieu/concepts/marlowe-escrow-step-by-step.md)
+  * [Implementing Marlowe in Plutus](tai-lieu/concepts/implementing-marlowe-in-plutus.md)
+  * [The semantics of Marlowe 2.0](tai-lieu/concepts/the-semantics-of-marlowe-2.0.md)
+  * [Understanding minUTXO](tai-lieu/concepts/understanding-minutxo.md)
+* [Stater kit](tai-lieu/stater-kit.md)
+* [Marlowe Runner](tai-lieu/images-and-media.md)
+* [Marlowe CLI](tai-lieu/marlowe-cli.md)
+* [Marlowe runtime](tai-lieu/marlowe-runtime/README.md)
+  * [Overview](tai-lieu/marlowe-runtime/overview.md)
+  * [Preliminaries](tai-lieu/marlowe-runtime/preliminaries.md)
+* [Useful & additional resources](tai-lieu/markdown.md)
 
 ***
 
