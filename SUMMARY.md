@@ -16,7 +16,7 @@
   * [Ví dụ đầu tiên](tai-lieu/concepts/vi-du-dau-tien.md)
   * [Các kiểu dữ liệu trong Marlowe](tai-lieu/concepts/cac-kieu-du-lieu-trong-marlowe.md)
   * [Marlowe nhúng trong Haskell](tai-lieu/concepts/marlowe-nhung-trong-haskell.md)
-  * [Embedded in JavaScript](tai-lieu/concepts/embedded-in-javascript.md)
+  * [Marlowe nhúng trong JavaScript](tai-lieu/concepts/marlowe-nhung-trong-javascript.md)
   * [Marlowe Playground](tai-lieu/concepts/marlowe-playground.md)
   * [Potential problems with contracts](tai-lieu/concepts/potential-problems-with-contracts.md)
   * [ACTUS and Marlowe](tai-lieu/concepts/actus-and-marlowe.md)
