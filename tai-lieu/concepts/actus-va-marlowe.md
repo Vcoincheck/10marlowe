@@ -1,22 +1,20 @@
-# ACTUS and Marlowe
+# ACTUS và Marlowe
 
-This tutorial gives an introduction to the general idea of the ACTUS standards for the algorithmic representation of financial contracts, plus examples implemented in Marlowe.
+Hướng dẫn này cung cấp một cái nhìn tổng quan về ý tưởng chung của tiêu chuẩn ACTUS cho việc đại diện thuật toán của các hợp đồng tài chính, cùng với các ví dụ được triển khai trong Marlowe.
 
-### ACTUS​ <a href="#actus" id="actus"></a>
+**ACTUS**\
+Quỹ Nghiên cứu Tài chính ACTUS - [actusfrf.org](https://www.actusfrf.org) - đã tạo ra một tiêu chuẩn cho các hợp đồng tài chính, được phân loại thông qua một hệ thống phân loại và được mô tả trong một thông số kỹ thuật chi tiết.\
+Các tiêu chuẩn ACTUS xây dựng trên sự hiểu biết rằng các hợp đồng tài chính là các thỏa thuận pháp lý giữa hai (hoặc nhiều) bên đối tác về việc trao đổi dòng tiền trong tương lai.&#x20;
 
-The ACTUS Financial Research Foundation -- [https://www.actusfrf.org](https://www.actusfrf.org/) -- has created a standard for financial contracts, categorised by means of a [taxonomy](https://www.actusfrf.org/taxonomy) and described in a detailed [technical specification](https://www.actusfrf.org/techspecs).
+Lịch sử, những thỏa thuận pháp lý như vậy được mô tả bằng ngôn ngữ tự nhiên dẫn đến sự mơ hồ và sự đa dạng nhân tạo. Để đáp ứng điều này, các tiêu chuẩn ACTUS định nghĩa các hợp đồng tài chính bằng một tập hợp các điều khoản hợp đồng và các hàm xác định ánh xạ các điều khoản này thành các nghĩa vụ thanh toán trong tương lai. Nhờ đó, có thể mô tả phần lớn các công cụ tài chính thông qua một tập hợp chỉ hơn 30 loại hợp đồng hoặc các mẫu mô-đun tương ứng.
 
-The ACTUS standards build on the understanding that financial contracts are legal agreements between two (or more) counterparties on the exchange of future cash flows. Historically, such legal agreements are described in natural language leading to ambiguity and artificial diversity. As a response, the ACTUS standards define financial contracts by means of a set of contractual terms and deterministic functions mapping these terms onto future payment obligations. Thereby, it is possible to describe the vast majority of financial instruments through a set of little more than 30 Contract Types or modular templates, respectively.
+Các thông số kỹ thuật ACTUS cung cấp một loạt các bài tập để triển khai trong Marlowe, và chúng tôi minh họa một cách tiếp cận trong ví dụ sau.
 
-The ACTUS specifications provide a breadth of exercises for implementation in Marlowe, and we illustrate an approach to this in the following example.
+**Ví dụ về Trái phiếu Zero Coupon đơn giản**\
+Trái phiếu zero-coupon là một loại chứng khoán nợ không trả lãi (coupon) nhưng được phát hành với mức giảm giá, mang lại lợi nhuận khi đến hạn khi trái phiếu được đổi lấy giá trị danh nghĩa đầy đủ của nó.\
+Ví dụ, một nhà đầu tư `(investor)` có thể mua một trái phiếu có giá 1000 Lovelace với mức giảm giá 15%. Cô ấy trả 850 Lovelace cho người phát hành trái phiếu trước thời điểm bắt đầu, ở đây là `1672531200` (2023-01-01 00:00:00 GMT).
 
-### Simple Zero Coupon Bond Example​ <a href="#simple-zero-coupon-bond-example" id="simple-zero-coupon-bond-example"></a>
-
-A zero-coupon bond is a debt security that does not pay interest (a coupon) but is issued at a discount, rendering profit at maturity when the bond is redeemed for its full face value.
-
-For example, an `investor` can buy a bond that costs 1000 Lovelace with 15% discount. She pays 850 Lovelace to the bond issuer before _start time_, here `1672531200` (2023-01-01 00:00:00 GMT).
-
-One month later, after _maturity date_, time `1675209600` (2023-02-01 00:00:00 GMT) here, the investor can exchange the bond for its full notional, i.e., 1000 Lovelace.
+Một tháng sau, sau ngày đáo hạn (_maturity_), thời gian `1675209600` (2023-02-01 00:00:00 GMT), nhà đầu tư có thể đổi trái phiếu để lấy giá trị danh nghĩa đầy đủ của nó, tức là 1000 Lovelace.
 
 ```rust
 When [
@@ -48,14 +46,14 @@ When [
      Close
 ```
 
-This contract has a significant drawback. Once the `investor` has deposited the 850 Lovelace, it will be immediately paid to the `issuer` (if the `investor` does not invest in time, the contract ends). After that, two outcomes are possible
+Hợp đồng này có một nhược điểm đáng kể. Một khi nhà đầu tư `(investor)` đã gửi 850 Lovelace, số tiền này sẽ ngay lập tức được thanh toán cho người phát hành `(issuer)` (nếu nhà đầu tư không thực hiện đầu tư kịp thời, hợp đồng sẽ kết thúc). Sau đó, có hai kết quả có thể xảy ra:
 
-* the `issuer` deposits 1000 Lovelace in the `investor`'s account, and that is then immediately paid to the `investor` in full;
-* if the `investor` doesn't make the deposit, then the contract is closed and all the money in the contract is refunded, but there is _no_ money in the contract at this point, so the `investor` loses her money.
+1. `issuer` gửi 1000 Lovelace vào tài khoản của `investor`, và số tiền này sau đó sẽ được thanh toán ngay lập tức cho `investor`.
+2. Nếu `investor` không thực hiện gửi tiền, thì hợp đồng sẽ được đóng và tất cả số tiền trong hợp đồng sẽ được hoàn lại, nhưng lúc này không còn tiền trong hợp đồng, vì vậy `investor` sẽ mất số tiền của mình.
 
-How can we avoid this problem of the `issuer` defaulting?
+Làm thế nào để chúng ta có thể tránh vấn đề về việc người phát hành không thực hiện nghĩa vụ?&#x20;
 
-There are at least two ways to solve this: we could ask the `issuer` to deposit the full amount before the contract begins, but that would defeat the object of issuing the bond in the first place. More realistically, we could ask a third party to be a guarantor of the deal.
+Có ít nhất hai cách để giải quyết vấn đề này: chúng ta có thể yêu cầu người phát hành gửi toàn bộ số tiền trước khi hợp đồng bắt đầu, nhưng điều này sẽ làm mất mục đích phát hành trái phiếu ngay từ đầu. Một cách thực tế hơn, chúng ta có thể yêu cầu một bên thứ ba làm người bảo lãnh cho thỏa thuận.
 
 > **Exercise**
 >
