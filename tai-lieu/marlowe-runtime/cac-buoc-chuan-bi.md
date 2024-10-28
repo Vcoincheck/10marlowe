@@ -1,58 +1,59 @@
-# Preliminaries
+# Các bước chuẩn bị
 
-## Preliminaries for Using the Marlowe Starter Kit
+### **Các bước chuẩn bị để sử dụng bộ khởi động Marlowe Stater Kit**
 
-_**Before running this notebook, you might want to use Jupyter's "clear output" function to erase the results of the previous execution of this notebook. That will make more apparent what has been executed in the current session.**_
+\
+_Trước khi chạy notebook này, bạn có thể muốn sử dụng chức năng "xóa đầu ra" của Jupyter để xóa kết quả của lần thực thi trước đó của notebook này. Điều này sẽ giúp làm rõ hơn những gì đã được thực thi trong phiên làm việc hiện tại._
 
-The [demeter.run](https://demeter.run/) web3 development platform provides an extension _Cardano Marlowe Runtime_ that has Marlowe tools installed and makes available the Marlowe Runtime backend services and a Cardano node. If you are not using [demeter.run](https://demeter.run/), then see [the docker page](https://docs.marlowe.iohk.io/tutorials/playbooks/deploying-marlowe-runtime) for instructions on deploying Marlowe Runtime using docker.
+Nền tảng phát triển web3 [demeter.run](https://demeter.run/) cung cấp một tiện ích mở rộng Cardano Marlowe Runtime có chứa các công cụ Marlowe và cung cấp các dịch vụ backend Marlowe Runtime cùng với một node Cardano.&#x20;
 
-This notebook provides instructions on setting up signing keys and addresses for this starter kit. It covers the following information:
+Nếu bạn không sử dụng demeter.run, hãy xem trang [docker](https://docs.marlowe.iohk.io/tutorials/playbooks/deploying-marlowe-runtime) để biết hướng dẫn triển khai Marlowe Runtime bằng docker.
 
-* Marlowe tools
-* Creating addresses and signing keys
-  * The faucet
-  * The lender
-  * The borrower
+Notebook này cung cấp hướng dẫn về việc thiết lập khóa ký và địa chỉ cho bộ khởi động này. Nó bao gồm các thông tin sau:
+
+* Các công cụ Marlowe
+* Tạo địa chỉ và khóa ký
+* Faucet
+* Người cho vay
+* Người đi vay
 * Obtaining test ada
-* Fund the addresses of the parties
-  * Using Daedalus or a web-browser wallet
-  * Using a local faucet at the command line
+* Cung cấp tiền cho địa chỉ của các bên
+* Sử dụng Daedalus hoặc ví trình duyệt
+* Sử dụng faucet cục bộ tại dòng lệnh
 
-[A video works through this Jupyter notebook.](https://youtu.be/hGBmj9ZrYHs)
-
-You can ask questions about Marlowe in [the #ask-marlowe channel on the IOG Discord](https://discord.com/channels/826816523368005654/936295815926927390) or post problems with this lesson to [the issues list for the Marlowe Starter Kit github repository](https://github.com/input-output-hk/marlowe-starter-kit/issues).
+Một video hướng dẫn sẽ trình bày qua notebook Jupyter này. Bạn có thể đặt câu hỏi về Marlowe trong kênh [#ask-marlowe](https://discord.com/channels/826816523368005654/936295815926927390) trên Discord của IOG hoặc gửi các vấn đề liên quan đến bài học này vào [danh sách vấn đề](https://github.com/input-output-hk/marlowe-starter-kit/issues) cho kho lưu trữ Marlowe Starter Kit trên GitHub.
 
 ### Marlowe Tools[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#marlowe-tools) <a href="#marlowe-tools" id="marlowe-tools"></a>
 
-Three alternative workflows are available for running Marlowe contracts:
+Ba quy trình thay thế có sẵn để chạy các hợp đồng Marlowe:
 
-1. Marlowe CLI (`marlowe-cli`) for lightweight experiments with Marlowe transactions.
-2. Marlowe Runtime CLI (`marlowe-runtime-cli`) for non-web applications that use the Marlowe Runtime backend services.
-3. Marlowe Runtime Web (`marlowe-web-server`) for web applications that use Marlowe Runtime backend services.
+* Marlowe CLI (marlowe-cli) cho các thử nghiệm nhẹ với các giao dịch Marlowe.
+* Marlowe Runtime CLI (marlowe-runtime-cli) cho các ứng dụng không dựa trên web sử dụng dịch vụ backend Marlowe Runtime.
+* Marlowe Runtime Web (marlowe-web-server) cho các ứng dụng web sử dụng dịch vụ backend Marlowe Runtime.
 
-Marlowe Runtime provides a variety of transaction-building, UTxO management, querying, and submission services for using Marlowe contracts: this makes it easy to run Marlowe contracts without attending to the details of the Cardano ledger and Plutus smart contracts. On the contrary, Marlowe CLI does not support querying and UTxO management, so it is best suited for experienced Cardano developers.
+Marlow Runtime cung cấp nhiều dịch vụ xây dựng giao dịch, quản lý UTxO, truy vấn và gửi cho việc sử dụng các hợp đồng Marlowe: điều này giúp dễ dàng chạy các hợp đồng Marlowe mà không cần quan tâm đến các chi tiết của sổ cái Cardano và các hợp đồng thông minh Plutus. Ngược lại, Marlowe CLI không hỗ trợ truy vấn và quản lý UTxO, vì vậy nó phù hợp nhất cho các nhà phát triển Cardano có kinh nghiệm.
 
-![Tools for Running and Querying Marlowe Contracts](https://docs.marlowe.iohk.io/assets/images/marlowe-tools-041dc30e3ca2d322aa6ff37b2ae5c3ff.png)
+![Bộ công cụ để chạy và truy vấn các hợ đồng Marlowe](https://docs.marlowe.iohk.io/assets/images/marlowe-tools-041dc30e3ca2d322aa6ff37b2ae5c3ff.png)
 
-#### Access to Cardano node and Marlowe Runtime[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#access-to-cardano-node-and-marlowe-runtime) <a href="#access-to-cardano-node-and-marlowe-runtime" id="access-to-cardano-node-and-marlowe-runtime"></a>
+Truy cập vào nút Cardano và Marlowe Runtime
 
-If we're using [demeter.run](https://demeter.run/)'s Cardano Marlowe Runtime extension, then we already have access to Cardano Node and Marlowe Runtime. The following commands will set the required environment variables to use a local docker deployment on the default ports. It will also set some supplementary environment variables.
+Nếu chúng ta đang sử dụng tiện ích mở rộng Cardano Marlowe Runtime của demeter.run, thì chúng ta đã có quyền truy cập vào Cardano Node và Marlowe Runtime.&#x20;
 
-tip
+Các lệnh sau sẽ thiết lập các biến môi trường cần thiết để sử dụng một triển khai docker cục bộ trên các cổng mặc định. Nó cũng sẽ thiết lập một số biến môi trường bổ sung.
 
-When running Cardano node with mainnet, sync times could be extremely large due to size of the chain. Consider running the node on better hardware, and allow ample time to completely sync.
+_Mẹo: Khi chạy Cardano node với mainnet, thời gian đồng bộ có thể rất lớn do kích thước của chuỗi. Hãy cân nhắc chạy nút trên phần cứng tốt hơn và cho phép đủ thời gian để đồng bộ hoàn toàn._
 
-Check the status of the node with `cardano-cli query tip --testnet-magic $CARDANO_TESTNET_MAGIC`.
+Kiểm tra trạng thái của nút bằng lệnh `cardano-cli query tip --testnet-magic $CARDANO_TESTNET_MAGIC`.
 
-Set `CARDANO_TESTNET_MAGIC=1`for preprod or `CARDANO_TESTNET_MAGIC=2` for preview. Otherwise, omit the flag for mainnet.
+Thiết lập `CARDANO_TESTNET_MAGIC=1` cho preprod hoặc `CARDANO_TESTNET_MAGIC=2` cho preview. Nếu không, hãy bỏ qua cờ này cho mainnet.
 
-```
+```bash
 if [[ -z "$MARLOWE_RT_PORT" ]]
 then
 
-  # Only required for `marlowe-cli` and `cardano-cli`.
+  # chỉ yêu cầu cho `marlowe-cli` and `cardano-cli`.
   export CARDANO_NODE_SOCKET_PATH="$(docker volume inspect marlowe-starter-kit_shared | jq -r '.[0].Mountpoint')/node.socket"
-  export CARDANO_TESTNET_MAGIC=1 # Note that preprod=1 and preview=2. Do not set this variable if using mainnet.
+  export CARDANO_TESTNET_MAGIC=1 # lưu ý preprod=1 and preview=2. Không được cài đặt 2 tham số này nếu chạy trên mainnet.
 
 fi
 
@@ -77,38 +78,34 @@ CARDANO_NODE_SOCKET_PATH = ~/.local/share/containers/storage/volumes/marlowe-sta
 CARDANO_TESTNET_MAGIC = 1
 ```
 
-Note the test network magic number:
+Lưu ý thông số cài đặt các mạng testnet:
 
 * `preprod` = 1
 * `preview` = 2
 
-### Creating addresses and signing keys[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#creating-addresses-and-signing-keys) <a href="#creating-addresses-and-signing-keys" id="creating-addresses-and-signing-keys"></a>
+### Tạo địa chỉ và khóa ký&#x20;
 
-The [Cardano Developers Portal](https://developers.cardano.org/docs/stake-pool-course/handbook/keys-addresses/) contains instructions for creating addresses and signing keys.
+[Cổng thông tin nhà phát triển Cardano](https://developers.cardano.org/docs/stake-pool-course/handbook/keys-addresses/) chứa hướng dẫn để tạo địa chỉ và khóa ký. Bộ công cụ khởi động này sử dụng các địa chỉ sau:
 
-This starter kit uses the following addresses:
+* Một Faucet cục bộ **tùy chọn** được sử dụng để cấp vốn cho các bên tham gia hợp đồng Marlowe.
+* Bên Cho vay (_Lender_) cho các ví dụ trong bộ công cụ khởi động này.
+* Bên Vay (_Borrower_) cho các ví dụ trong bộ công cụ khởi động này.
+* Bên Trung gian (_Mediator_) cho một số ví dụ trong bộ công cụ khởi động này.
 
-* An _**optional**_ local _Faucet_ used to fund parties to Marlowe contracts.
-* The _Lender_ party for the examples in this starter kit.
-* The _Borrower_ party for the examples in this starter kit.
-* The _Mediator_ party for some examples in this starter kit.
+Các hướng dẫn dưới đây chi tiết cách tạo khóa ký và địa chỉ cho các bên này. Giả sử rằng bạn đã có khóa ký và địa chỉ cho faucet và rằng faucet đã được cấp vốn bằng test ada.
 
-The instructions below detail how to create signing keys and addresses for these parties. It is assumed that one has the signing key and address for the faucet and that the faucet is already funded with test ada.
+**QUAN TRỌNG**: Thư mục `keys/` chứa các khóa ký sẽ được tạo ra để tương tác với hợp đồng Marlowe. Nếu bạn xóa hoặc mất các tệp này, bạn sẽ mất mãi mãi test ada được lưu trữ tại các địa chỉ đó. Hãy sao lưu các tệp này hoặc, sau khi chạy các bài hướng dẫn, gửi số test ada còn lại về một ví dụ vĩnh viễn hơn hoặc trả lại cho faucet.
 
-_**IMPORTANT:**_ The `keys/` folder holds the signing keys that will be created for interacting with the Marlowe contract. If you delete or lose these files, then you also forever lose the test ada stored at those addresses. Either backup these files or, after running the tutorials, send the remaining test ada back to a more permanent wallet or return it to the faucet.
+#### Faucet&#x20;
 
-#### The Faucet[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#the-faucet) <a href="#the-faucet" id="the-faucet"></a>
-
-_**This step is optional if one is using a wallet already funded with test ada.**_
-
-Set the file names for this party's signing key and verification key.
+Bước này là tùy chọn nếu bạn đang sử dụng một ví dụ ví đã được cấp vốn bằng test ada. Đặt tên tệp cho khóa ký và khóa xác minh của bên này.
 
 ```
 FAUCET_SKEY=keys/faucet.skey
 FAUCET_VKEY=keys/faucet.vkey
 ```
 
-Generate the keys if they haven't already been generated.
+Tạo các khóa (keys) nếu bạn chưa có.
 
 ```
 if [[ ! -e "$FAUCET_SKEY" ]]
@@ -119,7 +116,7 @@ then
 fi
 ```
 
-Compute the faucet's address on the testnet.
+Tạo địa chỉ faucet trên testnet.
 
 ```
 FAUCET_ADDR=$(cardano-cli address build --testnet-magic "$CARDANO_TESTNET_MAGIC" --payment-verification-key-file "$FAUCET_VKEY" )
@@ -131,16 +128,16 @@ echo "FAUCET_ADDR = $FAUCET_ADDR"
 FAUCET_ADDR = addr_test1vq9prvx8ufwutkwxx9cmmuuajaqmjqwujqlp9d8pvg6gupczgtm9j
 ```
 
-#### The Lender[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#the-lender) <a href="#the-lender" id="the-lender"></a>
+#### Bên cho vay - Lender[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#the-lender) <a href="#the-lender" id="the-lender"></a>
 
-Set the file names for this party's signing key and verification key.
+Đặt tên cho khóa ký và khóa xác thực.
 
 ```
 LENDER_SKEY=keys/lender.skey
 LENDER_VKEY=keys/lender.vkey
 ```
 
-Generate the keys if they haven't already been generated.
+Tạo các khóa (keys) nếu bạn chưa có.
 
 ```
 if [[ ! -e "$LENDER_SKEY" ]]
@@ -151,7 +148,7 @@ then
 fi
 ```
 
-Compute the party's address on the testnet.
+Tạo địa chỉ của bên cho vay.
 
 ```
 LENDER_ADDR=$(cardano-cli address build --testnet-magic "$CARDANO_TESTNET_MAGIC" --payment-verification-key-file "$LENDER_VKEY" )
@@ -163,16 +160,16 @@ echo "LENDER_ADDR = $LENDER_ADDR"
 LENDER_ADDR = addr_test1vqd3yrtjyx49uld43lvwqaf7z4k03su8gf2x4yr7syzvckgfzm4ck
 ```
 
-#### The Borrower[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#the-borrower) <a href="#the-borrower" id="the-borrower"></a>
+#### Bên vay - Borrower[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#the-borrower) <a href="#the-borrower" id="the-borrower"></a>
 
-Set the file names for this party's signing key and verification key.
+Đặt tên cho khóa ký và khóa xác thực.
 
 ```
 BORROWER_SKEY=keys/borrower.skey
 BORROWER_VKEY=keys/borrower.vkey
 ```
 
-Generate the keys if they haven't already been generated.
+Tạo các khóa (keys) nếu bạn chưa có.
 
 ```
 if [[ ! -e "$BORROWER_SKEY" ]]
@@ -183,7 +180,7 @@ then
 fi
 ```
 
-Compute the party's address on the testnet.
+Tạo địa chỉ của bên cho vay.
 
 ```
 BORROWER_ADDR=$(cardano-cli address build --testnet-magic "$CARDANO_TESTNET_MAGIC" --payment-verification-key-file "$BORROWER_VKEY" )
@@ -195,16 +192,16 @@ echo "BORROWER_ADDR = $BORROWER_ADDR"
 BORROWER_ADDR = addr_test1vpy4n4peh4suv0y55yptur0066j5kds8r4ncnuzm0vpzfgg0dhz6d
 ```
 
-#### The Mediator[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#the-mediator) <a href="#the-mediator" id="the-mediator"></a>
+#### Bên trung gian - Mediator[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#the-mediator) <a href="#the-mediator" id="the-mediator"></a>
 
-Set the file names for this party's signing key and verification key.
+Đặt tên cho khóa ký và khóa xác thực.
 
 ```
 MEDIATOR_SKEY=keys/mediator.skey
 MEDIATOR_VKEY=keys/mediator.vkey
 ```
 
-Generate the keys if they haven't already been generated.
+Tạo các khóa (keys) nếu bạn chưa có.
 
 ```
 if [[ ! -e "$MEDIATOR_SKEY" ]]
@@ -215,7 +212,7 @@ then
 fi
 ```
 
-Compute the party's address on the testnet.
+Tạo địa chỉ của bên trung gian.
 
 ```
 MEDIATOR_ADDR=$(cardano-cli address build --testnet-magic "$CARDANO_TESTNET_MAGIC" --payment-verification-key-file "$MEDIATOR_VKEY" )

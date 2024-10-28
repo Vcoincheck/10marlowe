@@ -29,8 +29,8 @@
 * [Marlowe Runner](tai-lieu/images-and-media.md)
 * [Marlowe CLI](tai-lieu/marlowe-cli.md)
 * [Marlowe runtime](tai-lieu/marlowe-runtime/README.md)
-  * [Overview](tai-lieu/marlowe-runtime/overview.md)
-  * [Preliminaries](tai-lieu/marlowe-runtime/preliminaries.md)
+  * [Tổng quan](tai-lieu/marlowe-runtime/tong-quan.md)
+  * [Các bước chuẩn bị](tai-lieu/marlowe-runtime/cac-buoc-chuan-bi.md)
 * [Useful & additional resources](tai-lieu/markdown.md)
 
 ***

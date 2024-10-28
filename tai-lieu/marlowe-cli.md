@@ -2,23 +2,23 @@
 
 ## Marlowe Command-Line Interface (CLI) Tool
 
-The `marlowe-cli` tool provides several utilities for serialising Marlowe contracts to validators, datums, and redeemers. It also computes hashes and addresses. It can be used in conjunction with [`cardano-cli`](https://github.com/input-output-hk/cardano-node/blob/master/cardano-cli/README.md) to submit Marlowe transactions to the Cardano blockchain.
+`marlowe-cli`  là công cụ cung cấp nhiều tiện ích để tuần tự hóa các hợp đồng Marlowe thành các **validators**, **datums**, và **redeemers**. Nó cũng tính toán băm và địa chỉ. Công cụ này có thể được sử dụng cùng với `cardano-cli` để gửi các giao dịch Marlowe lên blockchain Cardano. [`cardano-cli`](https://github.com/input-output-hk/cardano-node/blob/master/cardano-cli/README.md)
 
-See the Marlowe Debugging Cookbook for troubleshooting information, or the [Marlowe CLI Pioneers Lectures](https://github.com/input-output-hk/real-world-marlowe/tree/main/archives/marlowe-cli/lectures/ReadMe.md).
+Xem Sách "Hướng Dẫn Gỡ Lỗi Marlowe" để biết thông tin khắc phục sự cố, hoặc[Marlowe CLI Pioneers Lectures](https://github.com/input-output-hk/real-world-marlowe/tree/main/archives/marlowe-cli/lectures/ReadMe.md).
 
 
 
-### Installation
+### Cài đặt
 
-One can install `marlowe-cli` either using Nix or Cabal. Detailed instructions are available [here](https://github.com/input-output-hk/marlowe-cardano/blob/main/README.adoc).
+Người dùng có thể cài đặt `marlowe-cli` bằng cách sử dụng Nix hoặc Cabal. Hướng dẫn chi tiết có sẵn tại [đây](https://github.com/input-output-hk/marlowe-cardano/blob/main/README.adoc).
 
-#### Installation via Nix
+#### Cài đặt qua Nix
 
-NixOS and the Nix package manager are available at <[https://nixos.org/](https://nixos.org/)>.
+NixOS và gói quản lý Nix có thể xem tại 👉  <[https://nixos.org/](https://nixos.org/)>.
 
-👉 See <[https://github.com/input-output-hk/marlowe-cardano/blob/main/README.adoc#how-to-set-up-the-iohk-binary-caches](https://github.com/input-output-hk/marlowe-cardano/blob/main/README.adoc#how-to-set-up-the-iohk-binary-caches)> on how to set up binary caches for the Nix build. This will greatly speed the build process.
+👉 Xem <[https://github.com/input-output-hk/marlowe-cardano/blob/main/README.adoc#how-to-set-up-the-iohk-binary-caches](https://github.com/input-output-hk/marlowe-cardano/blob/main/README.adoc#how-to-set-up-the-iohk-binary-caches)> về cách thiết lập bộ nhớ đệm nhị phân cho quá trình build bằng Nix. Điều này sẽ giúp tăng tốc đáng kể quá trình build.&#x20;
 
-Once the binary caches have been set up, clone the Marlowe repository and simply enter a nix shell.
+Sau khi thiết lập bộ nhớ đệm nhị phân, hãy sao chép repository của Marlowe và chỉ cần vào qua một nix shell.
 
 ```
 git clone https://github.com/input-output-hk/marlowe-cardano.git
@@ -34,11 +34,11 @@ marlowe-cli --version
 marlowe-cli 0.0.8.0
 ```
 
-#### Installation via Cabal
+#### Cài đặt qua Cabal
 
-Cabal and GHC are available at [GHCup](https://www.haskell.org/ghcup/).
+Cabal và GHC are available at [GHCup](https://www.haskell.org/ghcup/).
 
-Installing directly via `cabal` and `ghc` involves lengthy compilation, but avoids the use of Nix. First ensure that Cabal 3.4 and GHC 8.10.7 are installed.
+Việc cài đặt trực tiếp thông qua `Cabal` và `GHC` liên quan đến quá trình biên dịch kéo dài nhưng tránh được việc sử dụng Nix. Trước tiên, hãy đảm bảo rằng Cabal 3.4 và GHC 8.10.7 đã được cài đặt
 
 ```bash
 cabal --version
@@ -57,7 +57,7 @@ ghc --version
 The Glorious Glasgow Haskell Compilation System, version 8.10.7
 ```
 
-Clone the Marlowe repository and execute `cabal`:
+Nhân bản kho lưu trữ Marlowe và thực thi `cabal`:
 
 ```
 git clone https://github.com/input-output-hk/marlowe-cardano.git
@@ -65,7 +65,7 @@ cd marlowe-cardano
 cabal install exe:marlowe-cli
 ```
 
-### Available Commands
+### Các câu lệnh marlowe-cli
 
 ```bash
 marlowe-cli --help
@@ -101,33 +101,35 @@ Low-level commands:
   util                     Miscellaneous utilities.
 ```
 
-Further help is available for each subcommand:
+Chi tiết cho từng lệnh con:
 
-* high-level commands
+* Các câu lệnh bậc cao (high-level)
   * [`marlowe-cli run`](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/doc/run.md)
   * [`marlowe-cli template`](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/doc/template.md)
   * [`marlowe-cli test`](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/doc/test.md)
-* low-level commands
+* Các câu lệnh bậc thấp (low-level)
   * [`marlowe-cli contract`](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/doc/contract.md)
   * [`marlowe-cli input`](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/doc/input.md)
   * [`marlowe-cli role`](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/doc/role.md)
   * [`marlowe-cli transaction`](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/doc/transaction.md)
   * [`marlowe-cli util`](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/doc/util.md)
 
-### Workflows
+### Các luồng công việc
 
-Marlowe CLI supports workflows for specific use cases:
+Marlowe CLI hỗ trợ các quy trình làm việc cho các trường hợp sử dụng cụ thể:
 
-* A high-level workflow for interacting with Marlowe contracts without dealing with the underlying its Plutus mechanics.
-* A low-level workflow that exposes the Plutus mechanics of Marlowe contracts.
+* Một quy trình làm việc bậc cao để tương tác với các hợp đồng Marlowe mà không cần xử lý các cơ chế `Plutus` cơ bản của nó.
+* Một quy trình làm việc bậc thấp hiển lộ các cơ chế `Plutus` của các hợp đồng Marlowe.
 
-#### High-Level Workflow
+**Luồng công việc bậc cao**
 
-In the high-level workflow for `marlowe-cli`, the user creates a contract from a template, using Marlowe Playground, programmatically, or by hand. The user provides input at each step of contract execution. The tool manages the contract state transitions and handles the construction and submission of transactions.
+Trong quy trình làm việc bậc cao cho marlowe-cli, người dùng tạo hợp đồng từ một mẫu có sẵn, sử dụng Marlowe Playground, hoặc lập trình theo cách thủ công.&#x20;
+
+Người dùng cung cấp đầu vào tại mỗi bước thực thi hợp đồng. Công cụ quản lý các chuyển trạng thái của hợp đồng và xử lý việc tạo và gửi các giao dịch.
 
 <figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-**Examples**
+**Hợp đồng mẫu**
 
 * [simple contract](https://github.com/input-output-hk/real-world-marlowe/tree/main/archives/marlowe-cli/examples/simple/ReadMe.md)
 * [escrow](https://github.com/input-output-hk/real-world-marlowe/tree/main/archives/marlowe-cli/examples/escrow/ReadMe.md)
@@ -136,7 +138,7 @@ In the high-level workflow for `marlowe-cli`, the user creates a contract from a
 * [contract for differences](https://github.com/input-output-hk/real-world-marlowe/tree/main/archives/marlowe-cli/examples/cfd/ReadMe.md)
 * [covered call](https://github.com/input-output-hk/real-world-marlowe/tree/main/archives/marlowe-cli/examples/coveredCall/ReadMe.md)
 
-**Test Cases**
+**Các trường hợp thử nghiệm**
 
 * [simple contract](https://github.com/input-output-hk/real-world-marlowe/tree/main/archives/marlowe-cli/examples/simple/run-test.sh)
 * escrow
@@ -149,39 +151,46 @@ In the high-level workflow for `marlowe-cli`, the user creates a contract from a
 * [contract for differences](https://github.com/input-output-hk/real-world-marlowe/tree/main/archives/marlowe-cli/examples/cfd/run-cfd.sh)
 * [covered call](https://github.com/input-output-hk/real-world-marlowe/tree/main/archives/marlowe-cli/examples/coveredCall/run-coveredCall.sh)
 
-#### Low-Level Workflow
+#### Luồng công việc bậc thấp
 
-The `marlowe-cli` tools supports both granular and monolithic workflows for creating the files and hashes needed to submit Marlowe contracts with `cardano-cli`. The workflows only differ in how information is packaged.
+Công cụ `marlowe-cli` hỗ trợ cả quy trình làm việc chi tiết và quy trình làm việc tổng hợp để tạo các tệp và hàm băm cần thiết cho việc gửi hợp đồng Marlowe với `cardano-cli`. Sự khác biệt giữa các quy trình này chỉ là ở cách đóng gói thông tin.
 
-**Monolithic Workflow**
+#### **Luồng công việc tổng hợp**
 
-The `export-marlowe` command writes a JSON file with sufficient information to run the contract on the blockchain. It contains the following information.
+Lệnh export-marlowe ghi một tệp JSON chứa đủ thông tin để chạy hợp đồng trên blockchain. Nó bao gồm các thông tin sau:
 
-* Script address
+* Địa chỉ script
 * Validator hash
 * Datum hash
-* CBOR for Plutus script
-* JSON and CBOR for datum.
-* JSON and CBOR for redeemer.
-* Size of the above CBOR in bytes
-* Execution cost
+* CBOR cho Plutus script
+* JSON và CBOR cho datum
+* JSON và CBOR cho Redeemer
+* Kích thước của các CBOR trên tính bằng byte
+* Chi phí thực thi
 
-The diagram below illusrates how the `export` command can be used in conjunction with [`jq`](https://stedolan.github.io/jq/manual/) and `cardano-cli`.
+Sơ đồ dưới đây minh họa cách lệnh export có thể được sử dụng kết hợp với jq và cardano-cli.
 
-See monolithic.marlowe for an example file containing this information for a simple contract. A tutorial for this workflow is available here.
+&#x20;
 
-#### Granular Workflow
+<figure><img src="../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
 
-The `contract address`, `contract validator`, `contract datum`, and `contract redeemer` commands write the corresponding subset of information to a JSON file or to the console. These allows finer-grain access to the capabilities of the `contract marlowe` command. The diagram below illustrates how these commands can be used in conjunction with `cardano-cli`.
+Xem [monolithic.marlowe](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/doc/monolithic.marlowe) để biết ví dụ về tệp chứa thông tin này cho một hợp đồng đơn giản. Một hướng dẫn cho quy trình làm việc này có sẵn tại đây.
 
-A tutorial for this workflow is available here.
+#### **Luồng công việc chi tiết**
 
-### Automated Tests
+Các lệnh `contract address`, `contract validator`, `contract datum`, và `contract redeemer`ghi thông tin tương ứng vào một tệp JSON hoặc vào bảng điều khiển.&#x20;
 
-* Tests that interact directly with the Cardano blockchain: run-nonpab-tests.sh
+Điều này cho phép truy cập chi tiết hơn vào các khả năng của lệnh marlowe. Sơ đồ dưới đây minh họa cách các lệnh này có thể được sử dụng cùng với cardano-cli.&#x20;
 
-### Editing and Rebuilding This Documentation
+Hướng dẫn cho luồng công việc này có sẵn tại [đây](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/doc/granular.md).
 
-Most of this documentation is edited in Jupyter notebooks, execute `nix develop --command jupyter-lab` to launch Jupyter.
+<figure><img src="../.gitbook/assets/image (44).png" alt=""><figcaption></figcaption></figure>
 
-Execute `make` or `./Makefile` to rebuild this documentation.
+### **Kiểm tra tự động**
+
+Các bài kiểm tra tương tác trực tiếp với blockchain Cardano: run-nonpab-tests.sh.
+
+### **Chỉnh sửa và xây dựng lại tài liệu này**
+
+Hầu hết tài liệu này được chỉnh sửa trong các sổ tay Jupyter, thực hiện lệnh `nix develop --command jupyter-lab` để khởi động Jupyter.\
+Thực hiện lệnh `make` hoặc `./Makefile` để xây dựng lại tài liệu này.

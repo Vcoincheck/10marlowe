@@ -1,5 +1,5 @@
 # Marlowe runtime
 
-This page will introduce and guide the basic steps of using runtime such as setup, preparation steps.
+Trang này sẽ giới thiệu và hướng dẫn các bước cơ bản để sử dụng runtime như thiết lập và các bước chuẩn bị.&#x20;
 
-For more detailed and practical use cases, please see the [contract template](https://vcc.gitbook.io/vcc\_marlowe/contract-template/marlowes-origin-sources) section
+Để biết thêm chi tiết và các trường hợp sử dụng thực tế, vui lòng xem phần mẫu hợp đồng.
