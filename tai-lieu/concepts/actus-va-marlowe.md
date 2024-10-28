@@ -55,17 +55,17 @@ Làm thế nào để chúng ta có thể tránh vấn đề về việc ngườ
 
 Có ít nhất hai cách để giải quyết vấn đề này: chúng ta có thể yêu cầu người phát hành gửi toàn bộ số tiền trước khi hợp đồng bắt đầu, nhưng điều này sẽ làm mất mục đích phát hành trái phiếu ngay từ đầu. Một cách thực tế hơn, chúng ta có thể yêu cầu một bên thứ ba làm người bảo lãnh cho thỏa thuận.
 
-> **Exercise**
+> **Bài tập**
 >
-> Give a variant of the `zeroCouponBond` contract in which it is necessary for the `issuer` to put the full value of the up before the bond is issued.
+> Tạo một biến thể của hợp đồng `zeroCouponBond` trong đó yêu cầu nhà phát hành phải đặt toàn bộ giá trị lên trước khi trái phiếu được phát hành.
 
-> **Exercise**
+> **Bài tập**
 >
-> Give a variant of the `zeroCouponBond` contract which also includes a `guarantor` who puts up the full payment up before the bond is issued, and who will pay that counterparty if the issuer defaults; if the issuer does make the payment in time, then the guarantor should recover their money.
+> Tạo một biến thể của hợp đồng `zeroCouponBond` bao gồm một bên bảo lãnh `(guarantor)` sẽ đặt toàn bộ khoản thanh toán trước khi trái phiếu được phát hành. Trong trường hợp nhà phát hành `(issuer)` không thanh toán đúng hạn, bên bảo lãnh sẽ thanh toán cho bên đối tác (nhà đầu tư). Nếu nhà phát hành thanh toán đúng thời hạn, `guarantor` sẽ được hoàn lại số tiền của mình.
 
-### Guaranteed Coupon Bond Example​ <a href="#guaranteed-coupon-bond-example" id="guaranteed-coupon-bond-example"></a>
+### Hợp đồng Trái phiếu có Bảo đảm (Guaranteed Coupon Bond)​ <a href="#guaranteed-coupon-bond-example" id="guaranteed-coupon-bond-example"></a>
 
-This more complex bond involves an `investor` who deposits 1000 Lovelace, which is immediately paid to the `issuer`. The `issuer` then has to pay as interest 10 Lovelace every month. On maturity the investor should receive back the interest plus the full value of the bond.
+phức tạp hơn này liên quan đến một nhà đầu tư `(investor)` đặt cọc 1000 Lovelace, số tiền này sẽ được chuyển ngay lập tức cho nhà phát hành `(issuer)`. Nhà phát hành sau đó phải trả lãi suất là 10 Lovelace mỗi tháng. Khi đáo hạn, nhà đầu tư sẽ nhận lại khoản lãi cộng với giá trị đầy đủ của trái phiếu.
 
 ```rust
 couponBondFor3Month12Percent =
@@ -94,17 +94,19 @@ couponBondFor3Month12Percent =
     Close
 ```
 
-> **Exercise**
+> **Bài tập**
 >
-> Give a variant of the `zcouponBondFor3Month12Percent` contract which also includes a `guarantor` who puts up the full payment up before the bond is issued, and who will pay that counterparty if the issuer defaults; if the issuer does make the payment in time, then the guarantor should recover their money.
+> Tạo một biến thể của hợp đồng `zcouponBondFor3Month12Percent` trong đó bao gồm một bên bảo lãnh, người sẽ đặt toàn bộ khoản thanh toán trước khi trái phiếu được phát hành và sẽ thanh toán cho bên đối tác nếu nhà phát hành không thực hiện nghĩa vụ; nếu nhà phát hành thanh toán đúng hạn, thì bên bảo lãnh sẽ được hoàn lại tiền.
 
-### ACTUS Contract Terms​ <a href="#actus-contract-terms" id="actus-contract-terms"></a>
+### **Điều khoản hợp đồng ACTUS**
 
-In general, an ACTUS contract is specified by the ACTUS contract terms. The technical specification of the ACTUS taxonomy defines all the parameters that are allowed in the ACTUS contract terms in a [dictionary](https://github.com/actusfrf/actus-dictionary/blob/master/actus-dictionary-terms.json). ACTUS contract terms fully describe a financial contract and, therefore, allow projected cashflows to be generated. The projected cashflows are then used as a basis to generate Marlowe contracts corresponding to ACTUS contract terms.
+Nhìn chung, một hợp đồng ACTUS được quy định bởi các điều khoản hợp đồng ACTUS. Đặc tả kỹ thuật của phân loại ACTUS định nghĩa tất cả các tham số được phép trong các điều khoản hợp đồng ACTUS dưới dạng một từ điển.&#x20;
 
-The ACTUS Principle At Maturity (PAM) contract is a loan with periodic interest payments on a fixed schedule and a final payment of the principal.
+Các điều khoản hợp đồng ACTUS mô tả đầy đủ một hợp đồng tài chính và do đó cho phép tạo ra các dòng tiền dự kiến. Các dòng tiền dự kiến này sau đó được sử dụng làm cơ sở để tạo ra các hợp đồng Marlowe tương ứng với các điều khoản hợp đồng ACTUS.
 
-Example ACTUS contract terms: one installment of interest, followed by the repayment of the principal.
+Hợp đồng **Nguyên tắc Đến hạn (PAM)** của ACTUS là một khoản vay với các khoản thanh toán lãi định kỳ theo một lịch trình cố định và một khoản thanh toán cuối cùng của gốc.
+
+Ví dụ về điều khoản hợp đồng ACTUS: một khoản thanh toán lãi suất, tiếp theo là khoản hoàn trả gốc.
 
 ```rust
 {
@@ -127,15 +129,15 @@ Example ACTUS contract terms: one installment of interest, followed by the repay
 }
 ```
 
-The example produces the following projected cashflows:
+Ví dụ này tạo ra các dòng tiền dự kiến như sau:
 
-| Contract Id | Event Type | Event Time              | Amount | Currency |
-| ----------- | ---------- | ----------------------- | ------ | -------- |
-| PAM example | IED        | 2024-01-01 00:00:00:000 | -20.0  | ₳        |
-| PAM example | IP         | 2025-01-01 00:00:00:000 | 2.0    | ₳        |
-| PAM example | MD         | 2025-01-01 00:00:00:000 | 20.0   | ₳        |
+| Số HĐ       | Loại sự kiện | Thời gian               | Số lượng | Loại tiền |
+| ----------- | ------------ | ----------------------- | -------- | --------- |
+| PAM example | IED          | 2024-01-01 00:00:00:000 | -20.0    | ₳         |
+| PAM example | IP           | 2025-01-01 00:00:00:000 | 2.0      | ₳         |
+| PAM example | MD           | 2025-01-01 00:00:00:000 | 20.0     | ₳         |
 
-The projected cashflows are translated into the following Marlowe contract:
+Các dòng tiền dự kiến được chuyển đổi thành hợp đồng Marlowe như sau:
 
 ```rust
 When [
@@ -179,4 +181,4 @@ When [
                           (Constant 20000000) Close))] 1735689600000 Close)))] 1735689600000 Close)))] 1704067200000 Close
 ```
 
-The ACTUS specification is implemented in a separate [repository](https://github.com/input-output-hk/actus-core).
+Chi tiết ACTUS được triển khai trong một kho lưu trữ riêng biệt ở [trong đây](https://github.com/input-output-hk/actus-core)
