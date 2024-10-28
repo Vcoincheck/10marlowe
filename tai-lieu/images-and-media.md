@@ -1,86 +1,88 @@
 # Marlowe Runner
 
-This video explains how to deploy and execute contracts created in Marlowe Playground using Marlowe Runner, beta version. Marlowe Runner is a developer tool with a friendly user interface for deploying and executing smart contracts on Cardano, straight from a browser.
+Video này giải thích cách triển khai và thực thi các hợp đồng được tạo ra trong Marlowe Playground bằng cách sử dụng Marlowe Runner (phiên bản beta).&#x20;
+
+Marlowe Runner là một công cụ dành cho nhà phát triển với giao diện thân thiện để triển khai và thực thi hợp đồng thông minh trên Cardano, ngay từ trình duyệt.
 
 
 
 {% embed url="https://youtu.be/B5XcH0j7Y7w" %}
 
-### A developer tool and a DApp for running contracts on the blockchain[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#a-developer-tool-and-a-dapp-for-running-contracts-on-the-blockchain) <a href="#a-developer-tool-and-a-dapp-for-running-contracts-on-the-blockchain" id="a-developer-tool-and-a-dapp-for-running-contracts-on-the-blockchain"></a>
+### Một công cụ dành cho nhà phát triển và một DApp để chạy hợp đồng trên blockchain
 
-Runner makes contract deployment simple for both DApp builders and traditional developers, enabling the execution of contracts created in Playground without requiring any backend orchestration or programming knowledge.
+\
+Runner giúp việc triển khai hợp đồng trở nên đơn giản cho cả những người xây dựng DApp và các nhà phát triển truyền thống, cho phép thực thi các hợp đồng được tạo ra trong Playground mà không cần yêu cầu bất kỳ kiến thức lập trình hay phối hợp backend nào.
 
-### Customizable DApp template[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#customizable-dapp-template) <a href="#customizable-dapp-template" id="customizable-dapp-template"></a>
+### Mẫu DApp tùy chỉnh
 
-Furthermore, Marlowe Runner is an [**open-source developer application**](https://github.com/input-output-hk/marlowe-runner), making it easy for you to replicate it to create a customized end-user interface. So, not only does it serve as a tool for running contracts on the blockchain, but also as a customizable DApp template that you can use to create your own custom DApp for your precise use case.
+Hơn nữa, Marlowe Runner là một ứng dụng mã nguồn mở dành cho nhà phát triển, giúp bạn dễ dàng sao chép để tạo ra một giao diện người dùng tùy chỉnh. Vì vậy, nó không chỉ phục vụ như một công cụ để chạy các hợp đồng trên blockchain mà còn như một mẫu DApp tùy chỉnh mà bạn có thể sử dụng để tạo DApp của riêng mình cho trường hợp sử dụng cụ thể của bạn.
 
-### Simple to use[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#simple-to-use) <a href="#simple-to-use" id="simple-to-use"></a>
+### Dễ sử dụng
 
-Using Runner requires no knowledge of command-line tools, so it is quite simple and intuitive to use. You will only need to specify the network you want to work with, connect a wallet that is on the same network, and have your password details available so that you can sign transactions with your wallet. You will also need to have any required tokens or funds available in your wallet.
+Sử dụng Runner không yêu cầu kiến thức về công cụ dòng lệnh, vì vậy nó rất đơn giản và trực quan. Bạn chỉ cần chỉ định mạng mà bạn muốn làm việc, kết nối ví đang ở cùng mạng và có sẵn thông tin mật khẩu để có thể ký giao dịch với ví của bạn. Bạn cũng cần có bất kỳ mã thông báo hoặc quỹ cần thiết nào có sẵn trong ví của bạn.
 
-#### Deploying your contract[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#deploying-your-contract) <a href="#deploying-your-contract" id="deploying-your-contract"></a>
+### Triển khai hợp đồng của bạn
 
-Once you have finished creating, simulating and testing your Marlowe smart contract in the Playground, you can deploy your smart contract to Runner by using one of these methods:
-
-1. From the Playground, select 'Send to Simulator,' then 'Export to Marlowe Runner.'
-2. Alternatively, download your contract from the Playground as a JSON file, then upload it to Runner.
+Khi bạn đã hoàn thành việc tạo, mô phỏng và kiểm tra hợp đồng thông minh Marlowe của mình trong Playground, bạn có thể triển khai hợp đồng thông minh của mình lên Runner bằng một trong những phương pháp sau:\
+Từ Playground, chọn 'Gửi đến Trình mô phỏng,' sau đó chọn 'Xuất sang Marlowe Runner.'\
+Ngoài ra, tải hợp đồng của bạn từ Playground dưới dạng tệp JSON, sau đó tải lên Runner.
 
 > * [**Access Runner on the preview network**](https://preview.runner.marlowe.iohk.io/)
 > * [**Access Runner on the pre-production network**](https://preprod.runner.marlowe.iohk.io/)
 
-### Technical details[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#technical-details) <a href="#technical-details" id="technical-details"></a>
+### Chi tiết kỹ thuật[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#technical-details) <a href="#technical-details" id="technical-details"></a>
 
-#### Roles[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#roles) <a href="#roles" id="roles"></a>
+#### Vai trò
 
-When a contract that uses roles is submitted to Runner, Runner will always prompt the user to provide addresses for each role.
+Khi một hợp đồng sử dụng vai trò được gửi đến Runner, Runner sẽ luôn yêu cầu người dùng cung cấp địa chỉ cho mỗi vai trò.
 
-#### Minting role tokens[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#minting-role-tokens) <a href="#minting-role-tokens" id="minting-role-tokens"></a>
+#### Minting token vai trò
 
-Runner will mint the role tokens that are required by the contract. Whoever has the tokens will have authorization to be a party to that contract. (The actual minting is performed by Runtime.)
+Runner sẽ mint các token vai trò cần thiết cho hợp đồng. Ai sở hữu các token này sẽ có quyền ủy quyền để trở thành một bên trong hợp đồng đó. (Việc mint thực tế được thực hiện bởi Runtime.)
 
-#### Source graph view[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#source-graph-view) <a href="#source-graph-view" id="source-graph-view"></a>
+#### Chế độ xem đồ thị nguồn
 
-When building a contract DApp from the TS-SDK, Haskell, PureScript, or other languages, viewing it in Runner can be useful for analyzing the contract’s logic from the 'Source' graph view.
+Khi xây dựng một DApp hợp đồng từ TS-SDK, Haskell, PureScript hoặc các ngôn ngữ khác, việc xem nó trong Runner có thể hữu ích để phân tích logic của hợp đồng từ chế độ xem 'Nguồn'.
 
-#### Advancing the contract[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#advancing-the-contract) <a href="#advancing-the-contract" id="advancing-the-contract"></a>
+#### Tiến hành hợp đồng
 
-Buttons become active when actions are available for the contract role that is associated with your wallet address. If an action button is not activated, it means that the contract state is waiting for another party to the contract to take an action.
+Các nút bấm sẽ trở nên hoạt động khi có các hành động có sẵn cho vai trò hợp đồng liên kết với địa chỉ ví của bạn. Nếu nút bấm hành động không được kích hoạt, điều đó có nghĩa là trạng thái hợp đồng đang chờ một bên khác trong hợp đồng thực hiện hành động.
 
-#### Deposits and choices[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#deposits-and-choices) <a href="#deposits-and-choices" id="deposits-and-choices"></a>
+#### Gửi tiền và lựa chọn
 
-Depending on the conditions of the contract and your role, you may have options to make certain choices and to deposit funds.
+Tùy thuộc vào các điều kiện của hợp đồng và vai trò của bạn, bạn có thể có tùy chọn để thực hiện một số lựa chọn và gửi quỹ.
 
-#### Withdrawal[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#withdrawal) <a href="#withdrawal" id="withdrawal"></a>
+#### Rút tiền
 
-When a contract provides for ada or other tokens to be withdrawn, the withdrawal functionality displays in Runner. An authorized wallet and signature is required to make a withdrawal.
+Khi một hợp đồng cho phép rút ada hoặc các token khác, chức năng rút tiền sẽ hiển thị trong Runner. Cần có ví được ủy quyền và chữ ký để thực hiện rút tiền.
 
-#### Merkleization[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#merkleization) <a href="#merkleization" id="merkleization"></a>
+#### Merkle hóa
 
-While Marlowe supports merkleization, Runner does not yet support it.
+Trong khi Marlowe hỗ trợ merkle hóa, Runner vẫn chưa hỗ trợ tính năng này.
 
-#### State[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#state) <a href="#state" id="state"></a>
+#### Trạng thái
 
-The state of Marlowe contracts is determined by the inputs to the contract at each step, making the contract’s behavior easier to understand and predict.
+Trạng thái của các hợp đồng Marlowe được xác định bởi các đầu vào cho hợp đồng ở mỗi bước, giúp hành vi của hợp đồng dễ hiểu và dự đoán hơn.
 
-### Wallets[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#wallets) <a href="#wallets" id="wallets"></a>
+### Các loại ví[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#wallets) <a href="#wallets" id="wallets"></a>
 
-Runner supports web3 wallets [**Lace**](https://www.lace.io/), [**Nami**](https://namiwallet.io/), and [**Eternl**](https://eternl.io/app/mainnet/welcome).
+Runner hỗ trợ các ví web3 [**Lace**](https://www.lace.io/), [**Nami**](https://namiwallet.io/), and [**Eternl**](https://eternl.io/app/mainnet/welcome).
 
-Currently, Runner does not work with hardware wallets such as Ledger and Trezor.
+Hiện tại, Runner không tương thích với các ví phần cứng (hardware) như Ledger và Trezor.&#x20;
 
-### More complex and sophisticated contracts[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#more-complex-and-sophisticated-contracts) <a href="#more-complex-and-sophisticated-contracts" id="more-complex-and-sophisticated-contracts"></a>
+### Hợp đồng phức tạp và tinh vi hơn
 
-For especially complex and sophisticated contract scenarios, you may need to customize your approach. Runner is not intended yet to be able to manage very complex contracts.
+Đối với những kịch bản hợp đồng đặc biệt phức tạp và tinh vi, bạn có thể cần tùy chỉnh cách tiếp cận của mình. Runner chưa được thiết kế để quản lý các hợp đồng rất phức tạp.
 
-#### Suitable contracts for Runner[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#suitable-contracts-for-runner) <a href="#suitable-contracts-for-runner" id="suitable-contracts-for-runner"></a>
+### Hợp đồng phù hợp với Runner
 
-Contracts that fit and execute on the chain will work in Runner. Contract examples that are included within Playground are suitable for Runner.
+Các hợp đồng phù hợp và thực thi trên chuỗi sẽ hoạt động trong Runner. Các ví dụ hợp đồng có trong Playground là phù hợp với Runner.
 
-### Considerations before you deploy[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#considerations-before-you-deploy) <a href="#considerations-before-you-deploy" id="considerations-before-you-deploy"></a>
+### Những điều cần cân nhắc trước khi triển khai
 
-#### On-chain limitations[​](https://docs.marlowe.iohk.io/docs/getting-started/runner#on-chain-limitations) <a href="#on-chain-limitations" id="on-chain-limitations"></a>
+#### Giới hạn trên chuỗi
 
-There are certain on-chain limitations relating to character limits of role and token names, transaction size, transaction cost limits, the number of accounts, invalid transaction addresses, Runtime tooling warnings, and testing that are recommended to be aware of. For details, please see:
+Có một số giới hạn trên chuỗi liên quan đến giới hạn ký tự của tên vai trò và token, kích thước giao dịch, giới hạn chi phí giao dịch, số lượng tài khoản, địa chỉ giao dịch không hợp lệ, cảnh báo công cụ Runtime và việc kiểm tra mà bạn nên nhận thức. Để biết thêm chi tiết, vui lòng xem:
 
 * [**Marlowe's on-chain limitations**](https://docs.marlowe.iohk.io/docs/platform-and-architecture/on-chain-limitations)
 * [**A comprehensive guide to Marlowe's security: audit outcomes, built-in functional restrictions, and ledger security features**](https://iohk.io/en/blog/posts/2023/06/27/a-comprehensive-guide-to-marlowes-security-audit-outcomes-built-in-functional-restrictions-and-ledger-security-features/)
