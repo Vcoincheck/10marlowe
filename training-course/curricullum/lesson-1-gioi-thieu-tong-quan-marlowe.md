@@ -1,18 +1,18 @@
-# Lesson 1: Welcome and Marlowe Overview
+# Lesson 1: Giới thiệu tổng quan Marlowe
 
-**Lesson slide** 👉 [visit here](https://docs.google.com/presentation/d/1brgiQYdvbEBPpwy2J4kMWVJWIPCCtWVY/edit#slide=id.p1)
+**Slide bài học** 👉 [visit here](https://docs.google.com/presentation/d/1brgiQYdvbEBPpwy2J4kMWVJWIPCCtWVY/edit#slide=id.p1)
 
-**What will be covered in this lesson**
+**Nội dung sẽ được đề cập trong bài học này:**
 
-* Introduction to the course
-  * What we will learn in this course
-  * Lesson structure
-* Marlowe Overview
-  * Marlowe - Domain specific language
-  * Model
-  * Step by step
+* Giới thiệu về khóa học
+  * Những gì chúng ta sẽ học trong khóa học này
+  * Cấu trúc bài học
+* Tổng quan về Marlowe
+  * Marlowe - Ngôn ngữ chuyên biệt theo miền
+  * Mô hình
+  * Hướng dẫn từng bước
 
-**References**&#x20;
+**Tài liệu tham khảo**
 
 * [<img src="https://www.youtube.com/s/desktop/ee2a28de/img/favicon_144x144.png" alt="" data-size="line">IOG Academy1:Welcome](https://www.youtube.com/playlist?list=PLNEK\_Ejlx3x3xkV0OQ0PjRaCtlbPhL0Eg)​
 * [<img src="https://www.youtube.com/s/desktop/ee2a28de/img/favicon_144x144.png" alt="" data-size="line">Simon ThompsonMarlowe 3: financial contracts](https://youtu.be/1HRaRVyj2BI)​
