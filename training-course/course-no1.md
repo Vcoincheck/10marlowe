@@ -1,10 +1,10 @@
 # Course No1
 
-### **Period**
+### **Thời gian**
 
-Start time: 1st week - November
+Bắt đầu: Tuần đầu - T11
 
-End time: 4th week - December
+End time: Tuần 4 - T12
 
 
 
