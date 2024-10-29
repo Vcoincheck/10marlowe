@@ -1,39 +1,39 @@
-# A Sale of a Token with Royalties
+# Hợp đồng thanh toán bản quyền NFT
 
-### Caution! <a href="#caution" id="caution"></a>
+### <mark style="color:red;">**Cảnh báo**</mark>**!**
 
-Before running a Marlowe contract on `mainnet`, it is wise to do the following in order to avoid losing funds:
+Trước khi chạy một hợp đồng Marlowe trên mainnet, hãy làm theo các bước sau để tránh mất tiền:
 
-1. Understand the [Marlowe Language](https://marlowe.iohk.io/).
-2. Understand Cardano's [Extended UTxO Model](https://docs.cardano.org/learn/eutxo-explainer).
-3. Read and understand the [Marlowe Best Practices Guide](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/best-practices.md).
-4. Read and understand the [Marlowe Security Guide](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/security.md).
-5. Use [Marlowe Playground](https://play.marlowe.iohk.io/) to flag warnings, perform static analysis, and simulate the contract.
-6. Use [Marlowe CLI's](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/ReadMe.md) `marlowe-cli run analyze` tool to study whether the contract can run on a Cardano network.
-7. Run _all execution paths_ of the contract on a [Cardano testnet](https://docs.cardano.org/cardano-testnet/overview).
+1. Hiểu [ngôn ngữ Marlowe](https://marlowe.iohk.io/).
+2. Hiểu mô hình [Extended UTxO](https://docs.cardano.org/learn/eutxo-explainer) của Cardano.
+3. Đọc và hiểu Hướng dẫn [Thực hành Tốt nhất của Marlowe](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/best-practices.md).
+4. Đọc và hiểu [Hướng dẫn Bảo mật](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/security.md) của Marlowe.
+5. Sử dụng [Marlowe Playground](https://playground.marlowe-lang.org/#/) để đánh dấu cảnh báo, thực hiện phân tích tĩnh và mô phỏng hợp đồng.
+6. Sử dụng công cụ `marlowe-cli run analyze` của [Marlowe CLI](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/ReadMe.md) để kiểm tra xem hợp đồng có thể chạy trên mạng Cardano hay không.
+7. Chạy tất cả các đường thực thi của hợp đồng trên [testnet](https://docs.cardano.org/cardano-testnet/overview) Cardano.
 
 ***
 
-## A Sale of a Token with Royalties <a href="#a-sale-of-a-token-with-royalties" id="a-sale-of-a-token-with-royalties"></a>
+### Hợp đồng thanh toán bản quyền NFT
 
-This token sale exchanges a token for either the iUSD stablecoins and pays a royalty to the NFT artist. See [CIP-27](https://cips.cardano.org/cips/cip27/) for more information about NFT royalties in Cardano.
+Bán và trao đổi một token để nhận stablecoin iUSD và thanh toán tiền bản quyền cho nghệ sĩ NFT. Xem CIP-27 để biết thêm thông tin về tiền bản quyền NFT trong Cardano.
 
-This example consists of six transactions:
+Ví dụ này bao gồm sáu giao dịch:
 
-1. Christopher Marlowe creates the token-sale Marlowe contract.
-2. Christopher Marlowe deposits 1 BearGarden token in the contract.
-3. Jane Lumley deposits 50.175 iUSD in the contract, causing the contract to pay the token to her and iUSD to Christopher Marlowe and the artist Elizabeth Cary.
-4. Christopher Marlowe withdraws his 50 iUSD from Marlowe's role-payout address.
-5. Jane Lumley withdraws her 1 BearGarden from Marlowe's role-payout address.
-6. Elizabeth Cary withdraws her 0.175 iUSD royalty from Marlowe's role-payout address.
+1. Christopher Marlowe tạo hợp đồng Marlowe bán token.
+2. Christopher Marlowe gửi 1 token BearGarden vào hợp đồng.
+3. Jane Lumley gửi 50.175 iUSD vào hợp đồng, khiến hợp đồng thanh toán token cho cô và iUSD cho Christopher Marlowe và nghệ sĩ Elizabeth Cary.
+4. Christopher Marlowe rút 50 iUSD của mình từ địa chỉ thanh toán của Marlowe.
+5. Jane Lumley rút 1 BearGarden của mình từ địa chỉ thanh toán của Marlowe.
+6. Elizabeth Cary rút 0.175 iUSD tiền bản quyền của mình từ địa chỉ thanh toán của Marlowe.
 
-Here is the contract in Blockly format:
+Dưới đây là hợp đồng ở định dạng Blockly:
 
-![Token sale with royalties](https://raw.githubusercontent.com/input-output-hk/real-world-marlowe/a288a9f391e68135e59e65a813db695e6223472d/nfts/royalty/contract.png)
+![](https://raw.githubusercontent.com/input-output-hk/real-world-marlowe/a288a9f391e68135e59e65a813db695e6223472d/nfts/royalty/contract.png)
 
-### Set Up <a href="#set-up" id="set-up"></a>
+### Thiết lập <a href="#set-up" id="set-up"></a>
 
-Use `mainnet`.
+Sử dụng `mainnet`.
 
 In \[1]:
 
@@ -41,7 +41,7 @@ In \[1]:
 . ../../mainnet.env
 ```
 
-Use the standard example roles.
+Sử dụng các vai trò trong ví dụ tiêu chuẩn.
 
 In \[2]:
 
@@ -51,15 +51,15 @@ In \[2]:
 
 ### Role tokens <a href="#role-tokens" id="role-tokens"></a>
 
-This contract uses [Ada Handles](https://adahandle.com/) as role tokens:
+### oken vai trò&#x20;
 
-* Christopher Marlowe = [$c.marlowe](https://pool.pm/asset1z2xzfc6lu63jfmfffe2w3nyf6420eylv8e2xjp)
-* Jane Lumley = [$j.lumley](https://pool.pm/asset1kujmmryzmxyqz6utp2slrmwfq4dmmnvwhkh7gkm)
-* Elizabeth Carey = [$e.cary](https://pool.pm/asset1tx4euajkdczmkawgkjy342agaq33885dlvp0jl)
+Hợp đồng này sử dụng Ada Handles làm token vai trò:
 
-_Note: Only use a pre-minted token as a Marlowe role if you have reviewed the monetary policy for security vulnerabilities._
+* Christopher Marlowe = $c.marlowe
+* Jane Lumley = $j.lumley
+* Elizabeth Carey = $e.cary
 
-Here is the currency symbol for Ada handles on `mainnet`:
+Lưu ý: Chỉ sử dụng token đã được phát hành trước làm token vai trò Marlowe nếu bạn đã xem xét chính sách tiền tệ để tìm kiếm các lỗ hổng bảo mật.
 
 In \[3]:
 
@@ -71,9 +71,9 @@ echo "ROLES_CURRENCY = $ROLES_CURRENCY"
 ROLES_CURRENCY = f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a
 ```
 
-### Policy ID for the BearGarden token <a href="#policy-id-for-the-beargarden-token" id="policy-id-for-the-beargarden-token"></a>
+### Policy ID cho token BearGarden <a href="#policy-id-for-the-beargarden-token" id="policy-id-for-the-beargarden-token"></a>
 
-We previously minted the BearGarden token with the following policy.
+Chúng tôi đã trước đó phát hành token BearGarden với chính sách sau đây.&#x20;
 
 In \[4]:
 
@@ -85,9 +85,9 @@ echo "FUNGIBLES_POLICY = $FUNGIBLES_POLICY"
 FUNGIBLES_POLICY = 8bb3b343d8e404472337966a722150048c768d0a92a9813596c5338d
 ```
 
-### Policy IDs for iUSD <a href="#policy-ids-for-iusd" id="policy-ids-for-iusd"></a>
+### Policy IDs cho iUSD <a href="#policy-ids-for-iusd" id="policy-ids-for-iusd"></a>
 
-Here is the policy for the stablecoin that we are using.
+Đây là policy cho stablecoin mà chúng ta sử dụng.
 
 In \[5]:
 
@@ -101,9 +101,9 @@ IUSD_POLICY = f66d78b4a3cb3d37afa0ec36461e51ecbde00f26c8f0a68f94b69880
 IUSD_NAME = iUSD
 ```
 
-### Initial Funding <a href="#initial-funding" id="initial-funding"></a>
+### Gửi token ban đầu <a href="#initial-funding" id="initial-funding"></a>
 
-Send the BearGarden fungible token from the faucet to Christopher Marlowe and the stablecoin to Jane Lumley.
+Gửi token BearGarden từ faucet cho Christopher Marlowe và stablecoin cho Jane Lumley.
 
 In \[6]:
 
@@ -126,9 +126,9 @@ marlowe-cli transaction simple \
 TxId "fc76cd9764ec44756afae5e1f83d5f5049daf94df67e3ac1d3c18b654dc5558b"
 ```
 
-### The Marlowe contract <a href="#the-marlowe-contract" id="the-marlowe-contract"></a>
+### Hợp đồng Marlowe <a href="#the-marlowe-contract" id="the-marlowe-contract"></a>
 
-The Marlowe contract is just a download of the JSON file for the Blockly-format contract designed in the [Marlowe Playground](https://play.marlowe.iohk.io/#/).
+Hợp đồng Marlowe thực tế chỉ cần download file JSON được biên dịch từ hợp đồng này dạng Blockly đã được thiết kế sẵn trong [Marlowe Playground](https://play.marlowe.iohk.io/#/).
 
 In \[7]:
 
@@ -216,11 +216,11 @@ then:
                 token_name: BearGarden
 ```
 
-### Analyze the contract <a href="#analyze-the-contract" id="analyze-the-contract"></a>
+### Phân tích hợp đồng <a href="#analyze-the-contract" id="analyze-the-contract"></a>
 
-This contract is complex enough that we need to check that it can successfully execute on a Cardano network.
+Hợp đồng này khá phức tạp và chúng ta cần kiểm tra kỹ nếu nó có thể thực thi thành công trên blockchain Cardano.
 
-First, create a file with the initial state for the contract.
+Đầu tiên, tạo 1 file bao gồm các trạng thái ban đầu của hợp đồng.
 
 In \[8]:
 
@@ -242,7 +242,7 @@ cat state.json
 {"accounts":[[[{"address":"addr1qy9prvx8ufwutkwxx9cmmuuajaqmjqwujqlp9d8pvg6gupcvluken35ncjnu0puetf5jvttedkze02d5kf890kquh60sut9jg7"},{"currency_symbol":"","token_name":""}],3000000]],"boundValues":[],"choices":[],"minTime":1}
 ```
 
-Next, bundle the state and contract into a JSON file for analysis.
+Tiếp theo, Chuyển thông tin về trạng thái và hợp đồng vào file JSON để phân tích.
 
 In \[9]:
 
@@ -256,7 +256,7 @@ marlowe-cli run initialize \
   --out-file marlowe.json
 ```
 
-Finally, analyze the JSON file that bundles all of the information about the contract.
+Cuối cùng, hãy phân tích file JSON bao gồm tất cả thông tin về hợp đồng.
 
 In \[10]:
 
@@ -311,13 +311,13 @@ Starting search for execution paths . . .
     Percentage: 11.614990234375
 ```
 
-In the above we see that there are no invalid value or exceedences of protocol limits, so the contract is safe to run.
+Trong phần trên, chúng ta thấy rằng không có giá trị không hợp lệ hoặc vượt quá giới hạn giao thức, vì vậy hợp đồng an toàn để chạy.&#x20;
 
-Note that an even safer practice is to run all of the contract's execution paths on a test network.
+_Lưu ý: một thực hành an toàn hơn là chạy tất cả các đường dẫn thực thi của hợp đồng trên một mạng thử nghiệm._
 
-### Transaction 1. Create the contract <a href="#transaction-1.-create-the-contract" id="transaction-1.-create-the-contract"></a>
+### Giao dịch số 1: Tạo hợp đồng <a href="#transaction-1.-create-the-contract" id="transaction-1.-create-the-contract"></a>
 
-We use Marlowe Runtime's command-line tool to build the transaction for creating the contract.
+Chúng ta sử dụng công cụ _Marlowe Runtime's command-line_ để xây dựng giao dịch tạo hợp đồng.
 
 In \[11]:
 

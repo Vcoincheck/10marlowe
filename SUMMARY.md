@@ -49,7 +49,7 @@
   * [Các mẫu nguyên bản từ Marlowe team](cac-hop-dong-mau/cac-mau-nguyen-ban-tu-marlowe-team/README.md)
     * [Hợp đồng bán token đơn giản](cac-hop-dong-mau/cac-mau-nguyen-ban-tu-marlowe-team/hop-dong-ban-token-don-gian.md)
     * [Hợp đồng hoán đổi token lấy stablecoin](cac-hop-dong-mau/cac-mau-nguyen-ban-tu-marlowe-team/hop-dong-hoan-doi-token-lay-stablecoin.md)
-    * [A Sale of a Token with Royalties](cac-hop-dong-mau/cac-mau-nguyen-ban-tu-marlowe-team/a-sale-of-a-token-with-royalties.md)
+    * [Hợp đồng thanh toán bản quyền NFT](cac-hop-dong-mau/cac-mau-nguyen-ban-tu-marlowe-team/hop-dong-thanh-toan-ban-quyen-nft.md)
     * [A Swap of Tokens](cac-hop-dong-mau/cac-mau-nguyen-ban-tu-marlowe-team/a-swap-of-tokens.md)
     * [A Small Airdrop of Tokens](cac-hop-dong-mau/cac-mau-nguyen-ban-tu-marlowe-team/a-small-airdrop-of-tokens.md)
     * [Tokenizing Collections of NFTs as a Marlowe Contract](cac-hop-dong-mau/cac-mau-nguyen-ban-tu-marlowe-team/tokenizing-collections-of-nfts-as-a-marlowe-contract.md)
