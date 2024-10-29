@@ -224,13 +224,13 @@ echo "MEDIATOR_ADDR = $MEDIATOR_ADDR"
 MEDIATOR_ADDR = addr_test1vr6tytqs3x8qgewhw89m3xrz58t3tqu2hfsecw0u06lf3hg052wsv
 ```
 
-### Obtaining test ada[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#obtaining-test-ada) <a href="#obtaining-test-ada" id="obtaining-test-ada"></a>
+### Nhận test ada&#x20;
 
-In order to execute transactions on a Cardano network, one needs the native currency ada to pay fees and use as funds. There are the faucets for the public testnets at [https://docs.cardano.org/cardano-testnet/tools/faucet](https://docs.cardano.org/cardano-testnet/tools/faucet) where one can obtain test ada daily.
+Để thực hiện giao dịch trên mạng Cardano, bạn cần có ADA native crypto để trả phí và sử dụng làm quỹ. Có các faucet cho các testnet công khai tại [đây](https://docs.cardano.org/cardano-testnet/tools/faucet) (bạn có thể nhận test ada hàng ngày)
 
-Optionally, it can be convenient to centrally manage funds with the [Daedalus wallet](https://docs.cardano.org/cardano-testnet/daedalus-testnet) or one of the [web-browser wallets](https://builtoncardano.com/ecosystem/wallets): be sure to select the correct public testnet if using one of these wallets.
+Tùy chọn, việc quản lý quỹ một cách trung tâm bằng ví Daedalus hoặc một trong các ví trình duyệt web có thể thuận tiện: hãy chắc chắn chọn đúng testnet công khai nếu sử dụng một trong các ví này.
 
-If you will be using a local faucet, then send test ada to the faucet address created in the previous section. Otherwise, send the test ada to the Daedalus or web-browser wallet.
+Nếu bạn sẽ sử dụng một faucet cục bộ, hãy gửi test ada đến địa chỉ faucet được tạo ra ở phần trước. Nếu không, hãy gửi test ada đến ví Daedalus hoặc ví trình duyệt web.
 
 ```
 echo "FAUCET_ADDR = $FAUCET_ADDR"
@@ -240,9 +240,9 @@ echo "FAUCET_ADDR = $FAUCET_ADDR"
 FAUCET_ADDR = addr_test1vq9prvx8ufwutkwxx9cmmuuajaqmjqwujqlp9d8pvg6gupczgtm9j
 ```
 
-### Fund the addresses of the parties[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#fund-the-addresses-of-the-parties) <a href="#fund-the-addresses-of-the-parties" id="fund-the-addresses-of-the-parties"></a>
+### Cấp quỹ cho địa chỉ các bên liên quan[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#fund-the-addresses-of-the-parties) <a href="#fund-the-addresses-of-the-parties" id="fund-the-addresses-of-the-parties"></a>
 
-We'll fund each address with 1000 test ada.
+Chúng ta sẽ cấp cho các địa chỉ 1000 test ADA.
 
 ```
 echo "LENDER_ADDR = $LENDER_ADDR"
@@ -256,20 +256,22 @@ BORROWER_ADDR = addr_test1vpy4n4peh4suv0y55yptur0066j5kds8r4ncnuzm0vpzfgg0dhz6d
 MEDIATOR_ADDR = addr_test1vr6tytqs3x8qgewhw89m3xrz58t3tqu2hfsecw0u06lf3hg052wsv
 ```
 
-#### Using Daedalus or a browser wallet[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#using-daedalus-or-a-browser-wallet) <a href="#using-daedalus-or-a-browser-wallet" id="using-daedalus-or-a-browser-wallet"></a>
+#### Sử dụng Daedalus hoặc ví trình duyệt web
 
-If you already have a wallet that contains test ada, then you can just send the funds to the addresses of the keys that we created in the previous section. The screenshot below shows using Daedalus to fund the lender address.
+&#x20;Nếu bạn đã có ví chứa test ada, bạn có thể chỉ cần gửi quỹ đến các địa chỉ của các khóa mà chúng ta đã tạo ở phần trước.&#x20;
 
-![Sending funds with Daedalus](https://docs.marlowe.iohk.io/assets/images/daedalus-example-eb1cc512fb2274c438dbf3a8945eb3b7.png)
+Hình chụp màn hình bên dưới minh họa việc sử dụng Daedalus để cấp quỹ cho địa chỉ của bên cho vay.
 
-#### Using a local faucet at the command line[​](https://docs.marlowe.iohk.io/tutorials/guides/preliminaries#using-a-local-faucet-at-the-command-line) <a href="#using-a-local-faucet-at-the-command-line" id="using-a-local-faucet-at-the-command-line"></a>
+![Gửi tADA với Daedalus](../../.gitbook/assets/daedalus-example-eb1cc512fb2274c438dbf3a8945eb3b7.png)
 
-One can use `cardano-cli` or `marlowe-cli` send funds to an address. Here we use `marlowe-cli`.
+#### Sử dụng faucet cục bộ từ dòng lệnh&#x20;
 
-_**If you have just funded**** ****`FAUCET_ADDR`**** ****with ada, you may have to wait a couple of minutes before that transaction is confirmed. If the command below fails, then retry it until it succeeds.**_
+Bạn có thể sử dụng `cardano-cli` hoặc `marlowe-cli` để gửi quỹ đến một địa chỉ. Ở đây, chúng ta sử dụng marlowe-cli.&#x20;
+
+Nếu bạn vừa cấp quỹ cho `FAUCET_ADDR` với tada, có thể bạn sẽ phải chờ vài phút trước khi giao dịch đó được xác nhận. Nếu lệnh dưới đây không thành công, hãy thử lại cho đến khi thành công.
 
 ```
-# Note that `FAUCET_ADDR` must have already been funded with test ada.
+# Lưu ý: `FAUCET_ADDR` phải được nhận tADA trước khi thực hiện giao dịch
 
 # 1 ada = 1,000,000 lovelace
 ADA=1000000

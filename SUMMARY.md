@@ -31,6 +31,11 @@
 * [Marlowe runtime](tai-lieu/marlowe-runtime/README.md)
   * [Tổng quan](tai-lieu/marlowe-runtime/tong-quan.md)
   * [Các bước chuẩn bị](tai-lieu/marlowe-runtime/cac-buoc-chuan-bi.md)
+* [Marlowe typescript SDK](tai-lieu/marlowe-typescript-sdk/README.md)
+  * [Các bước phát triển](tai-lieu/marlowe-typescript-sdk/cac-buoc-phat-trien.md)
+  * [SDK v0.4.0-beta](tai-lieu/marlowe-typescript-sdk/sdk-v0.4.0-beta.md)
+  * [Payouts DApp prototype](tai-lieu/marlowe-typescript-sdk/payouts-dapp-prototype.md)
+  * [Token Plan Prototype: A Vesting Contract](tai-lieu/marlowe-typescript-sdk/token-plan-prototype-a-vesting-contract.md)
 * [Useful & additional resources](tai-lieu/markdown.md)
 
 ***
