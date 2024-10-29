@@ -1,47 +1,53 @@
-# Tokenizing Collections of NFTs as a Marlowe Contract
+# Hợp đồng token hóa bộ sưu tập NFT
 
-### &#x20;Caution! <a href="#caution" id="caution"></a>
+### <mark style="color:red;">**Cảnh báo**</mark>**!** <a href="#caution" id="caution"></a>
 
-Before running a Marlowe contract on `mainnet`, it is wise to do the following in order to avoid losing funds:
+Trước khi chạy một hợp đồng Marlowe trên mainnet, hãy làm theo các bước sau để tránh mất tiền:
 
-1. Understand the [Marlowe Language](https://marlowe.iohk.io/).
-2. Understand Cardano's [Extended UTxO Model](https://docs.cardano.org/learn/eutxo-explainer).
-3. Read and understand the [Marlowe Best Practices Guide](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/best-practices.md).
-4. Read and understand the [Marlowe Security Guide](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/security.md).
-5. Use [Marlowe Playground](https://play.marlowe.iohk.io/) to flag warnings, perform static analysis, and simulate the contract.
-6. Use [Marlowe CLI's](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/ReadMe.md) `marlowe-cli run analyze` tool to study whether the contract can run on a Cardano network.
-7. Run _all execution paths_ of the contract on a [Cardano testnet](https://docs.cardano.org/cardano-testnet/overview).
+1. Hiểu [ngôn ngữ Marlowe](https://marlowe.iohk.io/).
+2. Hiểu mô hình [Extended UTxO](https://docs.cardano.org/learn/eutxo-explainer) của Cardano.
+3. Đọc và hiểu Hướng dẫn [Thực hành Tốt nhất của Marlowe](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/best-practices.md).
+4. Đọc và hiểu [Hướng dẫn Bảo mật](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/security.md) của Marlowe.
+5. Sử dụng [Marlowe Playground](https://playground.marlowe-lang.org/#/) để đánh dấu cảnh báo, thực hiện phân tích tĩnh và mô phỏng hợp đồng.
+6. Sử dụng công cụ `marlowe-cli run analyze` của [Marlowe CLI](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/ReadMe.md) để kiểm tra xem hợp đồng có thể chạy trên mạng Cardano hay không.
+7. Chạy tất cả các đường thực thi của hợp đồng trên [testnet](https://docs.cardano.org/cardano-testnet/overview) Cardano.
 
 ***
 
-## Tokenizing Collections of NFTs as a Marlowe Contract <a href="#tokenizing-collections-of-nfts-as-a-marlowe-contract" id="tokenizing-collections-of-nfts-as-a-marlowe-contract"></a>
+### Hợp đồng token hóa bộ sưu tập NFT
 
-**Executive Summary**
+**Tóm tắt:**
 
-Marlowe can be used to gather several NFTs into a collection that itself is an NFT. This effectively tokenizes several NFTs as as single unit. The contract described here gathers three NFTs into a Marlowe contract that is controlled by a fourth NFT that represents the collection of the three. The holder of that fourth NFT owns and controls the other three NFTs. However, the contract specifies that the creator the contract (perhaps the artist of the NFTs) receives 500 Ada if the owner of the NFTs breaks up the collection before the year 2030. This incentivizes the owner of the NFTs to keep the collection intact and it pays the artist a royalty if the collection is prematurely broken up. We demonstrate how to construct this contract and test this contract on the pre-production network before deploying it on `mainnet`.
+Marlowe có thể được sử dụng để tập hợp nhiều NFT vào một bộ sưu tập, bản thân nó cũng là một NFT. Điều này tạo hiệu quả chuyển đổi nhiều NFT thành một đơn vị duy nhất.&#x20;
 
-**Principles Illustrated**
+Hợp đồng được mô tả ở đây thu thập ba NFT vào một hợp đồng Marlowe, được điều khiển bởi một NFT thứ tư đại diện cho bộ sưu tập của ba NFT này. Người nắm giữ NFT thứ tư sở hữu và điều khiển ba NFT còn lại.&#x20;
 
-* Use of Marlowe CLI to mint NFTs.
-* Use of Marlowe CLI and Marlowe Runtime execute and view Marlowe contracts.
-* How to start a Marlowe contract in an initial state that already contains a mixture of Ada and tokens.
-* How to test a contract on a testnet before deploying it on `mainnet`.
+Tuy nhiên, hợp đồng quy định rằng người tạo hợp đồng (có thể là nghệ sĩ của các NFT) sẽ nhận được 500 Ada nếu chủ sở hữu NFT phá vỡ bộ sưu tập trước năm 2030. Điều này khuyến khích chủ sở hữu giữ bộ sưu tập nguyên vẹn và trả tiền bản quyền cho nghệ sĩ nếu bộ sưu tập bị phá vỡ sớm.&#x20;
 
-[A video narrative of this demonstration](https://youtu.be/v4KtJb4k0Jc) is available.
+Chúng tôi sẽ trình bày cách xây dựng hợp đồng này và kiểm tra nó trên mạng prepod trước khi triển khai trên `mainnet`.
 
-### Design the NFTs. <a href="#design-the-nfts" id="design-the-nfts"></a>
+**Nguyên tắc minh họa:**
 
-#### We create four NFTs. <a href="#we-create-four-nfts" id="we-create-four-nfts"></a>
+* Sử dụng Marlowe CLI để mint NFT.
+* Sử dụng Marlowe CLI và Marlowe Runtime để thực thi và xem hợp đồng Marlowe.
+* Cách khởi động một hợp đồng Marlowe ở trạng thái ban đầu đã chứa hỗn hợp Ada và token.
+* Cách kiểm tra hợp đồng trên testnet trước khi triển khai trên mainnet.
 
-* `YoTr2016-0` is both an NFT and the Marlowe role token for the contract that we will create. It represents the collection of the other three NFTs.
-* `YoTr2016-1`, `YoTr2016-2`, and `YoTr2016-3` are the three NFTs in the series that will be bundled into the Marlowe contract.
+Video tham khảo [https://youtu.be/v4KtJb4k0Jc](https://youtu.be/v4KtJb4k0Jc).
+
+### Thiết kế NFTs. <a href="#design-the-nfts" id="design-the-nfts"></a>
+
+#### Chúng ta tạo 4 NFT. <a href="#we-create-four-nfts" id="we-create-four-nfts"></a>
+
+* `YoTr2016-0` vừa là một NFT vừa là token vai trò Marlowe cho hợp đồng mà chúng ta sẽ tạo. Nó đại diện cho bộ sưu tập của ba NFT còn lại.
+* `YoTr2016-1`, `YoTr2016-2`, and `YoTr2016-3` là ba NFT trong bộ sưu tập sẽ được gộp vào hợp đồng Marlowe.
 
 | YoTr2016-0                                                                                                                                                                       | YoTr2016-1                                                                                                                                                                                               | YoTr2016-2                                                                                                                                                                                                             | YoTr20160-3                                                                                                                                                                                                                                                                   |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ![Yogācāra Triptych](https://raw.githubusercontent.com/input-output-hk/real-world-marlowe/a288a9f391e68135e59e65a813db695e6223472d/nfts/collection/images/yogacara-triptych.png) | ![The imagination of the unreal](https://raw.githubusercontent.com/input-output-hk/real-world-marlowe/a288a9f391e68135e59e65a813db695e6223472d/nfts/collection/images/the-imagination-of-the-unreal.png) | ![The dependence on flowing conditions](https://raw.githubusercontent.com/input-output-hk/real-world-marlowe/a288a9f391e68135e59e65a813db695e6223472d/nfts/collection/images/the-dependence-on-flowing-conditions.png) | ![The external non-existence of what appears in the way it appears](https://raw.githubusercontent.com/input-output-hk/real-world-marlowe/a288a9f391e68135e59e65a813db695e6223472d/nfts/collection/images/the-external-nonexistence-of-what-appears-in-the-way-it-appears.png) |
 | Yogācāra Triptych                                                                                                                                                                | The imagination of the unreal                                                                                                                                                                            | The dependence on flowing conditions                                                                                                                                                                                   | The external non-existence of what appears in the way it appears                                                                                                                                                                                                              |
 
-Here is the CIP-25 metadata for the NFTs.
+Dưới đây là metadata tiêu chuẩn CIP-25 cho các NFT.
 
 In \[1]:
 
@@ -107,7 +113,7 @@ YoTr2016-3:
   year: 2016
 ```
 
-#### Assign the names of the various tokens to variables. <a href="#assign-the-names-of-the-various-tokens-to-variables" id="assign-the-names-of-the-various-tokens-to-variables"></a>
+#### Gán tên của các token khác nhau cho các biến như sau:
 
 In \[2]:
 
@@ -126,21 +132,25 @@ ROLE_NAME = YoTr2016-0
 COLLECTION_TOKENS = YoTr2016-1 YoTr2016-2 YoTr2016-3
 ```
 
-#### Design the contract <a href="#design-the-contract" id="design-the-contract"></a>
+#### Thiết kế hợp đồng <a href="#design-the-contract" id="design-the-contract"></a>
 
-* Five Ada will be deposited in the contract when it is created, along with the three NFTs in the collection.
-* The role token will be the NFT representing the other three NFTs.
-* The contract will hold the three NFTS until the year 2030, unless 500 Ada is paid byt the role to remove the three NTFs, breaking up the collection.
+* 5 Ada sẽ được gửi vào hợp đồng khi tạo, cùng với ba NFT trong bộ sưu tập.&#x20;
+* Token vai trò `(role)` sẽ là NFT đại diện cho ba NFT còn lại.&#x20;
+* Hợp đồng sẽ giữ ba NFT này đến năm 2030, trừ khi `role` trả 500 Ada để lấy lại ba NFT, phá vỡ bộ sưu tập.
 
-Conceptually, we would like to deposit `YoTr2016-1`, `YoTr2016-2`, and `YoTr2016-3` into a Marlowe contract that releases those tokens to the role `YoTr2016-0` if they have paid the 500 Ada to release them. This would result in the following contract.
+Về mặt khái niệm, chúng ta sẽ gửi `YoTr2016-1`, `YoTr2016-2`, và `YoTr2016-3` vào một hợp đồng Marlowe, hợp đồng này sẽ giải phóng các token đó cho vai trò `YoTr2016-0` nếu vai trò đó đã thanh toán 500 Ada để giải phóng chúng.&#x20;
+
+Điều này sẽ tạo thành hợp đồng như sau.
 
 ![Expanded contract for collecting and holding NFTs](https://raw.githubusercontent.com/input-output-hk/real-world-marlowe/a288a9f391e68135e59e65a813db695e6223472d/nfts/collection/images/expanded-contract.png)
 
-However, that contract is a bit wasteful because one has to pay fees three times to deposit tokens one by one. The Marlowe language won't allow the deposit of several tokens, but we can work around this by starting the Marlowe contract in an initial state that already contains the deposited tokens in the account for the role `YoTr2016-0`. The creation transaction for the contract makes this deposit before the contract even starts running. When the contract reaches `Close`, it will pay out the NFTs. This simplified contract is the one we will use here.
+Tuy nhiên, hợp đồng này khá lãng phí vì phải trả phí ba lần để gửi các token từng cái một. Ngôn ngữ Marlowe không cho phép gửi nhiều token cùng lúc, nhưng chúng ta có thể khắc phục bằng cách khởi tạo hợp đồng Marlowe ở trạng thái ban đầu đã chứa các token được gửi vào tài khoản của vai trò `YoTr2016-0`.&#x20;
+
+Giao dịch tạo hợp đồng sẽ thực hiện việc gửi này trước khi hợp đồng bắt đầu chạy. Khi hợp đồng đạt đến trạng thái `Close`, nó sẽ thanh toán các NFT. Đây là hợp đồng đơn giản hóa mà chúng ta sẽ sử dụng ở đây.
 
 ![Simplified contract that begins with the NFTs in its initial state](https://raw.githubusercontent.com/input-output-hk/real-world-marlowe/a288a9f391e68135e59e65a813db695e6223472d/nfts/collection/images/contract.png)
 
-#### Set the parameters for the Marlowe contract. <a href="#set-the-parameters-for-the-marlowe-contract" id="set-the-parameters-for-the-marlowe-contract"></a>
+#### Thiết lập các thông số cho hợp đồng Marlowe <a href="#set-the-parameters-for-the-marlowe-contract" id="set-the-parameters-for-the-marlowe-contract"></a>
 
 In \[3]:
 
@@ -168,11 +178,11 @@ echo "TIMEOUT = $TIMEOUT"
 TIMEOUT = 1893456000000
 ```
 
-### Test on the pre-production network. <a href="#test-on-the-pre-production-network" id="test-on-the-pre-production-network"></a>
+### Kiểm thử trên mạng pre-production <a href="#test-on-the-pre-production-network" id="test-on-the-pre-production-network"></a>
 
-It is unwise to create a new Marlowe contract on `mainnet` unless it has been tested on a test network!
+Không nên tạo hợp đồng Marlowe mới trên mainnet trừ khi nó đã được thử nghiệm trên một mạng thử nghiệm!
 
-#### Select the network <a href="#select-the-network" id="select-the-network"></a>
+#### Chọn mạng
 
 In \[5]:
 
@@ -182,7 +192,7 @@ MAGIC=(--testnet-magic 1)
 NETWORK=testnet
 ```
 
-We set the location of the Marlowe Runtime backend services.
+Chúng ta đặt vị trí của các dịch vụ backend Marlowe Runtime.
 
 In \[6]:
 
@@ -200,7 +210,7 @@ export MARLOWE_RT_TX_HOST=192.168.0.12
 export MARLOWE_RT_TX_COMMAND_PORT=13723
 ```
 
-#### Set the address and signing key for the creator of the Marlowe contract <a href="#set-the-address-and-signing-key-for-the-creator-of-the-marlowe-contract" id="set-the-address-and-signing-key-for-the-creator-of-the-marlowe-contract"></a>
+#### Thiết lập địa chỉ và khóa ký cho người tạo hợp đồng Marlowe.
 
 In \[7]:
 
@@ -214,7 +224,7 @@ echo "PAYMENT_ADDR = $PAYMENT_ADDR"
 PAYMENT_ADDR = addr_test1vq9prvx8ufwutkwxx9cmmuuajaqmjqwujqlp9d8pvg6gupczgtm9j
 ```
 
-#### For minting the NFTs, use a monetary policy that forbids further minting after two days from now. <a href="#for-minting-the-nfts-use-a-monetary-policy-that-forbids-further-minting-after-two-days-from-now" id="for-minting-the-nfts-use-a-monetary-policy-that-forbids-further-minting-after-two-days-from-now"></a>
+#### Để mint các NFT, sử dụng chính sách tiền tệ cấm việc mint thêm sau hai ngày kể từ bây giờ.
 
 In \[8]:
 
@@ -227,7 +237,7 @@ echo "LOCKING_SLOT = $LOCKING_SLOT"
 LOCKING_SLOT = 19516471
 ```
 
-#### Mint the NFTs. <a href="#mint-the-nfts" id="mint-the-nfts"></a>
+#### Đúc các NFT. <a href="#mint-the-nfts" id="mint-the-nfts"></a>
 
 In \[9]:
 
@@ -255,7 +265,7 @@ Execution units:
 POLICY_ID = 9686fda3ddf47e47faebed23f55371dda523a0461d505ef4c8a11e05
 ```
 
-We can view the NFTs at the following URL:
+Chúng ta có thể xem các NFT qua đường dẫn:
 
 In \[10]:
 
@@ -267,9 +277,9 @@ echo "https://preprod.cexplorer.io/policy/$POLICY_ID"
 https://preprod.cexplorer.io/policy/9686fda3ddf47e47faebed23f55371dda523a0461d505ef4c8a11e05
 ```
 
-#### Create the initial state of the contract. <a href="#create-the-initial-state-of-the-contract" id="create-the-initial-state-of-the-contract"></a>
+#### Khởi tạo trạng thái ban đầu của hợp đồng. <a href="#create-the-initial-state-of-the-contract" id="create-the-initial-state-of-the-contract"></a>
 
-Unlike a typical contract, the initial state of this contract will contain several non-Ada tokens.
+Không như các hợp đồng thông thường, trạng thái ban đầu của hợp đồng này sẽ bao gồm một số non-ADA token.
 
 In \[11]:
 
@@ -301,9 +311,9 @@ choices: []
 minTime: 1
 ```
 
-#### Create the contract. <a href="#create-the-contract" id="create-the-contract"></a>
+#### Tạo hợp đồng. <a href="#create-the-contract" id="create-the-contract"></a>
 
-The contract simply waits for the deposit and then closes, causing the tokens to be distributed to the payout address.
+Hợp đồng chỉ đơn giản chờ đợi khoản gửi và sau đó đóng lại, dẫn đến việc các token được phân phối cho địa chỉ thanh toán.
 
 In \[12]:
 
@@ -342,9 +352,9 @@ when:
   then: close
 ```
 
-#### Initialize the off-chain data for the Marlowe contract. <a href="#initialize-the-off-chain-data-for-the-marlowe-contract" id="initialize-the-off-chain-data-for-the-marlowe-contract"></a>
+Khởi tạo dữ liệu off-chain cho hợp đồng Marlowe.&#x20;
 
-The `.marlowe` files contains the information needed to run the contract.
+Tệp `.marlowe` chứa thông tin cần thiết để thực thi hợp đồng
 
 In \[13]:
 
@@ -372,9 +382,9 @@ Validator size: 12505
 Base-validator cost: ExBudget {exBudgetCPU = ExCPU 18515100, exBudgetMemory = ExMemory 80600}
 ```
 
-#### Analyze the Marlowe contract to make sure that it will be possible to run it successfully on a Cardano network. <a href="#analyze-the-marlowe-contract-to-make-sure-that-it-will-be-possible-to-run-it-successfully-on-a-carda" id="analyze-the-marlowe-contract-to-make-sure-that-it-will-be-possible-to-run-it-successfully-on-a-carda"></a>
+Phân tích hợp đồng Marlowe để đảm bảo rằng nó có thể được chạy thành công trên mạng Cardano.
 
-Just because a contract is semantically valid, does not mean it will run on the blockchain!
+&#x20;Chỉ vì hợp đồng hợp lệ về mặt ngữ nghĩa không có nghĩa là nó sẽ chạy trên blockchain!
 
 In \[14]:
 
@@ -429,11 +439,9 @@ Starting search for execution paths . . .
     Percentage: 6.45751953125
 ```
 
-The analysis reveals that the contract has no problems that will prevent it from running. _However, this version of `marlowe-cli run analyze` does not account for the non-standard initial state that we are using, so we need to actually run the contract on the test network in order to make sure that it is safe to run on `mainnet`._
+Phân tích cho thấy hợp đồng không có vấn đề gì ngăn cản việc chạy. Tuy nhiên, phiên bản này của `marlowe-cli run analyze` không tính đến trạng thái ban đầu không chuẩn mà chúng ta đang sử dụng, vì vậy chúng ta cần thực sự chạy hợp đồng trên mạng thử nghiệm để đảm bảo rằng nó an toàn để chạy trên mainnet.
 
-#### Execute the transaction to create the contract. <a href="#execute-the-transaction-to-create-the-contract" id="execute-the-transaction-to-create-the-contract"></a>
-
-Sadly, Marlowe Runtime does not support creating a contract with a non-default initial state. Instead we use `marlowe-cli` to create the contract.
+Thực hiện giao dịch để tạo hợp đồng. Đáng tiếc là Marlowe Runtime không hỗ trợ tạo hợp đồng với trạng thái ban đầu không mặc định. Thay vào đó, chúng ta sử dụng `marlowe-cli` để tạo hợp đồng.
 
 In \[15]:
 
@@ -464,7 +472,7 @@ TX_1 = 7935febf14cd7519f0d419c0e112891c6be1bdf1301e0334095b732024afeedf
 CONTRACT_ID = 7935febf14cd7519f0d419c0e112891c6be1bdf1301e0334095b732024afeedf#1
 ```
 
-View the contract's UTxO on the blockchain.
+Xem UTxO của hợp đồng trên blockchain.
 
 In \[16]:
 
@@ -478,7 +486,7 @@ cardano-cli query utxo  "${MAGIC[@]}" --tx-in "$CONTRACT_ID"
 7935febf14cd7519f0d419c0e112891c6be1bdf1301e0334095b732024afeedf     1        2000000 lovelace + 1 9686fda3ddf47e47faebed23f55371dda523a0461d505ef4c8a11e05.596f5472323031362d31 + 1 9686fda3ddf47e47faebed23f55371dda523a0461d505ef4c8a11e05.596f5472323031362d32 + 1 9686fda3ddf47e47faebed23f55371dda523a0461d505ef4c8a11e05.596f5472323031362d33 + TxOutDatumHash ScriptDataInBabbageEra "e3c7281f48e683cb4253aafad5bbb50ff7d0cdb2366bafaf4f7d6d4af68c09b3"
 ```
 
-Use Marlowe Runtime to view the contract on the blockchain.
+Sử dụng Marlowe Runtime để xem hợp đồng trên blockchain.
 
 In \[17]:
 
@@ -503,7 +511,7 @@ Marlowe Version: 1
 
 ```
 
-One can view this transaction in an explorer:
+Xem giao dịch qua trình khám phá dữ liệu blockchain
 
 In \[18]:
 
@@ -515,9 +523,9 @@ echo "https://preprod.cardanoscan.io/transaction/$TX_1?tab=utxo"
 https://preprod.cardanoscan.io/transaction/7935febf14cd7519f0d419c0e112891c6be1bdf1301e0334095b732024afeedf?tab=utxo
 ```
 
-#### Prepare a transaction to remove the NFTs from the contract. <a href="#prepare-a-transaction-to-remove-the-nfts-from-the-contract" id="prepare-a-transaction-to-remove-the-nfts-from-the-contract"></a>
+#### Chuẩn bị một giao dịch để loại bỏ các NFT khỏi hợp đồng.&#x20;
 
-This requires that the owner of the role token deposit 500 Ada into the contract.
+Việc này yêu cầu chủ sở hữu token vai trò gửi 500 Ada vào hợp đồng.
 
 In \[19]:
 
@@ -539,7 +547,7 @@ echo "TX_2 = $TX_2"
 TX_2 = d6ffa4f8e2841a19e17e04b9ed57b88c576c7dcf5c2ec94064531976898adba2
 ```
 
-#### Execute the transaction to close the contract and remove the role tokens. <a href="#execute-the-transaction-to-close-the-contract-and-remove-the-role-tokens" id="execute-the-transaction-to-close-the-contract-and-remove-the-role-tokens"></a>
+#### Thực thi giao dịch để đóng hợp đồng và loại bỏ các token vai trò. <a href="#execute-the-transaction-to-close-the-contract-and-remove-the-role-tokens" id="execute-the-transaction-to-close-the-contract-and-remove-the-role-tokens"></a>
 
 In \[20]:
 
@@ -555,7 +563,7 @@ marlowe-cli transaction submit \
 TxId "d6ffa4f8e2841a19e17e04b9ed57b88c576c7dcf5c2ec94064531976898adba2"
 ```
 
-Use Marlowe Runtime to see that the contract has closed.
+Sử dụng Marlowe Runtime để kiểm tra xem hợp đồng đã được đóng?
 
 In \[21]:
 
@@ -588,7 +596,7 @@ Inputs:     [NormalInput (IDeposit "\"addr_test1vq9prvx8ufwutkwxx9cmmuuajaqmjqwu
 
 ```
 
-One can view this transaction in an explorer:
+Xem giao dịch qua trình khám phá dữ liệu blockchain
 
 In \[22]:
 
@@ -600,11 +608,11 @@ echo "https://preprod.cardanoscan.io/transaction/$TX_2?tab=utxo"
 https://preprod.cardanoscan.io/transaction/d6ffa4f8e2841a19e17e04b9ed57b88c576c7dcf5c2ec94064531976898adba2?tab=utxo
 ```
 
-#### Withdraw the NFTs from Marlowe's role-payout address. <a href="#withdraw-the-nfts-from-marlowes-role-payout-address" id="withdraw-the-nfts-from-marlowes-role-payout-address"></a>
+#### Rút các NFT từ địa chỉ thanh toán vai trò. <a href="#withdraw-the-nfts-from-marlowes-role-payout-address" id="withdraw-the-nfts-from-marlowes-role-payout-address"></a>
 
-When a Marlowe contract pays to a role, the funds are sent to the role-payout address from which the holder of the role token can withdraw the funds.
+Khi một hợp đồng Marlowe thanh toán cho một vai trò, các khoản tiền sẽ được gửi đến địa chỉ thanh toán của vai trò, từ đó người nắm giữ token vai trò có thể rút tiền.
 
-View the UTxO at the role-payout address.
+Xem UTxO tại địa chỉ thanh toán của vai trò.
 
 In \[23]:
 
@@ -618,7 +626,7 @@ cardano-cli query utxo "${MAGIC[@]}" --tx-in "$TX_2#2"
 d6ffa4f8e2841a19e17e04b9ed57b88c576c7dcf5c2ec94064531976898adba2     2        2000000 lovelace + 1 9686fda3ddf47e47faebed23f55371dda523a0461d505ef4c8a11e05.596f5472323031362d31 + 1 9686fda3ddf47e47faebed23f55371dda523a0461d505ef4c8a11e05.596f5472323031362d32 + 1 9686fda3ddf47e47faebed23f55371dda523a0461d505ef4c8a11e05.596f5472323031362d33 + TxOutDatumHash ScriptDataInBabbageEra "8ddc57b7cbf71fefe4b3cf200982a8181e8c369929c0b4719c69f4848193f018"
 ```
 
-Now withdraw the NFTs.
+#### Bây giờ rút các NFT.
 
 In \[24]:
 
@@ -652,7 +660,7 @@ marlowe-cli transaction submit \
 TxId "11e792d140b2d1749a505b70dd76ae45bf8cd5abfc5b8acbbf38789e4395b8bd"
 ```
 
-See that the NFTs now reside in the original wallet.
+Kiểm tra các NFT hiện đã nằm trong ví ban đầu.
 
 In \[26]:
 
@@ -669,8 +677,6 @@ cardano-cli query utxo "${MAGIC[@]}" --address "$PAYMENT_ADDR"
 d6ffa4f8e2841a19e17e04b9ed57b88c576c7dcf5c2ec94064531976898adba2     3        500000000 lovelace + TxOutDatumNone
 ```
 
-One can view this transaction in an explorer:
-
 In \[27]:
 
 ```
@@ -681,7 +687,7 @@ echo "https://preprod.cardanoscan.io/transaction/$TX_3?tab=utxo"
 https://preprod.cardanoscan.io/transaction/11e792d140b2d1749a505b70dd76ae45bf8cd5abfc5b8acbbf38789e4395b8bd?tab=utxo
 ```
 
-#### Clean up by burning the NFTs. <a href="#clean-up-by-burning-the-nfts" id="clean-up-by-burning-the-nfts"></a>
+#### Làm sạch bằng cách "đốt" các NFT. <a href="#clean-up-by-burning-the-nfts" id="clean-up-by-burning-the-nfts"></a>
 
 In \[28]:
 
@@ -705,7 +711,7 @@ Execution units:
 PolicyID "9686fda3ddf47e47faebed23f55371dda523a0461d505ef4c8a11e05"
 ```
 
-Now the original wallet no longer contains the NFTs.
+Bây giờ các ví đầu tiên sẽ không còn chứa các NFT.
 
 In \[29]:
 
@@ -719,11 +725,11 @@ cardano-cli query utxo "${MAGIC[@]}" --address "$PAYMENT_ADDR"
 288fbf2a4e177c56a0bedcfbf935ac107c208073f53513b3cbbca2074c0230b1     0        29975809278 lovelace + TxOutDatumNone
 ```
 
-### Run on `mainnet` <a href="#run-on-mainnet" id="run-on-mainnet"></a>
+### Chạy trên `mainnet` <a href="#run-on-mainnet" id="run-on-mainnet"></a>
 
-Now that we know the contract is safe, we run it on `mainnet`.
+Bây giờ chúng ta đã biết hợp đồng là an toàn, bắt đầu chạy trên `mainnet`.
 
-#### Select the network <a href="#select-the-network" id="select-the-network"></a>
+#### Chọn mạng  <a href="#select-the-network" id="select-the-network"></a>
 
 In \[30]:
 
@@ -733,7 +739,7 @@ MAGIC=(--mainnet)
 NETWORK=mainnet
 ```
 
-We set the location of the Marlowe Runtime backend services.
+Chúng ta đặt vị trí của các dịch vụ backend Marlowe Runtime.
 
 In \[31]:
 
@@ -751,7 +757,7 @@ export MARLOWE_RT_TX_HOST=192.168.0.12
 export MARLOWE_RT_TX_COMMAND_PORT=53723
 ```
 
-#### Set the address and signing key for the creator of the Marlowe contract <a href="#set-the-address-and-signing-key-for-the-creator-of-the-marlowe-contract" id="set-the-address-and-signing-key-for-the-creator-of-the-marlowe-contract"></a>
+#### Thiết lập địa chỉ và khóa ký cho người tạo hợp đồng Marlowe.
 
 In \[32]:
 
@@ -765,7 +771,7 @@ echo "PAYMENT_ADDR = $PAYMENT_ADDR"
 PAYMENT_ADDR = addr1vy9prvx8ufwutkwxx9cmmuuajaqmjqwujqlp9d8pvg6gupceql82h
 ```
 
-Also, we use the well-known address of Marlowe's reference script on `mainnet`.
+Chúng ta cũng sử dụng địa chỉ đã biết của script **tham chiếu** Marlowe trên `mainnet`.
 
 In \[33]:
 
@@ -773,7 +779,7 @@ In \[33]:
 REFERENCE_ADDR=addr1z9l4w7djneh0kss4drg2php6ynflsvmal7x3w5nrc95uvhz7e4q926apsvcd6kn33cpx95k8jsmrj7v0k62rczvz8urqrl2z0l
 ```
 
-#### For minting the NFTs, use a monetary policy that forbids further minting after two days from now. <a href="#for-minting-the-nfts-use-a-monetary-policy-that-forbids-further-minting-after-two-days-from-now" id="for-minting-the-nfts-use-a-monetary-policy-that-forbids-further-minting-after-two-days-from-now"></a>
+#### Để mint các NFT, sử dụng chính sách tiền tệ cấm việc mint thêm sau hai ngày kể từ bây giờ.
 
 In \[34]:
 
@@ -786,7 +792,7 @@ echo "LOCKING_SLOT = $LOCKING_SLOT"
 LOCKING_SLOT = 83634311
 ```
 
-#### Mint the NFTs. <a href="#mint-the-nfts" id="mint-the-nfts"></a>
+#### Đúc các NFT. <a href="#mint-the-nfts" id="mint-the-nfts"></a>
 
 In \[35]:
 
@@ -814,7 +820,7 @@ Execution units:
 POLICY_ID = 76d2abf2f510fe2d2ddd990fd87f68f14360d303b6366cf5a7482ad4
 ```
 
-We can view the NFTs at the following URL:
+Chúng ta có thể xem các NFT qua đường dẫn:
 
 In \[36]:
 
@@ -826,9 +832,9 @@ echo "https://cexplorer.io/policy/$POLICY_ID"
 https://cexplorer.io/policy/76d2abf2f510fe2d2ddd990fd87f68f14360d303b6366cf5a7482ad4
 ```
 
-#### Create the initial state of the contract. <a href="#create-the-initial-state-of-the-contract" id="create-the-initial-state-of-the-contract"></a>
+#### Khởi tạo trạng thái ban đầu của hợp đồng. <a href="#create-the-initial-state-of-the-contract" id="create-the-initial-state-of-the-contract"></a>
 
-Unlike a typical contract, the initial state of this contract will contain several non-Ada tokens.
+Không như các hợp đồng thông thường, trạng thái ban đầu của hợp đồng này sẽ bao gồm một số non-ADA token.
 
 In \[37]:
 
@@ -860,9 +866,9 @@ choices: []
 minTime: 1
 ```
 
-#### Create the contract. <a href="#create-the-contract" id="create-the-contract"></a>
+#### Tạo hợp đồng. <a href="#create-the-contract" id="create-the-contract"></a>
 
-The contract simply waits for the deposit and then closes, causing the tokens to be distributed to the payout address.
+Hợp đồng chỉ đơn giản chờ đợi khoản gửi và sau đó đóng lại, dẫn đến việc các token được phân phối cho địa chỉ thanh toán.
 
 In \[38]:
 
@@ -901,9 +907,9 @@ when:
   then: close
 ```
 
-#### Initialize the off-chain data for the Marlowe contract. <a href="#initialize-the-off-chain-data-for-the-marlowe-contract" id="initialize-the-off-chain-data-for-the-marlowe-contract"></a>
+#### Khởi tạo dữ liệu off-chain cho hợp đồng Marlowe.&#x20;
 
-The `.marlowe` files contains the information needed to run the contract.
+Tệp `.marlowe` chứa thông tin cần thiết để thực thi hợp đồng
 
 In \[39]:
 
@@ -931,9 +937,9 @@ Validator size: 12505
 Base-validator cost: ExBudget {exBudgetCPU = ExCPU 18515100, exBudgetMemory = ExMemory 80600}
 ```
 
-#### Execute the transaction to create the contract. <a href="#execute-the-transaction-to-create-the-contract" id="execute-the-transaction-to-create-the-contract"></a>
+#### Thực hiện giao dịch để tạo hợp đồng.&#x20;
 
-Sadly, Marlowe Runtime does not support creating a contract with a non-default initial state. Instead we use `marlowe-cli` to create the contract.
+Đáng tiếc là Marlowe Runtime không hỗ trợ việc tạo hợp đồng với trạng thái ban đầu không mặc định. Thay vào đó, chúng ta sẽ sử dụng `marlowe-cli` để tạo hợp đồng.
 
 In \[40]:
 
@@ -964,7 +970,7 @@ TX_1 = ac64d6f7ed327ab9b0f561aebcb004967fbd9ff5ab377964b88874efd6c8b33b
 CONTRACT_ID = ac64d6f7ed327ab9b0f561aebcb004967fbd9ff5ab377964b88874efd6c8b33b#1
 ```
 
-View the contract's UTxO on the blockchain.
+Xem UTxO của hợp đồng trên blockchain.
 
 In \[41]:
 
@@ -978,7 +984,7 @@ cardano-cli query utxo  "${MAGIC[@]}" --tx-in "$CONTRACT_ID"
 ac64d6f7ed327ab9b0f561aebcb004967fbd9ff5ab377964b88874efd6c8b33b     1        2000000 lovelace + 1 76d2abf2f510fe2d2ddd990fd87f68f14360d303b6366cf5a7482ad4.596f5472323031362d31 + 1 76d2abf2f510fe2d2ddd990fd87f68f14360d303b6366cf5a7482ad4.596f5472323031362d32 + 1 76d2abf2f510fe2d2ddd990fd87f68f14360d303b6366cf5a7482ad4.596f5472323031362d33 + TxOutDatumHash ScriptDataInBabbageEra "cfe093e26ba90bbfadfcbbd0d11a2dfa8441b0e5fdfe4921ad8c03f8192ab2a1"
 ```
 
-Use Marlowe Runtime to view the contract on the blockchain.
+Sử dụng Marlowe Runtime để xem hợp đồng trên blockchain.
 
 In \[42]:
 
@@ -1003,7 +1009,7 @@ Marlowe Version: 1
 
 ```
 
-One can view this transaction in an explorer:
+Kiểm tra giao dịch qua trình khám phá dữ liệu blockchain:
 
 In \[43]:
 
@@ -1015,9 +1021,9 @@ echo "https://cardanoscan.io/transaction/$TX_1?tab=utxo"
 https://cardanoscan.io/transaction/ac64d6f7ed327ab9b0f561aebcb004967fbd9ff5ab377964b88874efd6c8b33b?tab=utxo
 ```
 
-#### Prepare a transaction to remove the NFTs from the contract. <a href="#prepare-a-transaction-to-remove-the-nfts-from-the-contract" id="prepare-a-transaction-to-remove-the-nfts-from-the-contract"></a>
+#### Chuẩn bị một giao dịch để loại bỏ các NFT khỏi hợp đồng.&#x20;
 
-This requires that the owner of the role token deposit 500 Ada into the contract.
+Việc này yêu cầu chủ sở hữu token vai trò gửi 500 Ada vào hợp đồng.
 
 In \[44]:
 
@@ -1039,13 +1045,13 @@ echo "TX_2 = $TX_2"
 TX_2 = ff16318eb0a3ad7eb9dc4096796dfd461ad42e459076f6eb06fa898f0989c335
 ```
 
-We won't submit this transaction, but it is good to know that we could do so succesffully, if we ever want to close the contract and remove the tokens from it.
+_Chúng ta sẽ không gửi giao dịch này, nhưng thật tốt khi biết rằng chúng ta có thể thực hiện thành công nếu chúng ta muốn đóng hợp đồng và loại bỏ các token khỏi đó._
 
-## Conclusion <a href="#conclusion" id="conclusion"></a>
+### Kết luận:
 
-So now we have the NFT representing the collection in the owner's wallet and the three NFTs constituting the collection in a Marlowe contract controlled by the owner.
+Giờ đây, chúng ta có NFT đại diện cho bộ sưu tập trong ví của chủ sở hữu và ba NFT cấu thành bộ sưu tập trong một hợp đồng Marlowe được kiểm soát bởi chủ sở hữu.
 
-One can use an explorer to see that the NFT for the collection as a whole is the wallet.
+Có thể sử dụng một trình khám phá để xem rằng NFT cho toàn bộ bộ sưu tập nằm trong ví.
 
 In \[45]:
 
