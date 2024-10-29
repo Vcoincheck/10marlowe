@@ -838,7 +838,7 @@ steps:
     txIx: 3
 ```
 
-### Gửi trả token BearGarden về faucet <a href="#return-the-beargarden-token-to-the-faucet" id="return-the-beargarden-token-to-the-faucet"></a>
+### Gửi trả token BearGarden và các stablecoin về faucet <a href="#return-the-beargarden-token-to-the-faucet" id="return-the-beargarden-token-to-the-faucet"></a>
 
 Việc trả lại các token cho faucet là một cách tiện lợi để **dọn dẹp** cho ví dụ này.
 

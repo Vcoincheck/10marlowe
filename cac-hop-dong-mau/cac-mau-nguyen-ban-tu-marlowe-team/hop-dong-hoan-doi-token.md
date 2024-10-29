@@ -1,38 +1,40 @@
-# A Swap of Tokens
+# Hợp đồng hoán đổi token
 
-### &#x20;Caution! <a href="#caution" id="caution"></a>
+### <mark style="color:red;">**Cảnh báo**</mark>**!** <a href="#caution" id="caution"></a>
 
-Before running a Marlowe contract on `mainnet`, it is wise to do the following in order to avoid losing funds:
+Trước khi chạy một hợp đồng Marlowe trên mainnet, hãy làm theo các bước sau để tránh mất tiền:
 
-1. Understand the [Marlowe Language](https://marlowe.iohk.io/).
-2. Understand Cardano's [Extended UTxO Model](https://docs.cardano.org/learn/eutxo-explainer).
-3. Read and understand the [Marlowe Best Practices Guide](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/best-practices.md).
-4. Read and understand the [Marlowe Security Guide](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/security.md).
-5. Use [Marlowe Playground](https://play.marlowe.iohk.io/) to flag warnings, perform static analysis, and simulate the contract.
-6. Use [Marlowe CLI's](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/ReadMe.md) `marlowe-cli run analyze` tool to study whether the contract can run on a Cardano network.
-7. Run _all execution paths_ of the contract on a [Cardano testnet](https://docs.cardano.org/cardano-testnet/overview).
+1. Hiểu [ngôn ngữ Marlowe](https://marlowe.iohk.io/).
+2. Hiểu mô hình [Extended UTxO](https://docs.cardano.org/learn/eutxo-explainer) của Cardano.
+3. Đọc và hiểu Hướng dẫn [Thực hành Tốt nhất của Marlowe](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/best-practices.md).
+4. Đọc và hiểu [Hướng dẫn Bảo mật](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/security.md) của Marlowe.
+5. Sử dụng [Marlowe Playground](https://playground.marlowe-lang.org/#/) để đánh dấu cảnh báo, thực hiện phân tích tĩnh và mô phỏng hợp đồng.
+6. Sử dụng công cụ `marlowe-cli run analyze` của [Marlowe CLI](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/ReadMe.md) để kiểm tra xem hợp đồng có thể chạy trên mạng Cardano hay không.
+7. Chạy tất cả các đường thực thi của hợp đồng trên [testnet](https://docs.cardano.org/cardano-testnet/overview) Cardano.
+
+### &#x20;<a href="#caution" id="caution"></a>
 
 ***
 
-## A Swap of Tokens <a href="#a-swap-of-tokens" id="a-swap-of-tokens"></a>
+## Hợp đồng hoán đổi token <a href="#a-swap-of-tokens" id="a-swap-of-tokens"></a>
 
-This contract swaps one type of token for another.
+Là hợp đồng hoán đổi 1 token cho 1 hoặc nhiều token khác.
 
-This example consists of four transactions:
+Ví dụ này bao gồm bốn giao dịch:
 
-1. Francis Beaumont creates the token-sale Marlowe contract.
-2. Francis Beaumont deposits 500 Globe tokens in the contract.
-3. John Webster deposits 300 Swan tokens in the contract, causing it to close and pay the tokens for the benefit of the other parties.
-4. Francis Beaumeont withdraws his 300 Swan tokens from Marlowe's role-payout address.
-5. John Webster withdraws his 500 Globe tokens from Marlowe's role-payout address.
+1. Francis Beaumont tạo hợp đồng Marlowe bán token.
+2. Francis Beaumont gửi 500 token Globe vào hợp đồng.
+3. John Webster gửi 300 token Swan vào hợp đồng, khiến hợp đồng đóng lại và thanh toán các token cho lợi ích của các bên còn lại.
+4. Francis Beaumont rút 300 token Swan của mình từ địa chỉ thanh toán của Marlowe.
+5. John Webster rút 500 token Globe của mình từ địa chỉ thanh toán của Marlowe.
 
-Here is the contract in Blockly format:
+Dưới đây là hợp đồng ở định dạng Blockly:
 
 ![Token swap](https://raw.githubusercontent.com/input-output-hk/real-world-marlowe/a288a9f391e68135e59e65a813db695e6223472d/nfts/swap/contract.png)
 
-### Set Up <a href="#set-up" id="set-up"></a>
+### Thiết lập <a href="#set-up" id="set-up"></a>
 
-Use `mainnet`.
+Sử dụng `mainnet`.
 
 In \[1]:
 
@@ -40,7 +42,7 @@ In \[1]:
 . ../../mainnet.env
 ```
 
-Use the standard example roles.
+Sử dụng các vai trò trong ví dụ tiêu chuẩn.
 
 In \[2]:
 
@@ -48,16 +50,16 @@ In \[2]:
 . ../../dramatis-personae/roles.env
 ```
 
-### Role tokens <a href="#role-tokens" id="role-tokens"></a>
+### Token vai trò&#x20;
 
-This contract uses [Ada Handles](https://adahandle.com/) as role tokens:
+Hợp đồng này sử dụng Ada Handles làm token vai trò:
 
 * Francis Beaumont = [$f.beaumont](https://pool.pm/asset1dv4kncr59t9cndrqdhdd28l656eppcq9mlcxq7)
 * John Webster = [$j.webster](https://pool.pm/asset1zdcycnnmg6dx5dy030u4cu0zdn63r2scghg2p4)
 
-_Note: Only use a pre-minted token as a Marlowe role if you have reviewed the monetary policy for security vulnerabilities._
+Lưu ý: Chỉ sử dụng token đã được phát hành trước làm token vai trò Marlowe nếu bạn đã xem xét chính sách tiền tệ để tìm kiếm các lỗ hổng bảo mật.
 
-Here is the currency symbol for Ada handles on `mainnet`:
+Dưới đây là ký hiệu tiền tệ cho Ada handles trên mainnet:&#x20;
 
 In \[3]:
 
@@ -69,9 +71,9 @@ echo "ROLES_CURRENCY = $ROLES_CURRENCY"
 ROLES_CURRENCY = f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a
 ```
 
-### Policy ID for the Globe and Swan tokens <a href="#policy-id-for-the-globe-and-swan-tokens" id="policy-id-for-the-globe-and-swan-tokens"></a>
+### Policy ID cho token Globe và Swan <a href="#policy-id-for-the-globe-and-swan-tokens" id="policy-id-for-the-globe-and-swan-tokens"></a>
 
-We previously minted the BearGarden token with the following policy.
+Chúng tôi đã trước đó phát hành token Globe và Swan với chính sách sau đây.&#x20;
 
 In \[4]:
 
@@ -83,9 +85,9 @@ echo "FUNGIBLES_POLICY = $FUNGIBLES_POLICY"
 FUNGIBLES_POLICY = 8bb3b343d8e404472337966a722150048c768d0a92a9813596c5338d
 ```
 
-### Initial funding <a href="#initial-funding" id="initial-funding"></a>
+### Gửi token ban đầu <a href="#initial-funding" id="initial-funding"></a>
 
-Send the GLobe and Swan fungible tokens from the faucet to the parties.
+Gửi token Globe và Swan từ faucet cho các bên liên quan.
 
 In \[5]:
 
@@ -110,9 +112,9 @@ marlowe-cli transaction simple \
 TxId "707db5afc8b367df20e6818907b6cc88c74f5572cc306e37fb40e6d97e57edb7"
 ```
 
-### The Marlowe contract <a href="#the-marlowe-contract" id="the-marlowe-contract"></a>
+### Hợp đồng Marlowe <a href="#the-marlowe-contract" id="the-marlowe-contract"></a>
 
-The Marlowe contract is just a download of the JSON file for the Blockly-format contract designed in the [Marlowe Playground](https://play.marlowe.iohk.io/#/).
+Hợp đồng Marlowe thực tế chỉ cần download file JSON được biên dịch từ hợp đồng này dạng Blockly đã được thiết kế sẵn trong [Marlowe Playground](https://play.marlowe.iohk.io/#/).
 
 In \[6]:
 
@@ -169,9 +171,9 @@ when:
           token_name: Globe
 ```
 
-### Transaction 1. Create the contract <a href="#transaction-1.-create-the-contract" id="transaction-1.-create-the-contract"></a>
+### Giao dịch số 1: Tạo hợp đồng <a href="#transaction-1.-create-the-contract" id="transaction-1.-create-the-contract"></a>
 
-We use Marlowe Runtime's command-line tool to build the transaction for creating the contract.
+Chúng ta sử dụng công cụ _Marlowe Runtime's command-line_ để xây dựng giao dịch tạo hợp đồng.
 
 In \[7]:
 
@@ -192,7 +194,7 @@ echo "CONTRACT_ID = $CONTRACT_ID"
 CONTRACT_ID = 7efd47341da9f2c101848035112109c25523e8113caf1a6ec46ee48bd6827e13#1
 ```
 
-The contract can be signed an submitted with any wallet or service. For convenience, we use `marlowe-cli` here.
+Hợp đồng có thể được ký và gửi bằng bất kỳ ví hoặc dịch vụ nào. Để thuận tiện, chúng ta sử dụng `marlowe-cli`.
 
 In \[8]:
 
@@ -208,7 +210,7 @@ marlowe-cli transaction submit \
 TxId "7efd47341da9f2c101848035112109c25523e8113caf1a6ec46ee48bd6827e13"
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu Cardano.
 
 In \[9]:
 
@@ -220,7 +222,7 @@ echo "https://cardanoscan.io/transaction/${CONTRACT_ID%%#1}?tab=utxo"
 https://cardanoscan.io/transaction/7efd47341da9f2c101848035112109c25523e8113caf1a6ec46ee48bd6827e13?tab=utxo
 ```
 
-We can use a tool such as `marlowe-pipe` to fetch the contract from the blockchain and display it.
+Chúng ta cũng có thể sử dụng công cụ như `marlowe-pipe` để truy xuất hợp đồng từ blockchain và hiển thị nó
 
 In \[10]:
 
@@ -302,7 +304,7 @@ response: info
 steps: []
 ```
 
-### Transaction 2. Francis Beaumont deposits 500 Globe tokens into the contract <a href="#transaction-2.-francis-beaumont-deposits-500-globe-tokens-into-the-contract" id="transaction-2.-francis-beaumont-deposits-500-globe-tokens-into-the-contract"></a>
+### Giao dịch số 2. Francis Beaumont nạp 500 token Globe vào trong hợp đồng <a href="#transaction-2.-francis-beaumont-deposits-500-globe-tokens-into-the-contract" id="transaction-2.-francis-beaumont-deposits-500-globe-tokens-into-the-contract"></a>
 
 In \[11]:
 
@@ -326,7 +328,7 @@ echo "TX_2 = $TX_2"
 TX_2 = 3331f5b45e640372729e41b846f7ae47f5f2f4049b896907bce28da5afb60398
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[12]:
 
@@ -342,7 +344,7 @@ marlowe-cli transaction submit \
 TxId "3331f5b45e640372729e41b846f7ae47f5f2f4049b896907bce28da5afb60398"
 ```
 
-See that the contract holds the Globe tokens.
+Kiểm tra xem token đã được chuyển vào hợp đồng..
 
 In \[13]:
 
@@ -354,7 +356,7 @@ echo "https://cardanoscan.io/transaction/$TX_2?tab=utxo"
 https://cardanoscan.io/transaction/3331f5b45e640372729e41b846f7ae47f5f2f4049b896907bce28da5afb60398?tab=utxo
 ```
 
-View the output to the Marlowe contract to see that it now holds 1 BearGarden token.
+Ta có thể thấy output trong hợp đồng Marlowe đã có 500 token Globe.
 
 In \[14]:
 
@@ -368,7 +370,7 @@ cardano-cli query utxo --mainnet --tx-in "$TX_2#1"
 3331f5b45e640372729e41b846f7ae47f5f2f4049b896907bce28da5afb60398     1        3000000 lovelace + 500 8bb3b343d8e404472337966a722150048c768d0a92a9813596c5338d.476c6f6265 + TxOutDatumHash ScriptDataInBabbageEra "66392b9c9369b5485904aad6be47ab5fe1a3cd59979f9cf1623f0c82c9df8755"
 ```
 
-### Transaction 3. John Webster deposits 300 Swan tokens into the contract, causing it to pay the parties. <a href="#transaction-3.-john-webster-deposits-300-swan-tokens-into-the-contract-causing-it-to-pay-the-parties" id="transaction-3.-john-webster-deposits-300-swan-tokens-into-the-contract-causing-it-to-pay-the-parties"></a>
+### Giao dịch số 3: John Webster chuyển 300 token Swan tokens vào trong hợp đồng, dẫn đến việc hợp đồng thanh toán cho các bên. <a href="#transaction-3.-john-webster-deposits-300-swan-tokens-into-the-contract-causing-it-to-pay-the-parties" id="transaction-3.-john-webster-deposits-300-swan-tokens-into-the-contract-causing-it-to-pay-the-parties"></a>
 
 In \[15]:
 
@@ -392,7 +394,7 @@ echo "TX_3 = $TX_3"
 TX_3 = d841657906fafd29f32638189d57e90903f49dce8712a182b520462825a076fe
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[16]:
 
@@ -408,7 +410,7 @@ marlowe-cli transaction submit \
 TxId "d841657906fafd29f32638189d57e90903f49dce8712a182b520462825a076fe"
 ```
 
-See that the contract has closed and paid the tokens for the benefit of the parties.
+Kiểm tra xem hợp đồng đã đóng và các token đã được trả đúng cho các bên hưởng lợi tương ứng.
 
 In \[17]:
 
@@ -420,7 +422,7 @@ echo "https://cardanoscan.io/transaction/$TX_3?tab=utxo"
 https://cardanoscan.io/transaction/d841657906fafd29f32638189d57e90903f49dce8712a182b520462825a076fe?tab=utxo
 ```
 
-### Transaction 4. Francis Beaumont withdraws his 300 Swan tokens from the role-payout address <a href="#transaction-4.-francis-beaumont-withdraws-his-300-swan-tokens-from-the-role-payout-address" id="transaction-4.-francis-beaumont-withdraws-his-300-swan-tokens-from-the-role-payout-address"></a>
+### Giao dịch số 4: Francis Beaumont rút 300 token Swan tokens từ địa chỉ vai trò <a href="#transaction-4.-francis-beaumont-withdraws-his-300-swan-tokens-from-the-role-payout-address" id="transaction-4.-francis-beaumont-withdraws-his-300-swan-tokens-from-the-role-payout-address"></a>
 
 In \[18]:
 
@@ -440,7 +442,7 @@ echo "TX_4 = $TX_4"
 TX_4 = 0f7271ba8d0502a6579f2b5fe139245c3a257a5504c2528e4a5ce87c0b5552ff
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[19]:
 
@@ -456,7 +458,7 @@ marlowe-cli transaction submit \
 TxId "0f7271ba8d0502a6579f2b5fe139245c3a257a5504c2528e4a5ce87c0b5552ff"
 ```
 
-See that the tokens were withdrawn.
+Kiểm tra xem token đã được rút thành công chưa.
 
 In \[20]:
 
@@ -468,7 +470,7 @@ echo "https://cardanoscan.io/transaction/$TX_4?tab=utxo"
 https://cardanoscan.io/transaction/0f7271ba8d0502a6579f2b5fe139245c3a257a5504c2528e4a5ce87c0b5552ff?tab=utxo
 ```
 
-### Transaction 5. John Webster withdraws his 500 Globe tokens from the role-payout address <a href="#transaction-5.-john-webster-withdraws-his-500-globe-tokens-from-the-role-payout-address" id="transaction-5.-john-webster-withdraws-his-500-globe-tokens-from-the-role-payout-address"></a>
+### Transaction 5. John Webster rút 500 token Globe từ địa chỉ vai trò <a href="#transaction-5.-john-webster-withdraws-his-500-globe-tokens-from-the-role-payout-address" id="transaction-5.-john-webster-withdraws-his-500-globe-tokens-from-the-role-payout-address"></a>
 
 In \[21]:
 
@@ -488,7 +490,7 @@ echo "TX_5 = $TX_5"
 TX_5 = 696d702616287cf1f3a18320d9b21ebf121aac4e9ca52b7f0b7d0b4173d0f5f5
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[22]:
 
@@ -504,7 +506,7 @@ marlowe-cli transaction submit \
 TxId "696d702616287cf1f3a18320d9b21ebf121aac4e9ca52b7f0b7d0b4173d0f5f5"
 ```
 
-See that the tokens were withdrawn.
+Kiểm tra xem token đã được rút thành công chưa.
 
 In \[23]:
 
@@ -516,9 +518,9 @@ echo "https://cardanoscan.io/transaction/$TX_5?tab=utxo"
 https://cardanoscan.io/transaction/696d702616287cf1f3a18320d9b21ebf121aac4e9ca52b7f0b7d0b4173d0f5f5?tab=utxo
 ```
 
-### View the whole history of the contract <a href="#view-the-whole-history-of-the-contract" id="view-the-whole-history-of-the-contract"></a>
+### Xem lại toàn bộ hợp đồng <a href="#view-the-whole-history-of-the-contract" id="view-the-whole-history-of-the-contract"></a>
 
-We use `marlowe-pipe` to print the whole history of this contract.
+Chúng ta sử dụng câu lệnh `marlowe-pipe` để in toàn bộ lịch sử hợp đồng.
 
 In \[24]:
 
@@ -728,7 +730,7 @@ steps:
     txIx: 3
 ```
 
-### Return the BearGarden token to the faucet <a href="#return-the-beargarden-token-to-the-faucet" id="return-the-beargarden-token-to-the-faucet"></a>
+### Gửi trả các token về faucet <a href="#return-the-beargarden-token-to-the-faucet" id="return-the-beargarden-token-to-the-faucet"></a>
 
 Returning the token to the faucet is convenient housekeeping for this example.
 

@@ -51,7 +51,7 @@ In \[2]:
 
 ### Role tokens <a href="#role-tokens" id="role-tokens"></a>
 
-### oken vai trò&#x20;
+### Token vai trò&#x20;
 
 Hợp đồng này sử dụng Ada Handles làm token vai trò:
 
@@ -338,7 +338,7 @@ echo "CONTRACT_ID = $CONTRACT_ID"
 CONTRACT_ID = bc6896d9e69d61058355f44fdb6d2343385999f26c894e58b6c5b3c7649df58f#1
 ```
 
-The contract can be signed an submitted with any wallet or service. For convenience, we use `marlowe-cli` here.
+Hợp đồng có thể được ký và gửi bằng bất kỳ ví hoặc dịch vụ nào. Để thuận tiện, chúng ta sử dụng `marlowe-cli`.
 
 In \[12]:
 
@@ -364,7 +364,7 @@ echo "https://cardanoscan.io/transaction/${CONTRACT_ID%%#1}?tab=utxo"
 https://cardanoscan.io/transaction/bc6896d9e69d61058355f44fdb6d2343385999f26c894e58b6c5b3c7649df58f?tab=utxo
 ```
 
-We can use a tool such as `marlowe-pipe` to fetch the contract from the blockchain and display it.
+Chúng ta cũng có thể sử dụng công cụ như `marlowe-pipe` để truy xuất hợp đồng từ blockchain và hiển thị nó.
 
 In \[14]:
 
@@ -477,9 +477,9 @@ response: info
 steps: []
 ```
 
-### Transaction 2. Christopher Marlowe deposits the BearGarden token into the contract <a href="#transaction-2.-christopher-marlowe-deposits-the-beargarden-token-into-the-contract" id="transaction-2.-christopher-marlowe-deposits-the-beargarden-token-into-the-contract"></a>
+### Giao dịch số 2: Christopher Marlowe gửi token BearGarden vào hợp đồng.
 
-The logic of the contract dictates that Christopher Marlowe deposits one BearGarden token into his account in the Marlowe contract.
+Logic của hợp đồng quy định rằng Christopher Marlowe sẽ gửi một token BearGarden vào tài khoản của mình trong hợp đồng Marlowe.
 
 In \[15]:
 
@@ -503,7 +503,7 @@ echo "TX_2 = $TX_2"
 TX_2 = 5ddaf981b9191f607c5f8e901f3655f876f994bb3aab7d385d4fee0b7bc30f73
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[16]:
 
@@ -529,7 +529,7 @@ echo "https://cardanoscan.io/transaction/$TX_2?tab=utxo"
 https://cardanoscan.io/transaction/5ddaf981b9191f607c5f8e901f3655f876f994bb3aab7d385d4fee0b7bc30f73?tab=utxo
 ```
 
-View the output to the Marlowe contract to see that it now holds 1 BearGarden token.
+Ta có thể thấy output trong hợp đồng Marlowe đã có 1 token BearGarden.
 
 In \[18]:
 
@@ -543,9 +543,9 @@ cardano-cli query utxo --mainnet --tx-in "$TX_2#1"
 5ddaf981b9191f607c5f8e901f3655f876f994bb3aab7d385d4fee0b7bc30f73     1        3000000 lovelace + 1 8bb3b343d8e404472337966a722150048c768d0a92a9813596c5338d.4265617247617264656e + TxOutDatumHash ScriptDataInBabbageEra "06fcf8fbb9256df94ee3f58533c631d5b51e61dfb49d9dc0c1e0db9606e06fbf"
 ```
 
-### Transaction 3. Jane Lumley deposits 50.175 iUSD into the contract, causing it to pay the parties. <a href="#transaction-3.-jane-lumley-deposits-50.175-iusd-into-the-contract-causing-it-to-pay-the-parties" id="transaction-3.-jane-lumley-deposits-50.175-iusd-into-the-contract-causing-it-to-pay-the-parties"></a>
+### Giao dịch 3. Jane Lumley gửi 50.175 iUSD vào hợp đồng, dẫn đến việc hợp đồng thanh toán cho các bên.&#x20;
 
-Depositing the 50.175 iUSD causes the contract to close as it pays 1 BearGarden to Marlowe's role-payout address for the benefit of Jane Lumley, 50 iUSD for the benefit of Christopher Marlowe, and 0.175 iUSD for the benefit of Elizabeth Cary.
+Việc gửi 50.175 iUSD khiến hợp đồng đóng lại vì nó thanh toán 1 BearGarden cho địa chỉ thanh toán của Marlowe để phục vụ cho lợi ích của Jane Lumley, 50 iUSD cho lợi ích của Christopher Marlowe, và 0.175 iUSD cho lợi ích của Elizabeth Cary.
 
 In \[19]:
 
@@ -776,7 +776,7 @@ echo "TX_3 = $TX_3"
 TX_3 = ef7ba4b05d4f8bed493aaf881fcd7b4aac3d396e92e4977a23f69b3b0e194a7a
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[21]:
 
@@ -802,7 +802,7 @@ echo "https://cardanoscan.io/transaction/$TX_3?tab=utxo"
 https://cardanoscan.io/transaction/ef7ba4b05d4f8bed493aaf881fcd7b4aac3d396e92e4977a23f69b3b0e194a7a?tab=utxo
 ```
 
-See that Chrisopher Marlowe still holds his role token.
+Ta thấy Chrisopher Marlowe vẫn đang giữ token vai trò của anh ấy.
 
 In \[23]:
 
@@ -819,7 +819,7 @@ cardano-cli query utxo --mainnet --address "${ROLE_ADDR[c.marlowe]}"
 ca16af8573a2b844b8a3ea8d8299da37d6c63d83582a8f54eac927198884aae6     0        12201100 lovelace + TxOutDatumNone
 ```
 
-See that Jane Lumley still holds her role token.
+Ta thấy Jane Lumley vẫn đang giữ token vai trò của cô ấy.
 
 In \[24]:
 
@@ -835,7 +835,7 @@ ef7ba4b05d4f8bed493aaf881fcd7b4aac3d396e92e4977a23f69b3b0e194a7a     1        50
 ef7ba4b05d4f8bed493aaf881fcd7b4aac3d396e92e4977a23f69b3b0e194a7a     6        1163700 lovelace + 49825000 f66d78b4a3cb3d37afa0ec36461e51ecbde00f26c8f0a68f94b69880.69555344 + TxOutDatumNone
 ```
 
-See that Marlowe's payout address holds the 50 iUSD, 0.175 iUSD, and the 1 BearGarden.
+Ta thấy địa chỉ thanh toán Marlowe's vẫn đang giữ 50 iUSD, 0.175 iUSD, và 1 BearGarden.
 
 In \[25]:
 
@@ -851,7 +851,7 @@ ef7ba4b05d4f8bed493aaf881fcd7b4aac3d396e92e4977a23f69b3b0e194a7a     3        12
 ef7ba4b05d4f8bed493aaf881fcd7b4aac3d396e92e4977a23f69b3b0e194a7a     4        1211110 lovelace + 1 8bb3b343d8e404472337966a722150048c768d0a92a9813596c5338d.4265617247617264656e + TxOutDatumHash ScriptDataInBabbageEra "9a0959b845f659fd39e6be40797247b4b1f2a1af78710d69adc9eb48f983a789"
 ```
 
-### Transaction 4. Christopher Marlowe withdraws his 50 iUSD from the role-payout address <a href="#transaction-4.-christopher-marlowe-withdraws-his-50-iusd-from-the-role-payout-address" id="transaction-4.-christopher-marlowe-withdraws-his-50-iusd-from-the-role-payout-address"></a>
+### Giao dịch số 4: Christopher Marlowe rút 50 iUSD của mình từ địa chỉ thanh toán của vai trò.
 
 In \[26]:
 
@@ -871,7 +871,7 @@ echo "TX_4 = $TX_4"
 TX_4 = 4e30cb6ca15dd6f830e6f1a78d5d2e40a9c98abe0bedcd87e85db1727ae94453
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[27]:
 
@@ -887,7 +887,7 @@ marlowe-cli transaction submit \
 TxId "4e30cb6ca15dd6f830e6f1a78d5d2e40a9c98abe0bedcd87e85db1727ae94453"
 ```
 
-See that Christopher Marlowe has successfully withdrawn the 50 iUSD from the role-payout address.
+Ta thấy Christopher Marlowe đã rút thành công 50 iUSD từ địa chỉ vai trò.
 
 In \[28]:
 
@@ -899,7 +899,7 @@ echo "https://cardanoscan.io/transaction/$TX_4?tab=utxo"
 https://cardanoscan.io/transaction/4e30cb6ca15dd6f830e6f1a78d5d2e40a9c98abe0bedcd87e85db1727ae94453?tab=utxo
 ```
 
-### Transaction 5. Jane Lumley withdraws her 1 BearGarden from the role-payout address <a href="#transaction-5.-jane-lumley-withdraws-her-1-beargarden-from-the-role-payout-address" id="transaction-5.-jane-lumley-withdraws-her-1-beargarden-from-the-role-payout-address"></a>
+### Giao dịch số 5: Jane Lumley rút 1 BearGarden của mình từ địa chỉ thanh toán của vai trò.
 
 In \[29]:
 
@@ -919,7 +919,7 @@ echo "TX_5 = $TX_5"
 TX_5 = 32748b6b714afc4c1721224917b501b2886a306d196c4ab839ec33bd6a6c38c4
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[30]:
 
@@ -935,7 +935,7 @@ marlowe-cli transaction submit \
 TxId "32748b6b714afc4c1721224917b501b2886a306d196c4ab839ec33bd6a6c38c4"
 ```
 
-See that Jane Lumley has successfully withdrawn the 1 BearGarden from the role-payout address.
+Ta thấy Jane Lumley đã rút thành công 1 BearGarden từ địa chỉ vai trò.
 
 In \[31]:
 
@@ -947,7 +947,7 @@ echo "https://cardanoscan.io/transaction/$TX_5?tab=utxo"
 https://cardanoscan.io/transaction/32748b6b714afc4c1721224917b501b2886a306d196c4ab839ec33bd6a6c38c4?tab=utxo
 ```
 
-### Transaction 6. Elizabeth Cary withdraws her 0.175 iUSD royalty from the role-payout address <a href="#transaction-6.-elizabeth-cary-withdraws-her-0.175-iusd-royalty-from-the-role-payout-address" id="transaction-6.-elizabeth-cary-withdraws-her-0.175-iusd-royalty-from-the-role-payout-address"></a>
+### Giao dịch số 6: Elizabeth Cary rút 0.175 iUSD bản quyền từ địa chỉ vai trò. <a href="#transaction-6.-elizabeth-cary-withdraws-her-0.175-iusd-royalty-from-the-role-payout-address" id="transaction-6.-elizabeth-cary-withdraws-her-0.175-iusd-royalty-from-the-role-payout-address"></a>
 
 In \[32]:
 
@@ -967,7 +967,7 @@ echo "TX_6 = $TX_6"
 TX_6 = 9c0e6575a3b69dd9435949c6587584032858f709b3e74bcafb8a2a35bdbb45d9
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[33]:
 
@@ -983,7 +983,7 @@ marlowe-cli transaction submit \
 TxId "9c0e6575a3b69dd9435949c6587584032858f709b3e74bcafb8a2a35bdbb45d9"
 ```
 
-See that Elizabeth Cary has successfully withdrawn the 0.175 iUSD from the role-payout address.
+Ta thấy Elizabeth Cary đã rút thành công 0.175 iUSD từ địa chỉ vai trò.
 
 In \[34]:
 
@@ -995,9 +995,9 @@ echo "https://cardanoscan.io/transaction/$TX_6?tab=utxo"
 https://cardanoscan.io/transaction/9c0e6575a3b69dd9435949c6587584032858f709b3e74bcafb8a2a35bdbb45d9?tab=utxo
 ```
 
-### View the whole history of the contract <a href="#view-the-whole-history-of-the-contract" id="view-the-whole-history-of-the-contract"></a>
+### Xem lại toàn bộ hợp đồng <a href="#view-the-whole-history-of-the-contract" id="view-the-whole-history-of-the-contract"></a>
 
-We use `marlowe-pipe` to print the whole history of this contract.
+Chúng ta sử dụng câu lệnh `marlowe-pipe` để in toàn bộ lịch sử hợp đồng.
 
 In \[35]:
 
@@ -1280,9 +1280,9 @@ steps:
     txIx: 3
 ```
 
-### Return the BearGarden and iUSD tokens to the faucet <a href="#return-the-beargarden-and-iusd-tokens-to-the-faucet" id="return-the-beargarden-and-iusd-tokens-to-the-faucet"></a>
+### Gửi trả token BearGarden và iUSD về faucet <a href="#return-the-beargarden-token-to-the-faucet" id="return-the-beargarden-token-to-the-faucet"></a>
 
-Returning the token to the faucet is convenient housekeeping for this example.
+Việc trả lại các token cho faucet là một cách tiện lợi để **dọn dẹp** cho ví dụ này.
 
 In \[36]:
 
