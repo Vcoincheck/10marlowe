@@ -8,7 +8,7 @@
 
 ## DOCUMENTS & RESOURCES
 
-* [Overview](documents-and-resources/editor.md)
+* [Overview](documents-and-resources/overview.md)
 * [Marlowe introducion](documents-and-resources/marlowe-introducion.md)
 * [Concepts](documents-and-resources/concepts/README.md)
   * [Marlowe model](documents-and-resources/concepts/marlowe-model.md)
