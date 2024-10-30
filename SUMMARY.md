@@ -36,7 +36,7 @@
   * [SDK v0.4.0-beta](documents-and-resources/marlowe-typescript-sdk/sdk-v0.4.0-beta.md)
   * [Payouts DApp prototype](documents-and-resources/marlowe-typescript-sdk/payouts-dapp-prototype.md)
   * [Token Plan Prototype: A Vesting Contract](documents-and-resources/marlowe-typescript-sdk/token-plan-prototype-a-vesting-contract.md)
-* [Useful & additional resources](documents-and-resources/markdown.md)
+* [Useful & additional resources](documents-and-resources/useful-additional-resources.md)
 
 ***
 
