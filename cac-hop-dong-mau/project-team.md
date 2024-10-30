@@ -1,3 +1,0 @@
-# Project team
-
-Coming soon
