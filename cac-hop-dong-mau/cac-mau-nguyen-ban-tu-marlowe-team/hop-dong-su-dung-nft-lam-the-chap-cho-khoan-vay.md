@@ -1,40 +1,42 @@
-# NFT use as collateral for loan
+# Hợp đồng sử dụng NFT làm thế chấp cho khoản vay
 
-### &#x20;Caution! <a href="#caution" id="caution"></a>
+### <mark style="color:red;">**Cảnh báo**</mark>**!** <a href="#caution" id="caution"></a>
 
-Before running a Marlowe contract on `mainnet`, it is wise to do the following in order to avoid losing funds:
+Trước khi chạy một hợp đồng Marlowe trên mainnet, hãy làm theo các bước sau để tránh mất tiền:
 
-1. Understand the [Marlowe Language](https://marlowe.iohk.io/).
-2. Understand Cardano's [Extended UTxO Model](https://docs.cardano.org/learn/eutxo-explainer).
-3. Read and understand the [Marlowe Best Practices Guide](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/best-practices.md).
-4. Read and understand the [Marlowe Security Guide](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/security.md).
-5. Use [Marlowe Playground](https://play.marlowe.iohk.io/) to flag warnings, perform static analysis, and simulate the contract.
-6. Use [Marlowe CLI's](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/ReadMe.md) `marlowe-cli run analyze` tool to study whether the contract can run on a Cardano network.
-7. Run _all execution paths_ of the contract on a [Cardano testnet](https://docs.cardano.org/cardano-testnet/overview).
+1. Hiểu [ngôn ngữ Marlowe](https://marlowe.iohk.io/).
+2. Hiểu mô hình [Extended UTxO](https://docs.cardano.org/learn/eutxo-explainer) của Cardano.
+3. Đọc và hiểu Hướng dẫn [Thực hành Tốt nhất của Marlowe](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/best-practices.md).
+4. Đọc và hiểu [Hướng dẫn Bảo mật](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/security.md) của Marlowe.
+5. Sử dụng [Marlowe Playground](https://playground.marlowe-lang.org/#/) để đánh dấu cảnh báo, thực hiện phân tích tĩnh và mô phỏng hợp đồng.
+6. Sử dụng công cụ `marlowe-cli run analyze` của [Marlowe CLI](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/ReadMe.md) để kiểm tra xem hợp đồng có thể chạy trên mạng Cardano hay không.
+7. Chạy tất cả các đường thực thi của hợp đồng trên [testnet](https://docs.cardano.org/cardano-testnet/overview) Cardano.
+
+### &#x20;<a href="#caution" id="caution"></a>
 
 ***
 
-## A Bullet Loan with an NFT as Collateral <a href="#a-bullet-loan-with-an-nft-as-collateral" id="a-bullet-loan-with-an-nft-as-collateral"></a>
+### Hợp đồng sử dụng NFT làm thế chấp cho khoản vay
 
-The party borrows 90 Djed with a BearGarden token as collateral; after they pay back the 90 Djed principal and 10 Djed interest to the counterparty, they receive their BearGarden token back. If they do not pay before the deadline, the counterparty keeps their BearGarden token.
+Bên vay mượn 90 Djed với token BearGarden làm tài sản thế chấp; sau khi họ hoàn trả khoản vay 90 Djed gốc và 10 Djed lãi cho bên cho vay, họ sẽ nhận lại token BearGarden. Nếu không hoàn trả trước thời hạn, bên cho vay sẽ giữ lại token BearGarden.
 
-This example consists of seven transactions:
+Ví dụ này bao gồm bảy giao dịch:
 
-1. Elizabeth Cary creates the token-sale Marlowe contract.
-2. Elizabeth Cary deposits 1 BearGarden token in the contract.
-3. Mary Herbet deposits 90 Djed in the contract, causing the contract to loan the 90 Djed to Elizabeth Cary.
-4. Elizabeth Cary withdraws her 90 Djed from Marlowe's role-payout address.
-5. Later, Elizabeth Cary deposits 100 Djed into the contract, which returns her token and pays the 100 Djed to Mary Herbert.
-6. Elizabeth Cary withdraws her 1 BearGarden token from Marlowe's role-payout address.
-7. Mary Herbet withdraws her 100 Djed from Marlowe's role-payout address.
+1. Elizabeth Cary tạo hợp đồng Marlowe bán token.
+2. Elizabeth Cary gửi 1 token BearGarden vào hợp đồng.
+3. Mary Herbert gửi 90 Djed vào hợp đồng, khiến hợp đồng cho Elizabeth Cary vay 90 Djed.
+4. Elizabeth Cary rút 90 Djed từ địa chỉ thanh toán của vai trò trong Marlowe.
+5. Sau đó, Elizabeth Cary gửi 100 Djed vào hợp đồng, hợp đồng trả lại token cho cô và chuyển 100 Djed cho Mary Herbert.
+6. Elizabeth Cary rút 1 token BearGarden từ địa chỉ thanh toán của vai trò trong Marlowe.
+7. Mary Herbert rút 100 Djed từ địa chỉ thanh toán của vai trò trong Marlowe.
 
-Here is the contract in Blockly format:
+Dưới đây là hợp đồng ở định dạng Blockly:
 
 ![Loan collateralize by an NFT](https://raw.githubusercontent.com/input-output-hk/real-world-marlowe/a288a9f391e68135e59e65a813db695e6223472d/nfts/collateral/contract.png)
 
-### Set Up <a href="#set-up" id="set-up"></a>
+### Thiết lập <a href="#set-up" id="set-up"></a>
 
-Use `mainnet`.
+Sử dụng `mainnet`.
 
 In \[1]:
 
@@ -42,7 +44,7 @@ In \[1]:
 . ../../mainnet.env
 ```
 
-Use the standard example roles.
+Sử dụng các vai trò ví dụ tiêu chuẩn.
 
 In \[2]:
 
@@ -50,16 +52,16 @@ In \[2]:
 . ../../dramatis-personae/roles.env
 ```
 
-### Role tokens <a href="#role-tokens" id="role-tokens"></a>
+### Token vai trò&#x20;
 
-This contract uses [Ada Handles](https://adahandle.com/) as role tokens:
+Hợp đồng này sử dụng Ada Handles làm token vai trò:
 
 * Elizabeth Cary = [$e.cary](https://pool.pm/asset1tx4euajkdczmkawgkjy342agaq33885dlvp0jl)
 * Mary Herbert = [$m.herbert](https://pool.pm/asset1a38nhu84xquj7whe3xqr80uyf99mh2r7hzf277)
 
-_Note: Only use a pre-minted token as a Marlowe role if you have reviewed the monetary policy for security vulnerabilities._
+_Lưu ý: Chỉ sử dụng token đã được phát hành trước làm token vai trò Marlowe nếu bạn đã xem xét chính sách tiền tệ để tìm kiếm các lỗ hổng bảo mật._
 
-Here is the currency symbol for Ada handles on `mainnet`:
+Dưới đây là ký hiệu tiền tệ cho Ada handles trên `mainnet`:
 
 In \[3]:
 
@@ -71,9 +73,9 @@ echo "ROLES_CURRENCY = $ROLES_CURRENCY"
 ROLES_CURRENCY = f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a
 ```
 
-### Policy ID for the BearGarden token <a href="#policy-id-for-the-beargarden-token" id="policy-id-for-the-beargarden-token"></a>
+### Policy ID cho token BearGarden <a href="#policy-id-for-the-beargarden-token" id="policy-id-for-the-beargarden-token"></a>
 
-We previously minted the BearGarden token with the following policy.
+Chúng tôi đã trước đó phát hành token BearGarden với chính sách sau đây.&#x20;
 
 In \[4]:
 
@@ -85,9 +87,9 @@ echo "FUNGIBLES_POLICY = $FUNGIBLES_POLICY"
 FUNGIBLES_POLICY = 8bb3b343d8e404472337966a722150048c768d0a92a9813596c5338d
 ```
 
-### Policy IDs for Djed <a href="#policy-ids-for-djed" id="policy-ids-for-djed"></a>
+### Policy ID cho Djed <a href="#policy-ids-for-djed" id="policy-ids-for-djed"></a>
 
-Here are the policies for the stablecoins that we are using.
+Dưới đây là policy cho các stablecoin mà chúng ta sử dụng.
 
 In \[5]:
 
@@ -101,9 +103,9 @@ DJED_POLICY = 8db269c3ec630e06ae29f74bc39edd1f87c819f1056206e879a1cd61
 DJED_NAME = DjedMicroUSD
 ```
 
-### Initial Funding <a href="#initial-funding" id="initial-funding"></a>
+### Gửi ban đầu <a href="#initial-funding" id="initial-funding"></a>
 
-Send the BearGarden fungible token from the faucet to Elizabeth Cary and the stablecoins to both Elizabeth Cary and Mary Herbert.
+Gửi token BearGarden từ faucet cho Elizabeth Cary và Djed cho cả Elizabeth Cary và Mary Herbert.
 
 In \[6]:
 
@@ -150,9 +152,9 @@ marlowe-cli transaction simple \
 TxId "46cccae10f766e788eb7f2f362072a2acc3b9a2138c435d63551323cc8cd158d"
 ```
 
-### The Marlowe contract <a href="#the-marlowe-contract" id="the-marlowe-contract"></a>
+### Hợp đồng Marlowe <a href="#the-marlowe-contract" id="the-marlowe-contract"></a>
 
-The Marlowe contract is just a download of the JSON file for the Blockly-format contract designed in the [Marlowe Playground](https://play.marlowe.iohk.io/#/).
+Hợp đồng Marlowe thực tế chỉ cần download file JSON được biên dịch từ hợp đồng này dạng Blockly đã được thiết kế sẵn trong [Marlowe Playground](https://play.marlowe.iohk.io/#/).
 
 In \[8]:
 
@@ -222,9 +224,9 @@ when:
           token_name: DjedMicroUSD
 ```
 
-### Transaction 1. Create the contract <a href="#transaction-1.-create-the-contract" id="transaction-1.-create-the-contract"></a>
+### Giao dịch số 1: Tạo hợp đồng <a href="#transaction-1.-create-the-contract" id="transaction-1.-create-the-contract"></a>
 
-We use Marlowe Runtime's command-line tool to build the transaction for creating the contract.
+Chúng ta sử dụng công cụ _Marlowe Runtime's command-line_ để xây dựng giao dịch tạo hợp đồng.
 
 In \[9]:
 
@@ -245,7 +247,7 @@ echo "CONTRACT_ID = $CONTRACT_ID"
 CONTRACT_ID = 4a288753dfa52ae965d5a100ee353d89c19fac936c3b5376dc8ab02946bdd386#1
 ```
 
-The contract can be signed an submitted with any wallet or service. For convenience, we use `marlowe-cli` here.
+Hợp đồng có thể được ký và gửi bằng bất kỳ ví hoặc dịch vụ nào. Để thuận tiện, chúng ta sử dụng `marlowe-cli`.
 
 In \[10]:
 
@@ -261,7 +263,7 @@ marlowe-cli transaction submit \
 TxId "4a288753dfa52ae965d5a100ee353d89c19fac936c3b5376dc8ab02946bdd386"
 ```
 
-View the transaction on Cardano explorer.
+Xem hợp đồng qua trình khám phá dữ liệu blockchain Cardano (ví dụ: Cardanoscan.io).
 
 In \[11]:
 
@@ -273,7 +275,7 @@ echo "https://cardanoscan.io/transaction/${CONTRACT_ID%%#1}?tab=utxo"
 https://cardanoscan.io/transaction/4a288753dfa52ae965d5a100ee353d89c19fac936c3b5376dc8ab02946bdd386?tab=utxo
 ```
 
-We can use a tool such as `marlowe-pipe` to fetch the contract from the blockchain and display it.
+Chúng ta cũng có thể sử dụng công cụ như `marlowe-pipe` để truy xuất hợp đồng từ blockchain và hiển thị nó.
 
 In \[12]:
 
@@ -368,9 +370,9 @@ response: info
 steps: []
 ```
 
-### Transaction 2. Elizabeth Cary deposits the BearGarden token into the contract <a href="#transaction-2.-elizabeth-cary-deposits-the-beargarden-token-into-the-contract" id="transaction-2.-elizabeth-cary-deposits-the-beargarden-token-into-the-contract"></a>
+### Transaction 2. Elizabeth Cary nạp token BearGarden vào hợp đồng <a href="#transaction-2.-elizabeth-cary-deposits-the-beargarden-token-into-the-contract" id="transaction-2.-elizabeth-cary-deposits-the-beargarden-token-into-the-contract"></a>
 
-The logic of the contract dictates that Elizabeth Cary deposits one BearGarden token into her account in the Marlowe contract.
+Hợp đồng quy định rằng Elizabeth Cary gửi một token BearGarden vào tài khoản của cô ấy trong hợp đồng Marlowe.
 
 In \[13]:
 
@@ -394,7 +396,7 @@ echo "TX_2 = $TX_2"
 TX_2 = 1395ae199837f758bfc19f003b9465c137daf998d3937fba92b0d50f88ecdace
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[14]:
 
@@ -410,7 +412,7 @@ marlowe-cli transaction submit \
 TxId "1395ae199837f758bfc19f003b9465c137daf998d3937fba92b0d50f88ecdace"
 ```
 
-See that the token has been deposited in the contract.
+Kiểm tra xem token đã được chuyển vào hợp đồng.
 
 In \[15]:
 
@@ -422,7 +424,7 @@ echo "https://cardanoscan.io/transaction/$TX_2?tab=utxo"
 https://cardanoscan.io/transaction/1395ae199837f758bfc19f003b9465c137daf998d3937fba92b0d50f88ecdace?tab=utxo
 ```
 
-View the output to the Marlowe contract to see that it now holds 1 BearGarden token.
+Kiểm tra output trong hợp đồng và thấy đã có 1 token BearGarden trong đó.
 
 In \[16]:
 
@@ -436,9 +438,9 @@ cardano-cli query utxo --mainnet --tx-in "$TX_2#1"
 1395ae199837f758bfc19f003b9465c137daf998d3937fba92b0d50f88ecdace     1        3000000 lovelace + 1 8bb3b343d8e404472337966a722150048c768d0a92a9813596c5338d.4265617247617264656e + TxOutDatumHash ScriptDataInBabbageEra "fbd1de02388b1aec1565475525bb0ce76048ed50b3ee6031dc7ad24b1879fa0c"
 ```
 
-### Transaction 3. Mary Herbert deposits 90 Djed into the contract, causing it to pay the Elizabeth Cary. <a href="#transaction-3.-mary-herbert-deposits-90-djed-into-the-contract-causing-it-to-pay-the-elizabeth-cary" id="transaction-3.-mary-herbert-deposits-90-djed-into-the-contract-causing-it-to-pay-the-elizabeth-cary"></a>
+### Giao dịch số 3. Mary Herbert gửi 90 Djed vào hợp đồng, khiến hợp đồng thanh toán 90 Djed cho Elizabeth Cary.&#x20;
 
-Depositing the 90 Djed causes the contract to pay 90 Djed for the benefit of Elizabeth Cary.
+Việc gửi 90 Djed này kích hoạt hợp đồng thanh toán 90 Djed cho quyền lợi của Elizabeth Cary.
 
 In \[17]:
 
@@ -462,7 +464,7 @@ echo "TX_3 = $TX_3"
 TX_3 = 075b605dc43bc1a3411ddc68da59eae5ba82d02297abe7d630ad62d7fcc710f0
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[18]:
 
@@ -478,7 +480,7 @@ marlowe-cli transaction submit \
 TxId "075b605dc43bc1a3411ddc68da59eae5ba82d02297abe7d630ad62d7fcc710f0"
 ```
 
-See that the contract retains the token but paid 90 Djed to the role-payout address.
+Hợp đồng giữ lại token BearGarden nhưng đã thanh toán 90 Djed vào địa chỉ thanh toán vai trò của Elizabeth Cary.
 
 In \[19]:
 
@@ -490,7 +492,7 @@ echo "https://cardanoscan.io/transaction/$TX_3?tab=utxo"
 https://cardanoscan.io/transaction/075b605dc43bc1a3411ddc68da59eae5ba82d02297abe7d630ad62d7fcc710f0?tab=utxo
 ```
 
-### Transaction 4. Elizabeth Cary withdraws 90 Djed from the role-payout address <a href="#transaction-4.-elizabeth-cary-withdraws-90-djed-from-the-role-payout-address" id="transaction-4.-elizabeth-cary-withdraws-90-djed-from-the-role-payout-address"></a>
+### Giao dịch số 4: Elizabeth Cary rút 90 Djed từ địa chỉ vai trò. <a href="#transaction-4.-elizabeth-cary-withdraws-90-djed-from-the-role-payout-address" id="transaction-4.-elizabeth-cary-withdraws-90-djed-from-the-role-payout-address"></a>
 
 In \[20]:
 
@@ -510,7 +512,7 @@ echo "TX_4 = $TX_4"
 TX_4 = 76914d0d4836ff09102034f96195873451ec1df6f88679f9d0a8c9e1e87ce49f
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[21]:
 
@@ -526,7 +528,7 @@ marlowe-cli transaction submit \
 TxId "76914d0d4836ff09102034f96195873451ec1df6f88679f9d0a8c9e1e87ce49f"
 ```
 
-See that Elizabeth Cary has successfully withdrawn the 90 Djed from the role-payout address.
+Kiểm tra Elizabeth Cary đã rút thành công 90 Djed từ địa chỉ thanh toán vai trò?
 
 In \[22]:
 
@@ -538,7 +540,7 @@ echo "https://cardanoscan.io/transaction/$TX_4?tab=utxo"
 https://cardanoscan.io/transaction/76914d0d4836ff09102034f96195873451ec1df6f88679f9d0a8c9e1e87ce49f?tab=utxo
 ```
 
-### Transaction 5. Elizabeth Cary repays 100 Djed, causing her token to be returned and Mary Herbert to be paid <a href="#transaction-5.-elizabeth-cary-repays-100-djed-causing-her-token-to-be-returned-and-mary-herbert-to-b" id="transaction-5.-elizabeth-cary-repays-100-djed-causing-her-token-to-be-returned-and-mary-herbert-to-b"></a>
+### Giao dịch số 5: Elizabeth Cary hoàn trả 100 Djed, khiến token BearGarden của cô được trả lại và Mary Herbert nhận được khoản thanh toán. <a href="#transaction-5.-elizabeth-cary-repays-100-djed-causing-her-token-to-be-returned-and-mary-herbert-to-b" id="transaction-5.-elizabeth-cary-repays-100-djed-causing-her-token-to-be-returned-and-mary-herbert-to-b"></a>
 
 In \[23]:
 
@@ -562,7 +564,7 @@ echo "TX_5 = $TX_5"
 TX_5 = 63d1d6ae2b7885b163275e26774339a4423321113399615a60c805aa1885cafa
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[24]:
 
@@ -578,7 +580,7 @@ marlowe-cli transaction submit \
 TxId "63d1d6ae2b7885b163275e26774339a4423321113399615a60c805aa1885cafa"
 ```
 
-See that the contract has closed after receiving the repayment, and paying the token and Djed to the role-payout address.
+Hợp đồng đã đóng sau khi nhận khoản hoàn trả, đồng thời thanh toán token BearGarden và Djed vào các địa chỉ thanh toán vai trò.
 
 In \[25]:
 
@@ -590,7 +592,7 @@ echo "https://cardanoscan.io/transaction/$TX_5?tab=utxo"
 https://cardanoscan.io/transaction/63d1d6ae2b7885b163275e26774339a4423321113399615a60c805aa1885cafa?tab=utxo
 ```
 
-### Transaction 6. Elizabeth Cary withdraws her 1 BearGarden from the role-payout address <a href="#transaction-6.-elizabeth-cary-withdraws-her-1-beargarden-from-the-role-payout-address" id="transaction-6.-elizabeth-cary-withdraws-her-1-beargarden-from-the-role-payout-address"></a>
+### Giao dịch 6. Elizabeth Cary rút 1 token BearGarden từ địa chỉ thanh toán vai trò.
 
 In \[26]:
 
@@ -610,7 +612,7 @@ echo "TX_6 = $TX_6"
 TX_6 = 4d3c27b72174c53f66a576903b1ebdd0b8fe73a38c1ba77c66bdc267a6b544f8
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[27]:
 
@@ -626,7 +628,7 @@ marlowe-cli transaction submit \
 TxId "4d3c27b72174c53f66a576903b1ebdd0b8fe73a38c1ba77c66bdc267a6b544f8"
 ```
 
-See that the token has been received.
+Kiểm tra xem địa chỉ đã nhận được token?
 
 In \[28]:
 
@@ -638,7 +640,7 @@ echo "https://cardanoscan.io/transaction/$TX_6?tab=utxo"
 https://cardanoscan.io/transaction/4d3c27b72174c53f66a576903b1ebdd0b8fe73a38c1ba77c66bdc267a6b544f8?tab=utxo
 ```
 
-### Transaction 7. Mary Herbert withdraws her 100 Djed from the role-payout address <a href="#transaction-7.-mary-herbert-withdraws-her-100-djed-from-the-role-payout-address" id="transaction-7.-mary-herbert-withdraws-her-100-djed-from-the-role-payout-address"></a>
+### Giao dịch số 7: Mary Herbert rút 100 Djed từ địa chỉ vai trò <a href="#transaction-7.-mary-herbert-withdraws-her-100-djed-from-the-role-payout-address" id="transaction-7.-mary-herbert-withdraws-her-100-djed-from-the-role-payout-address"></a>
 
 In \[29]:
 
@@ -658,7 +660,7 @@ echo "TX_7 = $TX_7"
 TX_7 = 0386d51ae39a4faab998329532cdfde488210dee66eaa01f30aea62c68cfb91a
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[30]:
 
@@ -674,7 +676,7 @@ marlowe-cli transaction submit \
 TxId "0386d51ae39a4faab998329532cdfde488210dee66eaa01f30aea62c68cfb91a"
 ```
 
-See that the Djed has been received.
+Kiểm tra xem đã nhận được Djed?
 
 In \[31]:
 
@@ -686,9 +688,9 @@ echo "https://cardanoscan.io/transaction/$TX_7?tab=utxo"
 https://cardanoscan.io/transaction/0386d51ae39a4faab998329532cdfde488210dee66eaa01f30aea62c68cfb91a?tab=utxo
 ```
 
-### View the whole history of the contract <a href="#view-the-whole-history-of-the-contract" id="view-the-whole-history-of-the-contract"></a>
+### Xem lại toàn bộ lịch sử hợp đồng <a href="#view-the-whole-history-of-the-contract" id="view-the-whole-history-of-the-contract"></a>
 
-We use `marlowe-pipe` to print the whole history of this contract.
+Chúng ta sử dụng `marlowe-pipe` để in ra toàn bộ lịch sử của hợp đồng.
 
 In \[32]:
 
@@ -1008,9 +1010,9 @@ steps:
     txIx: 3
 ```
 
-### Return the BearGarden and Djed tokens to the faucet <a href="#return-the-beargarden-and-djed-tokens-to-the-faucet" id="return-the-beargarden-and-djed-tokens-to-the-faucet"></a>
+### Trả lại token BearGarden và Djed về faucet <a href="#return-the-beargarden-tokens-to-the-faucet" id="return-the-beargarden-tokens-to-the-faucet"></a>
 
-Returning the token to the faucet is convenient housekeeping for this example.
+Trả lại token cho faucet là một cách quản lý tiện lợi cho ví dụ này.
 
 In \[33]:
 

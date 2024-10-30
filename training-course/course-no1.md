@@ -1,6 +1,6 @@
 # Course No1
 
-### **Thời gian**
+### **Thời gian (dự kiến)**
 
 Bắt đầu: Tuần đầu - T11
 
