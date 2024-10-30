@@ -36,7 +36,7 @@
   * [SDK v0.4.0-beta](tai-lieu/marlowe-typescript-sdk/sdk-v0.4.0-beta.md)
   * [Nguyên mẫu ứng dụng thanh toán (Payouts)](tai-lieu/marlowe-typescript-sdk/nguyen-mau-ung-dung-thanh-toan-payouts.md)
   * [Nguyên mẫu ứng dụng "hợp đồng Vesting token"](tai-lieu/marlowe-typescript-sdk/nguyen-mau-ung-dung-hop-dong-vesting-token.md)
-* [Nguồn tài liệu tham khảo](tai-lieu/markdown.md)
+* [Nguồn tài liệu tham khảo](tai-lieu/nguon-tai-lieu-tham-khao.md)
 
 ***
 
