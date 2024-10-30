@@ -1,2 +1,0 @@
-# WORKSHOP REPORT
-
