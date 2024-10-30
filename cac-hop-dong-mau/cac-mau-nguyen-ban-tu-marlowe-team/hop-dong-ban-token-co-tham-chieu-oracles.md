@@ -1,39 +1,39 @@
-# Token sale with Oracle
+# Hợp đồng Bán token có tham chiếu oracles
 
-### &#x20;<mark style="color:red;">Caution!</mark> <a href="#caution" id="caution"></a>
+### <mark style="color:red;">**Cảnh báo**</mark>**!** <a href="#caution" id="caution"></a>
 
-Before running a Marlowe contract on `mainnet`, it is wise to do the following in order to avoid losing funds:
+Trước khi chạy một hợp đồng Marlowe trên mainnet, hãy làm theo các bước sau để tránh mất tiền:
 
-1. Understand the [Marlowe Language](https://marlowe.iohk.io/).
-2. Understand Cardano's [Extended UTxO Model](https://docs.cardano.org/learn/eutxo-explainer).
-3. Read and understand the [Marlowe Best Practices Guide](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/best-practices.md).
-4. Read and understand the [Marlowe Security Guide](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/security.md).
-5. Use [Marlowe Playground](https://play.marlowe.iohk.io/) to flag warnings, perform static analysis, and simulate the contract.
-6. Use [Marlowe CLI's](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/ReadMe.md) `marlowe-cli run analyze` tool to study whether the contract can run on a Cardano network.
-7. Run _all execution paths_ of the contract on a [Cardano testnet](https://docs.cardano.org/cardano-testnet/overview).
+1. Hiểu [ngôn ngữ Marlowe](https://marlowe.iohk.io/).
+2. Hiểu mô hình [Extended UTxO](https://docs.cardano.org/learn/eutxo-explainer) của Cardano.
+3. Đọc và hiểu Hướng dẫn [Thực hành Tốt nhất của Marlowe](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/best-practices.md).
+4. Đọc và hiểu [Hướng dẫn Bảo mật](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/security.md) của Marlowe.
+5. Sử dụng [Marlowe Playground](https://playground.marlowe-lang.org/#/) để đánh dấu cảnh báo, thực hiện phân tích tĩnh và mô phỏng hợp đồng.
+6. Sử dụng công cụ `marlowe-cli run analyze` của [Marlowe CLI](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/ReadMe.md) để kiểm tra xem hợp đồng có thể chạy trên mạng Cardano hay không.
+7. Chạy tất cả các đường thực thi của hợp đồng trên [testnet](https://docs.cardano.org/cardano-testnet/overview) Cardano.
 
 ***
 
-## A Token Sale with Price Oracle <a href="#a-token-sale-with-price-oracle" id="a-token-sale-with-price-oracle"></a>
+### Bán token có tham chiếu giá từ oracles
 
-This token sale uses a price oracle to set the cost of the tokens.
+Đây là ví dụ về việc bán token sử dụng oracle giá để thiết lập chi phí của các token:
 
-This example consists of six transactions:
+Ví dụ này bao gồm sáu giao dịch:
 
-1. John Webster creates the token-sale Marlowe contract.
-2. John Webster deposits 1,000,000 HOSKY tokens in the contract.
-3. The price oracle reports the exchange rate of 1 ADA = 11074197 HOSKY.
-4. Elizabeth Cary deposits 90,300 lovelace in the contract, causing the contract to pay the token to her and the Ada to John Webster.
-5. John Webster withdraws his lovelace from Marlowe's role-payout address.
-6. Elizabeth withdraws her 1,000,000 HOSKY from Marlowe' role-payout address.
+1. John Webster tạo hợp đồng Marlowe bán token.
+2. John Webster gửi 1,000,000 token HOSKY vào hợp đồng.
+3. Oracle giá báo cáo tỷ lệ trao đổi là 1 ADA = 11,074,197 HOSKY.
+4. Elizabeth Cary gửi 90,300 lovelace vào hợp đồng, khiến hợp đồng thanh toán token cho cô và lovelace cho John Webster.
+5. John Webster rút lovelace từ địa chỉ thanh toán của vai trò trong Marlowe.
+6. Elizabeth rút 1,000,000 token HOSKY từ địa chỉ thanh toán của vai trò trong Marlowe.
 
-Here is the contract in Blockly format:
+Dưới đây là hợp đồng ở định dạng Blockly:
 
 ![Token sale with price oracle](https://raw.githubusercontent.com/input-output-hk/real-world-marlowe/a288a9f391e68135e59e65a813db695e6223472d/nfts/oracle/contract.png)
 
-### Set Up <a href="#set-up" id="set-up"></a>
+### Thiết lập <a href="#set-up" id="set-up"></a>
 
-Use `mainnet`.
+Sử dụng `mainnet`.
 
 In \[1]:
 
@@ -41,7 +41,7 @@ In \[1]:
 . ../../mainnet.env
 ```
 
-Use the standard example roles.
+Sử dụng các vai trò ví dụ tiêu chuẩn.
 
 In \[2]:
 
@@ -49,16 +49,16 @@ In \[2]:
 . ../../dramatis-personae/roles.env
 ```
 
-### Role tokens <a href="#role-tokens" id="role-tokens"></a>
+### Token vai trò&#x20;
 
-This contract uses [Ada Handles](https://adahandle.com/) as role tokens:
+Hợp đồng này sử dụng Ada Handles làm token vai trò:
 
 * Elizabeth Carey = [$e.cary](https://pool.pm/asset1tx4euajkdczmkawgkjy342agaq33885dlvp0jl)
 * John Webster = [$j.webster](https://pool.pm/asset1zdcycnnmg6dx5dy030u4cu0zdn63r2scghg2p4)
 
-_Note: Only use a pre-minted token as a Marlowe role if you have reviewed the monetary policy for security vulnerabilities._
+_Lưu ý: Chỉ sử dụng token đã được phát hành trước làm token vai trò Marlowe nếu bạn đã xem xét chính sách tiền tệ để tìm kiếm các lỗ hổng bảo mật._
 
-Here is the currency symbol for Ada handles on `mainnet`:
+Dưới đây là ký hiệu tiền tệ cho Ada handles trên `mainnet`:
 
 In \[3]:
 
@@ -70,9 +70,9 @@ echo "ROLES_CURRENCY = $ROLES_CURRENCY"
 ROLES_CURRENCY = f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a
 ```
 
-### Policy ID for the HOSKY token <a href="#policy-id-for-the-hosky-token" id="policy-id-for-the-hosky-token"></a>
+### Policy ID cho token Hosky <a href="#policy-id-for-the-beargarden-token" id="policy-id-for-the-beargarden-token"></a>
 
-We previously minted the BearGarden token with the following policy.
+Chúng tôi đã trước đó phát hành token Hosky với chính sách sau đây.&#x20;
 
 In \[4]:
 
@@ -86,9 +86,9 @@ HOSKY_POLICY = a0028f350aaabe0545fdcb56b039bfb08e4bb4d8c4d7c3c7d481c235
 HOSKY_NAME = HOSKY
 ```
 
-### Initial funding <a href="#initial-funding" id="initial-funding"></a>
+### Gửi ban đầu <a href="#initial-funding" id="initial-funding"></a>
 
-Send the HOSKY tokens from the faucet to John Webster.
+Gửi token HOSKY từ faucet tới John Webster.
 
 In \[5]:
 
@@ -108,9 +108,9 @@ marlowe-cli transaction simple \
 TxId "1c5c3c72808a76fe4148c83f1c323417d746259f01c1d9b50df1d251799d7e2f"
 ```
 
-### The Marlowe contract <a href="#the-marlowe-contract" id="the-marlowe-contract"></a>
+### Hợp đồng Marlowe <a href="#the-marlowe-contract" id="the-marlowe-contract"></a>
 
-The Marlowe contract is just a download of the JSON file for the Blockly-format contract designed in the [Marlowe Playground](https://play.marlowe.iohk.io/#/).
+Hợp đồng Marlowe thực tế chỉ cần download file JSON được biên dịch từ hợp đồng này dạng Blockly đã được thiết kế sẵn trong [Marlowe Playground](https://play.marlowe.iohk.io/#/).
 
 In \[6]:
 
@@ -191,9 +191,9 @@ when:
                 token_name: HOSKY
 ```
 
-### Transaction 1. Create the contract <a href="#transaction-1.-create-the-contract" id="transaction-1.-create-the-contract"></a>
+### Giao dịch số 1: Tạo hợp đồng <a href="#transaction-1.-create-the-contract" id="transaction-1.-create-the-contract"></a>
 
-We use Marlowe Runtime's command-line tool to build the transaction for creating the contract.
+Chúng ta sử dụng công cụ _Marlowe Runtime's command-line_ để xây dựng giao dịch tạo hợp đồng.
 
 In \[7]:
 
@@ -214,7 +214,7 @@ echo "CONTRACT_ID = $CONTRACT_ID"
 CONTRACT_ID = 2a30bc48422c5195907adc8a872fa87bc8c68d701f897ef116560fdc16aa7830#1
 ```
 
-The contract can be signed an submitted with any wallet or service. For convenience, we use `marlowe-cli` here.
+Hợp đồng có thể được ký và gửi bằng bất kỳ ví hoặc dịch vụ nào. Để thuận tiện, chúng ta sử dụng `marlowe-cli`.
 
 In \[8]:
 
@@ -230,7 +230,7 @@ marlowe-cli transaction submit \
 TxId "2a30bc48422c5195907adc8a872fa87bc8c68d701f897ef116560fdc16aa7830"
 ```
 
-View the contract with a Cardano explorer.
+Xem hợp đồng qua trình khám phá dữ liệu blockchain Cardano (ví dụ: Cardanoscan.io).
 
 In \[9]:
 
@@ -242,7 +242,7 @@ echo "https://cardanoscan.io/transaction/${CONTRACT_ID%%#1}?tab=utxo"
 https://cardanoscan.io/transaction/2a30bc48422c5195907adc8a872fa87bc8c68d701f897ef116560fdc16aa7830?tab=utxo
 ```
 
-We can use a tool such as `marlowe-pipe` to fetch the contract from the blockchain and display it.
+Chúng ta cũng có thể sử dụng công cụ như `marlowe-pipe` để truy xuất hợp đồng từ blockchain và hiển thị nó.
 
 In \[10]:
 
@@ -348,7 +348,7 @@ response: info
 steps: []
 ```
 
-### Transaction 2. John Webster deposits the 1,000,000 HOSKY tokens into the contract <a href="#transaction-2.-john-webster-deposits-the-1-000-000-hosky-tokens-into-the-contract" id="transaction-2.-john-webster-deposits-the-1-000-000-hosky-tokens-into-the-contract"></a>
+### Giao dịch số 2. John Webster nạp 1.000.000 token HOSKY vào hợp đồng. <a href="#transaction-2.-john-webster-deposits-the-1-000-000-hosky-tokens-into-the-contract" id="transaction-2.-john-webster-deposits-the-1-000-000-hosky-tokens-into-the-contract"></a>
 
 In \[11]:
 
@@ -372,7 +372,7 @@ echo "TX_2 = $TX_2"
 TX_2 = 11f0141f19cf0cff9598c7c9c391ce19bcb7a373a87ae4b8fd4db18461221821
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[12]:
 
@@ -388,7 +388,7 @@ marlowe-cli transaction submit \
 TxId "11f0141f19cf0cff9598c7c9c391ce19bcb7a373a87ae4b8fd4db18461221821"
 ```
 
-See that the token has been deposited into the contract.
+Kiểm tra xem token đã được nạp vào hợp đồng
 
 In \[13]:
 
@@ -400,7 +400,7 @@ echo "https://cardanoscan.io/transaction/$TX_2?tab=utxo"
 https://cardanoscan.io/transaction/11f0141f19cf0cff9598c7c9c391ce19bcb7a373a87ae4b8fd4db18461221821?tab=utxo
 ```
 
-View the output to the Marlowe contract to see that it now holds 1,000,000 HOSKY tokens.
+Kiểm tra output trong hợp đồng và thấy đã có 1.000.000 token HOSKY .
 
 In \[14]:
 
@@ -414,7 +414,7 @@ cardano-cli query utxo --mainnet --tx-in "$TX_2#1"
 11f0141f19cf0cff9598c7c9c391ce19bcb7a373a87ae4b8fd4db18461221821     1        3000000 lovelace + 1000000 a0028f350aaabe0545fdcb56b039bfb08e4bb4d8c4d7c3c7d481c235.484f534b59 + TxOutDatumHash ScriptDataInBabbageEra "320beb29eceb8eca03772d4bd6b4d37311374f24ee7e95fa853c8f80a88d5569"
 ```
 
-### Transaction 3. The prices oracle reports the exchange rate for ADA to HOSKY. <a href="#transaction-3.-the-prices-oracle-reports-the-exchange-rate-for-ada-to-hosky" id="transaction-3.-the-prices-oracle-reports-the-exchange-rate-for-ada-to-hosky"></a>
+### Giao dịch 3. Lấy giá từ Oracle làm tỷ lệ trao đổi giữa ADA và HOSKY.
 
 In \[15]:
 
@@ -436,7 +436,7 @@ echo "TX_3 = $TX_3"
 TX_3 = 353dc2b8e92615fd2f6654d22ad862a176f0fdc88277d0917236c8b39b1c7cb5
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[16]:
 
@@ -452,7 +452,7 @@ marlowe-cli transaction submit \
 TxId "353dc2b8e92615fd2f6654d22ad862a176f0fdc88277d0917236c8b39b1c7cb5"
 ```
 
-See that the contract closes by paying the parties.
+Kiểm tra xem hợp đồng đã đóng và thanh toán cho các bên liên quan.
 
 In \[17]:
 
@@ -464,9 +464,9 @@ echo "https://cardanoscan.io/transaction/$TX_3?tab=utxo"
 https://cardanoscan.io/transaction/353dc2b8e92615fd2f6654d22ad862a176f0fdc88277d0917236c8b39b1c7cb5?tab=utxo
 ```
 
-### Transaction 4. Elizabeth Cary pays Ada into the contract, causing it to pay the parties. <a href="#transaction-4.-elizabeth-cary-pays-ada-into-the-contract-causing-it-to-pay-the-parties" id="transaction-4.-elizabeth-cary-pays-ada-into-the-contract-causing-it-to-pay-the-parties"></a>
+### Giao dịch số 4: Elizabeth Cary thanh toán Ada vào trong hợp đồng, dẫn tới việc thanh toán cho các bên. <a href="#transaction-4.-elizabeth-cary-pays-ada-into-the-contract-causing-it-to-pay-the-parties" id="transaction-4.-elizabeth-cary-pays-ada-into-the-contract-causing-it-to-pay-the-parties"></a>
 
-Examine the state of the contract to see that the cost of the HOSKY tokens was computed to be 90,300 lovelace. Because this is lower than the minimum-UTxO value for the ledger, Elizabeth Cary will actually be paying approximately 1 ada.
+Kiểm tra trạng thái của hợp đồng để thấy rằng chi phí của các token HOSKY được tính toán là 90,300 lovelace. Bởi vì số này thấp hơn giá trị UTxO tối thiểu cho sổ cái, Elizabeth Cary sẽ thực tế phải trả khoảng 1 ADA.
 
 In \[18]:
 
@@ -515,7 +515,7 @@ echo "TX_4 = $TX_4"
 TX_4 = ab6f688558f2014b05cf7035b915c3f1c9e13058319fa74584dc58e13cd66a43
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[20]:
 
@@ -531,7 +531,7 @@ marlowe-cli transaction submit \
 TxId "ab6f688558f2014b05cf7035b915c3f1c9e13058319fa74584dc58e13cd66a43"
 ```
 
-See that the contract closes by paying the parties.
+Kiểm tra xem hợp đồng đã đóng và thanh toán cho các bên liên quan.
 
 In \[21]:
 
@@ -543,7 +543,7 @@ echo "https://cardanoscan.io/transaction/$TX_4?tab=utxo"
 https://cardanoscan.io/transaction/ab6f688558f2014b05cf7035b915c3f1c9e13058319fa74584dc58e13cd66a43?tab=utxo
 ```
 
-### Transaction 4. John Webster withdraws his Ada from the role-payout address <a href="#transaction-4.-john-webster-withdraws-his-ada-from-the-role-payout-address" id="transaction-4.-john-webster-withdraws-his-ada-from-the-role-payout-address"></a>
+### Transaction 4. John Webster rút Ada từ địa chỉ thanh toán vai trò <a href="#transaction-4.-john-webster-withdraws-his-ada-from-the-role-payout-address" id="transaction-4.-john-webster-withdraws-his-ada-from-the-role-payout-address"></a>
 
 In \[22]:
 
@@ -563,7 +563,7 @@ echo "TX_5 = $TX_5"
 TX_5 = c7d683da1ecdf9d8b48e2322b8c5dd23d135d4c86403249794e1668288361d2d
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[23]:
 
@@ -579,7 +579,7 @@ marlowe-cli transaction submit \
 TxId "c7d683da1ecdf9d8b48e2322b8c5dd23d135d4c86403249794e1668288361d2d"
 ```
 
-See that John Webster has successfully withdrawn the Ada from the role-payout address.
+Kiểm tra xem John Webster đã rút thành công Ada từ địa chỉ thanh toán vai trò.
 
 In \[24]:
 
@@ -591,7 +591,7 @@ echo "https://cardanoscan.io/transaction/$TX_5?tab=utxo"
 https://cardanoscan.io/transaction/c7d683da1ecdf9d8b48e2322b8c5dd23d135d4c86403249794e1668288361d2d?tab=utxo
 ```
 
-### Transaction 5. Elizabeth Cary withdraws her 1,000,000 HOSKY from the role-payout address <a href="#transaction-5.-elizabeth-cary-withdraws-her-1-000-000-hosky-from-the-role-payout-address" id="transaction-5.-elizabeth-cary-withdraws-her-1-000-000-hosky-from-the-role-payout-address"></a>
+### Giao dịch số 5: Elizabeth Cary rút 1.000.000 token HOSKY từ địa chỉ thanh toán vai trò. <a href="#transaction-5.-elizabeth-cary-withdraws-her-1-000-000-hosky-from-the-role-payout-address" id="transaction-5.-elizabeth-cary-withdraws-her-1-000-000-hosky-from-the-role-payout-address"></a>
 
 In \[25]:
 
@@ -611,7 +611,7 @@ echo "TX_6 = $TX_6"
 TX_6 = 0b13b5d5e1d327dbeedf519c7973744d79c82d44128784b536fbbe2cb4a0569e
 ```
 
-Sign and submit the transaction.
+Ký và gửi giao dịch.
 
 In \[26]:
 
@@ -627,7 +627,7 @@ marlowe-cli transaction submit \
 TxId "0b13b5d5e1d327dbeedf519c7973744d79c82d44128784b536fbbe2cb4a0569e"
 ```
 
-See that Elizabeth Cary has successfully withdrawn the 1,000,000 HOSKY from the role-payout address.
+Kiểm tra xem Elizabeth Cary đã rút thành công 1.000.000 token HOSKY từ địa chỉ thanh toán vai trò.
 
 In \[27]:
 
@@ -639,9 +639,9 @@ echo "https://cardanoscan.io/transaction/$TX_6?tab=utxo"
 https://cardanoscan.io/transaction/0b13b5d5e1d327dbeedf519c7973744d79c82d44128784b536fbbe2cb4a0569e?tab=utxo
 ```
 
-### View the whole history of the contract <a href="#view-the-whole-history-of-the-contract" id="view-the-whole-history-of-the-contract"></a>
+### Xem lại toàn bộ lịch sử của hợp đồng <a href="#view-the-whole-history-of-the-contract" id="view-the-whole-history-of-the-contract"></a>
 
-We use `marlowe-pipe` to print the whole history of this contract.
+Chúng ta sử dụng `marlowe-pipe` để in ra toàn bộ lịch sử của hợp đồng.
 
 In \[28]:
 
@@ -961,9 +961,9 @@ steps:
     txIx: 3
 ```
 
-### Return the HOSKY tokens to the faucet <a href="#return-the-hosky-tokens-to-the-faucet" id="return-the-hosky-tokens-to-the-faucet"></a>
+### Trả lại token HOSKY về faucet <a href="#return-the-beargarden-tokens-to-the-faucet" id="return-the-beargarden-tokens-to-the-faucet"></a>
 
-Returning the token to the faucet is convenient housekeeping for this example.
+Trả lại token cho faucet là một cách quản lý tiện lợi cho ví dụ này.
 
 In \[29]:
 

@@ -1,72 +1,76 @@
-# Auction an NFT
+# Hợp đồng đấu giá NFT
 
-### &#x20;<mark style="color:red;">Caution!</mark> <a href="#caution" id="caution"></a>
+### <mark style="color:red;">**Cảnh báo**</mark>**!** <a href="#caution" id="caution"></a>
 
-Before running a Marlowe contract on `mainnet`, it is wise to do the following in order to avoid losing funds:
+Trước khi chạy một hợp đồng Marlowe trên mainnet, hãy làm theo các bước sau để tránh mất tiền:
 
-1. Understand the [Marlowe Language](https://marlowe.iohk.io/).
-2. Understand Cardano's [Extended UTxO Model](https://docs.cardano.org/learn/eutxo-explainer).
-3. Read and understand the [Marlowe Best Practices Guide](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/best-practices.md).
-4. Read and understand the [Marlowe Security Guide](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/security.md).
-5. Use [Marlowe Playground](https://play.marlowe.iohk.io/) to flag warnings, perform static analysis, and simulate the contract.
-6. Use [Marlowe CLI's](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/ReadMe.md) `marlowe-cli run analyze` tool to study whether the contract can run on a Cardano network.
-7. Run _all execution paths_ of the contract on a [Cardano testnet](https://docs.cardano.org/cardano-testnet/overview).
+1. Hiểu [ngôn ngữ Marlowe](https://marlowe.iohk.io/).
+2. Hiểu mô hình [Extended UTxO](https://docs.cardano.org/learn/eutxo-explainer) của Cardano.
+3. Đọc và hiểu Hướng dẫn [Thực hành Tốt nhất của Marlowe](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/best-practices.md).
+4. Đọc và hiểu [Hướng dẫn Bảo mật](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe/security.md) của Marlowe.
+5. Sử dụng [Marlowe Playground](https://playground.marlowe-lang.org/#/) để đánh dấu cảnh báo, thực hiện phân tích tĩnh và mô phỏng hợp đồng.
+6. Sử dụng công cụ `marlowe-cli run analyze` của [Marlowe CLI](https://github.com/input-output-hk/marlowe-cardano/blob/main/marlowe-cli/ReadMe.md) để kiểm tra xem hợp đồng có thể chạy trên mạng Cardano hay không.
+7. Chạy tất cả các đường thực thi của hợp đồng trên [testnet](https://docs.cardano.org/cardano-testnet/overview) Cardano.
 
 ***
 
-## English Auction <a href="#english-auction" id="english-auction"></a>
+## Đấu giá kiểu Anh <a href="#english-auction" id="english-auction"></a>
 
-**Executive Summary**
+**Tóm tắt**
 
-This English Auction with five bidders and three rounds of bidding demonstrates the use of merkleization for Marlowe contracts. Because bidders may bid in any order and may bid more than once, unless they are disqualified by an illegal bid or timeout, the contract involves a combinatorial explosion of possibilities. Without merkleization, the contract JSON file is 990MB in size and contains 940k `Case` statements, but after merkleization the JSON file is 9.8MB and it contains just 1150 merkleized `Case` statements.
+Đây là một cuộc đấu giá tiếng Anh với năm người tham gia và ba vòng đấu giá, thể hiện việc sử dụng merkleization cho các hợp đồng Marlowe.&#x20;
 
-_Characteristic of this contract_
+Do các nhà thầu có thể đấu giá theo bất kỳ thứ tự nào và có thể đấu giá nhiều hơn một lần, trừ khi họ bị loại bởi một lần đấu giá không hợp lệ hoặc hết thời gian, hợp đồng này có sự bùng nổ tổ hợp của các khả năng.&#x20;
 
-* A seller auctions one unit of an asset.
-* Any number of bidders bid on the contract.
-* Bids may occur in any order.
-* There are a fixed number of bids (rounds of bidding) allowed.
-* A bid is rejected if it isn't higher than all previous bids.
-* A bid is rejected if it isn't immediately followed by a deposit of the Lovelace that was bid.
-* Funds are returned to unsuccessful bidders.
-* There is deadline for depositing the asset.
-* Each bidding round has a deadline.
+Nếu không có **merkleization**, tệp JSON của hợp đồng có kích thước 990MB và chứa 940k câu lệnh Case, nhưng sau khi merkleization, tệp JSON giảm còn 9.8MB và chỉ chứa 1,150 câu lệnh Case đã merkleized.
 
-_Other Highlights_
+#### Đặc điểm của hợp đồng
 
-* Use of merkleization.
-* Use of `Notify` to break execution into transactions that do not exceed the Plutus execution budget.
+* Một người bán đấu giá một đơn vị tài sản.
+* Bất kỳ số lượng người đấu giá nào có thể tham gia vào hợp đồng.
+* Các lần đấu giá có thể xảy ra theo bất kỳ thứ tự nào.
+* Có một số lần đấu giá cố định (các vòng đấu giá) được cho phép.
+* Một lần đấu giá sẽ bị từ chối nếu không cao hơn tất cả các lần đấu giá trước đó.
+* Một lần đấu giá sẽ bị từ chối nếu không được theo sau ngay lập tức bởi một khoản tiền đặt cọc Lovelace tương ứng với số tiền đã đấu giá.
+* Các quỹ được hoàn trả cho những người đấu giá không thành công.
+* Có thời hạn để gửi tài sản.
+* Mỗi vòng đấu giá có một thời hạn.
 
-_Sequences of bids in this example_
+#### Các điểm nổi bật khác
 
-1. Christopher Marlowe creates the contract.
-2. Christopher Marlowe deposits the `BearGarden` token.
-3. Mary Herbert bids 5 ada.
-4. Mary Herbert deposits the ada to cover their bid.
-5. Elizabeth Cary bids 15 ada.
-6. Elizabeth Cary deposits the ada to cover their bid.
-7. Mary Herbert bids 25 ada.
-8. Mary Herbert deposits the additional ada to cover their bid.
-9. Francis Beaumont bids 30 ada.
-10. Francis Beaumont deposits the ada to cover their bid.
-11. Elizabeth Cary bids 40 ada.
-12. Elizabeth Cary deposits the additional ada to cover their bid.
-13. Mary Herbert bids 50 ada.
-14. Mary Herbert deposits the additional ada to cover their bid, and the bidding ends.
-15. The contract is notified to pay the `BearGarden` token to the role-payout address for the benefit of Mary Herbert and the winning bid ada to Christopher Marlowe's account.
-16. The contract is notified to pay any funds owed back to Jane Lumley and John webster to the role-payout address for their benefit.
-17. The contract is notified to pay any funds owed back to Elizabeth Cary and Mary Webster to the role-payout address for their benefit.
-18. The contract is notified to pay any funds owed back to Christopher Marlowe and Francis Beaumont to the role-payout address for their benefit.
-19. Christopher Marlowe withdraws their funds from the role-payout address.
-20. Francis Beaumont withdraws their funds from the role-payout address.
-21. Elizabeth Cary withdraws their funds from the role-payout address.
-22. Mary Webster withdraws their `BearGarden` token and funds from the role-payout address.
+* Sử dụng merkleization.
+* Sử dụng Notify để phân chia thực thi thành các giao dịch không vượt quá ngân sách thực thi Plutus.
 
-Mary Webster wins the asset, Christopher Marlowe receives 50 ada, and the other bidders receive back their deposits. Jane Lumley and John Webster not bid.
+#### Chuỗi các lần đấu giá trong ví dụ này
 
-### Set Up <a href="#set-up" id="set-up"></a>
+1. Christopher Marlowe tạo hợp đồng.
+2. Christopher Marlowe gửi token BearGarden.
+3. Mary Herbert đấu giá 5 ADA.
+4. Mary Herbert gửi ADA để bảo đảm cho lần đấu giá của mình.
+5. Elizabeth Cary đấu giá 15 ADA.
+6. Elizabeth Cary gửi ADA để bảo đảm cho lần đấu giá của mình.
+7. Mary Herbert đấu giá 25 ADA.
+8. Mary Herbert gửi ADA bổ sung để bảo đảm cho lần đấu giá của mình.
+9. Francis Beaumont đấu giá 30 ADA.
+10. Francis Beaumont gửi ADA để bảo đảm cho lần đấu giá của mình.
+11. Elizabeth Cary đấu giá 40 ADA.
+12. Elizabeth Cary gửi ADA bổ sung để bảo đảm cho lần đấu giá của mình.
+13. Mary Herbert đấu giá 50 ADA.
+14. Mary Herbert gửi ADA bổ sung để bảo đảm cho lần đấu giá của mình, và việc đấu giá kết thúc.
+15. Hợp đồng được thông báo để thanh toán token BearGarden cho địa chỉ thanh toán vai trò nhằm lợi ích của Mary Herbert và số ADA thắng cho tài khoản của Christopher Marlowe.
+16. Hợp đồng được thông báo để hoàn trả bất kỳ quỹ nào còn nợ cho Jane Lumley và John Webster về địa chỉ thanh toán vai trò cho lợi ích của họ.
+17. Hợp đồng được thông báo để hoàn trả bất kỳ quỹ nào còn nợ cho Elizabeth Cary và Mary Webster về địa chỉ thanh toán vai trò cho lợi ích của họ.
+18. Hợp đồng được thông báo để hoàn trả bất kỳ quỹ nào còn nợ cho Christopher Marlowe và Francis Beaumont về địa chỉ thanh toán vai trò cho lợi ích của họ.
+19. Christopher Marlowe rút quỹ từ địa chỉ thanh toán vai trò.
+20. Francis Beaumont rút quỹ từ địa chỉ thanh toán vai trò.
+21. Elizabeth Cary rút quỹ từ địa chỉ thanh toán vai trò.
+22. Mary Webster rút token BearGarden và quỹ từ địa chỉ thanh toán vai trò.
 
-Use `mainnet`.
+Mary Webster là người thắng cuộc trong cuộc đấu giá, Christopher Marlowe nhận được 50 ADA, và các nhà đấu giá khác nhận lại khoản tiền đặt cọc của họ. Jane Lumley và John Webster không tham gia đấu giá.
+
+### Thiết lập <a href="#set-up" id="set-up"></a>
+
+Sử dụng `mainnet`.
 
 In \[1]:
 
@@ -74,7 +78,7 @@ In \[1]:
 . ../../mainnet.env
 ```
 
-Use the standard example roles.
+Sử dụng các vai trò ví dụ tiêu chuẩn.
 
 In \[2]:
 
@@ -82,9 +86,9 @@ In \[2]:
 . ../../dramatis-personae/roles.env
 ```
 
-### Role tokens <a href="#role-tokens" id="role-tokens"></a>
+### Token vai trò&#x20;
 
-This contract uses [Ada Handles](https://adahandle.com/) as role tokens:
+Hợp đồng này sử dụng Ada Handles làm token vai trò:
 
 * Christopher Marlowe = [$c.marlowe](https://pool.pm/asset1z2xzfc6lu63jfmfffe2w3nyf6420eylv8e2xjp)
 * Francis Beaumont = [$f.beaumont](https://pool.pm/asset1dv4kncr59t9cndrqdhdd28l656eppcq9mlcxq7)
@@ -93,9 +97,9 @@ This contract uses [Ada Handles](https://adahandle.com/) as role tokens:
 * Jane Lumley = [$j.lumley](https://pool.pm/asset1kujmmryzmxyqz6utp2slrmwfq4dmmnvwhkh7gkm)
 * John Webster = [$j.webster](https://pool.pm/asset1zdcycnnmg6dx5dy030u4cu0zdn63r2scghg2p4)
 
-_Note: Only use a pre-minted token as a Marlowe role if you have reviewed the monetary policy for security vulnerabilities._
+_Lưu ý: Chỉ sử dụng token đã được phát hành trước làm token vai trò Marlowe nếu bạn đã xem xét chính sách tiền tệ để tìm kiếm các lỗ hổng bảo mật._
 
-Here is the currency symbol for Ada handles on `mainnet`:
+Dưới đây là ký hiệu tiền tệ cho Ada handles trên `mainnet`:
 
 In \[3]:
 
@@ -107,9 +111,9 @@ echo "ROLES_CURRENCY = $ROLES_CURRENCY"
 ROLES_CURRENCY = f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a
 ```
 
-### Policy ID for the BearGarden token <a href="#policy-id-for-the-beargarden-token" id="policy-id-for-the-beargarden-token"></a>
+### Policy ID cho token BearGarden <a href="#policy-id-for-the-beargarden-token" id="policy-id-for-the-beargarden-token"></a>
 
-We previously minted the BearGarden token with the following policy.
+Chúng tôi đã trước đó phát hành token BearGarden với chính sách sau đây.&#x20;
 
 In \[4]:
 
@@ -121,9 +125,9 @@ echo "FUNGIBLES_POLICY = $FUNGIBLES_POLICY"
 FUNGIBLES_POLICY = 8bb3b343d8e404472337966a722150048c768d0a92a9813596c5338d
 ```
 
-### Initial Funding <a href="#initial-funding" id="initial-funding"></a>
+### Gửi ban đầu <a href="#initial-funding" id="initial-funding"></a>
 
-Send the BearGarden fungible token from the faucet to Christopher Marlowe.
+Gửi token BearGarden fungible từ faucet cho Christopher Marlowe.
 
 In \[5]:
 
@@ -144,9 +148,9 @@ marlowe-cli transaction simple \
 TxId "efda2e04c5c40cb2cb7b6ef49f1e674bf71a48d5e5a0618bb81cd63d581dfe16"
 ```
 
-#### Set up the contract <a href="#set-up-the-contract" id="set-up-the-contract"></a>
+#### Thiết lập hợp đồng <a href="#set-up-the-contract" id="set-up-the-contract"></a>
 
-Start the contract at the current time.
+Bắt đầu hợp đồng từ thời điểm hiện tại
 
 In \[6]:
 
@@ -159,7 +163,7 @@ echo "NOW = $NOW = $(date -d @$((NOW / 1000)))"
 NOW = 1678573569000 = Sat Mar 11 03:26:09 PM MST 2023
 ```
 
-There is a minimum ada requirement associated with a native token.
+Yêu cầu tối thiểu về số ADA liên quan đến một native token.
 
 In \[7]:
 
@@ -173,9 +177,7 @@ echo "MIN_ADA = $MIN_ADA"
 MIN_ADA = 2000000
 ```
 
-Create a Haskell program that will generate a contract with six rounds of bidding for three bidders.
-
-The program outputs the file [contract.json](https://github.com/input-output-hk/real-world-marlowe/blob/a288a9f391e68135e59e65a813db695e6223472d/nfts/auction/contract.json) and the merkleized continuations [continuations.json](https://github.com/input-output-hk/real-world-marlowe/blob/a288a9f391e68135e59e65a813db695e6223472d/nfts/auction/continuations.json) of the contract.
+Tạo một chương trình Haskell sẽ sinh ra một hợp đồng với sáu vòng đấu giá cho ba người tham gia. Chương trình xuất ra tệp [contract.json](https://github.com/input-output-hk/real-world-marlowe/blob/a288a9f391e68135e59e65a813db695e6223472d/nfts/auction/contract.json) và các tiếp tục đã merkle hóa [continuations.json](https://github.com/input-output-hk/real-world-marlowe/blob/a288a9f391e68135e59e65a813db695e6223472d/nfts/auction/continuations.json) của hợp đồng.
 
 In \[8]:
 
@@ -375,9 +377,9 @@ merkleizeTimeout continuation =
 EOI
 ```
 
-👉 Note that the above contract contains the multiple-input vulnerability where a bidder could submit all of the contract's bids in a single transaction, thus locking other bidders out of participating. How would you simply alter the contract to prevent this?
+👉 Lưu ý rằng hợp đồng trên có lỗ hổng đa đầu vào, trong đó một nhà thầu có thể gửi tất cả các lần đấu giá của hợp đồng trong một giao dịch duy nhất, do đó khóa các nhà thầu khác không thể tham gia. Để đơn giản thay đổi hợp đồng nhằm ngăn chặn điều này, bạn có thể giới hạn mỗi giao dịch chỉ cho phép một lần đấu giá duy nhất từ một nhà thầu.
 
-Now run the Haskell program to generate the contract and continuations.
+Sau đó, hãy chạy chương trình Haskell để sinh ra hợp đồng và các tiếp tục.
 
 In \[9]:
 
@@ -391,7 +393,7 @@ user	0m7.586s
 sys	0m0.664s
 ```
 
-The initial contract itself is brief.
+Hợp đồng ban đầu rất ngắn gọn.
 
 In \[10]:
 
@@ -415,7 +417,7 @@ when:
   merkleized_then: 811ac63b42c08040914c1e057c095ffb66237dfc41f3a368d53ff38f2d1d2fdd
 ```
 
-However, there are over three thousand continuations of the contract.
+Tuy nhiên, có hơn ba nghìn tiếp tục `(continuations)` của hợp đồng.
 
 In \[11]:
 
@@ -427,7 +429,7 @@ jq -r '. | length' continuations.json
 3085
 ```
 
-The continuations take about four megabytes of storage, which is far more that could be stored on-chain in a single datum.
+Các `continuation` Chiếm khoảng bốn megabyte dung lượng lưu trữ, điều này vượt xa khả năng lưu trữ trên chuỗi trong một datum duy nhất.
 
 In \[12]:
 
@@ -439,7 +441,7 @@ ls -lh continuations.json
 -rw-rw-r-- 1 bbush bbush-upg 4.1M Mar 11 15:26 continuations.json
 ```
 
-Here is an example of what one of the continuations looks like.
+Dưới đây là một ví dụ về hình dạng của một trong các `continuation`:
 
 In \[13]:
 
@@ -522,7 +524,7 @@ value:
       merkleized_then: e767ee6b7876937ec0d3140f5679541109650b5644b27f5c02fb97a6b6859472
 ```
 
-We start the contract in an initial state that contains the mininum ada in the UTxO for the script address.
+Chúng ta bắt đầu hợp đồng trong trạng thái ban đầu chứa số lượng ADA tối thiểu trong UTxO cho địa chỉ script.
 
 In \[14]:
 
@@ -544,9 +546,9 @@ cat state.json
 {"accounts":[[[{"address":"addr1q8tntkszteptml4e9ce9l3fsmgavwv4ywunvdnhxv6nw5ksvluken35ncjnu0puetf5jvttedkze02d5kf890kquh60stayv90"},{"currency_symbol":"","token_name":""}],2000000]],"boundValues":[],"choices":[],"minTime":1}
 ```
 
-### Transaction 1. Create the contract <a href="#transaction-1.-create-the-contract" id="transaction-1.-create-the-contract"></a>
+### Giao dịch số 1: Tạo hợp đồng
 
-We supply the roles currency when initializing the contract-state data file.
+Chúng ta cung cấp các vai trò tiền tệ khi khởi tạo tệp dữ liệu trạng thái hợp đồng.
 
 In \[15]:
 
@@ -574,7 +576,7 @@ Validator size: 12296
 Base-validator cost: ExBudget {exBudgetCPU = ExCPU 18745100, exBudgetMemory = ExMemory 81600}
 ```
 
-The `marlowe-cli` tool does not yet support importing merkleized continuations, so we splice them into the contract-state data file.
+Công cụ marlowe-cli vẫn chưa hỗ trợ nhập các `continuation` đã merkle hóa, vì vậy chúng ta sẽ chèn chúng vào tệp dữ liệu trạng thái hợp đồng (**contract-state**).
 
 In \[16]:
 
@@ -582,7 +584,7 @@ In \[16]:
 jq -s '.[0] * {tx : {continuations : .[1]}}' tmp.marlowe continuations.json > marlowe-1.json
 ```
 
-Now submit the transaction to create the contract.
+Gửi giao dịch để tạo hợp đồng.
 
 In \[17]:
 
@@ -610,7 +612,7 @@ Execution units:
 TX_1 = 15b9ce2788f76dfd867d94abe8e5c9ec88f761cc0b54ca01c4ab31494938b352
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain
 
 In \[18]:
 
@@ -622,9 +624,9 @@ echo "https://cardanoscan.io/transaction/$TX_1?tab=utxo"
 https://cardanoscan.io/transaction/15b9ce2788f76dfd867d94abe8e5c9ec88f761cc0b54ca01c4ab31494938b352?tab=utxo
 ```
 
-### Transaction 2. Christopher Marlowe deposits the BearGarden token <a href="#transaction-2.-christopher-marlowe-deposits-the-beargarden-token" id="transaction-2.-christopher-marlowe-deposits-the-beargarden-token"></a>
+### Transaction 2. Christopher Marlowe nạp token BearGarden token <a href="#transaction-2.-christopher-marlowe-deposits-the-beargarden-token" id="transaction-2.-christopher-marlowe-deposits-the-beargarden-token"></a>
 
-Prepare the transaction to deposit the token that is being auctioned.
+Chuẩn bị giao dịch để gửi token đang được đấu giá.
 
 In \[19]:
 
@@ -648,7 +650,7 @@ TransactionInput {txInterval = (POSIXTime {getPOSIXTime = 1678573702000},POSIXTi
 Datum size: 718
 ```
 
-Now the contract contains initial ada and the native token, both in the Seller's account.
+Hiện tại, hợp đồng chứa ADA ban đầu và token gốc, cả hai đều trong tài khoản của người bán.
 
 In \[20]:
 
@@ -667,7 +669,7 @@ jq .tx.state.accounts marlowe-2.json | json2yaml
   - 1
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[21]:
 
@@ -697,7 +699,7 @@ Execution units:
 TX_2 = 99bc07aa0284bdb0376eff6437926ceac31e094c8cb8950539de168471a879f1
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[22]:
 
@@ -709,7 +711,7 @@ echo "https://cardanoscan.io/transaction/$TX_2?tab=utxo"
 https://cardanoscan.io/transaction/99bc07aa0284bdb0376eff6437926ceac31e094c8cb8950539de168471a879f1?tab=utxo
 ```
 
-### Transaction 3. Mary Herbert bids 5 ada <a href="#transaction-3.-mary-herbert-bids-5-ada" id="transaction-3.-mary-herbert-bids-5-ada"></a>
+### Giao dịch số 3: Mary Herbert đặt giá 5 ada <a href="#transaction-3.-mary-herbert-bids-5-ada" id="transaction-3.-mary-herbert-bids-5-ada"></a>
 
 In \[23]:
 
@@ -743,7 +745,7 @@ TransactionInput {txInterval = (POSIXTime {getPOSIXTime = 1678573817000},POSIXTi
 Datum size: 472
 ```
 
-The first bid has been recorded in the state.
+Lần đấu giá đầu tiên đã được ghi lại trong trạng thái.
 
 In \[25]:
 
@@ -760,7 +762,7 @@ choices:
   - 5000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[26]:
 
@@ -790,7 +792,7 @@ Execution units:
 TX_3 = 9b216f1a87352ff04e80e10b69c1c5afe4ad03aa44d5ddbdf3972a18b24734a1
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[27]:
 
@@ -802,9 +804,9 @@ echo "https://cardanoscan.io/transaction/$TX_3?tab=utxo"
 https://cardanoscan.io/transaction/9b216f1a87352ff04e80e10b69c1c5afe4ad03aa44d5ddbdf3972a18b24734a1?tab=utxo
 ```
 
-### Transaction 4. Mary Herbert deposits 7 ada <a href="#transaction-4.-mary-herbert-deposits-7-ada" id="transaction-4.-mary-herbert-deposits-7-ada"></a>
+### Giao dịch số 4: Mary Herbert nạp 7 ada <a href="#transaction-4.-mary-herbert-deposits-7-ada" id="transaction-4.-mary-herbert-deposits-7-ada"></a>
 
-The bidder must deposit whatever ada they just bid, along with the minimum ada requirement.
+Người đấu giá phải gửi số ADA mà họ vừa đấu giá, cùng với yêu cầu về ADA tối thiểu.
 
 In \[28]:
 
@@ -838,7 +840,7 @@ TransactionInput {txInterval = (POSIXTime {getPOSIXTime = 1678573853000},POSIXTi
 Datum size: 795
 ```
 
-The bidder's deposit is in their account.
+Người đấu giá nạp vào tài khoản của họ.
 
 In \[30]:
 
@@ -865,7 +867,7 @@ boundValues:
   - 5000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[31]:
 
@@ -895,7 +897,7 @@ Execution units:
 TX_4 = b97c0555fd0a8773090cdda3a7270a74121945ac5b8b4e688d5a44a350e92277
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[32]:
 
@@ -907,7 +909,7 @@ echo "https://cardanoscan.io/transaction/$TX_4?tab=utxo"
 https://cardanoscan.io/transaction/b97c0555fd0a8773090cdda3a7270a74121945ac5b8b4e688d5a44a350e92277?tab=utxo
 ```
 
-### Transaction 5. Elizabeth Cary bids 15 ada <a href="#transaction-5.-elizabeth-cary-bids-15-ada" id="transaction-5.-elizabeth-cary-bids-15-ada"></a>
+### Transaction 5. Elizabeth Cary đặt giá 15 ada <a href="#transaction-5.-elizabeth-cary-bids-15-ada" id="transaction-5.-elizabeth-cary-bids-15-ada"></a>
 
 In \[33]:
 
@@ -941,7 +943,7 @@ TransactionInput {txInterval = (POSIXTime {getPOSIXTime = 1678573943000},POSIXTi
 Datum size: 534
 ```
 
-The second bid has been recorded.
+Lượt đấu giá số 2 đã được ghi lại.
 
 In \[35]:
 
@@ -964,7 +966,7 @@ choices:
   - 15000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[36]:
 
@@ -994,7 +996,7 @@ Execution units:
 TX_5 = 02891f6ab00e8c1f2f7273edbc409646262aab8e1594d40b233898f1720f7dbd
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[37]:
 
@@ -1006,9 +1008,9 @@ echo "https://cardanoscan.io/transaction/$TX_5?tab=utxo"
 https://cardanoscan.io/transaction/02891f6ab00e8c1f2f7273edbc409646262aab8e1594d40b233898f1720f7dbd?tab=utxo
 ```
 
-### Transaction 6. Elizabeth Cary deposits 17 ada <a href="#transaction-6.-elizabeth-cary-deposits-17-ada" id="transaction-6.-elizabeth-cary-deposits-17-ada"></a>
+### Transaction 6. Elizabeth Cary nạp 17 ada <a href="#transaction-6.-elizabeth-cary-deposits-17-ada" id="transaction-6.-elizabeth-cary-deposits-17-ada"></a>
 
-The bidder deposits the 15 ada bit and the minimum ada.
+nạp 15 ada đấu giá và số ada _tối thiểu_.
 
 In \[38]:
 
@@ -1044,7 +1046,7 @@ Warnings:
 Datum size: 845
 ```
 
-The bidder's deposit appears in their account.
+Khoản nạp của người đấu giá đã xuất hiện trong tài khoản.
 
 In \[40]:
 
@@ -1075,7 +1077,7 @@ boundValues:
   - 15000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[41]:
 
@@ -1105,7 +1107,7 @@ Execution units:
 TX_6 = 606f10eb120d6a91d23d50a76aae167d3bb4fb1b444d57d9e03b3a133d57b59e
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[42]:
 
@@ -1117,7 +1119,7 @@ echo "https://cardanoscan.io/transaction/$TX_6?tab=utxo"
 https://cardanoscan.io/transaction/606f10eb120d6a91d23d50a76aae167d3bb4fb1b444d57d9e03b3a133d57b59e?tab=utxo
 ```
 
-### Transaction 7. Mary Herbert now bids 25 ada <a href="#transaction-7.-mary-herbert-now-bids-25-ada" id="transaction-7.-mary-herbert-now-bids-25-ada"></a>
+### Giao dịch số 7: Mary Herbert đặt giá 25 ada <a href="#transaction-7.-mary-herbert-now-bids-25-ada" id="transaction-7.-mary-herbert-now-bids-25-ada"></a>
 
 In \[43]:
 
@@ -1151,7 +1153,7 @@ TransactionInput {txInterval = (POSIXTime {getPOSIXTime = 1678574180000},POSIXTi
 Datum size: 572
 ```
 
-The record of choices reflects the increased bid.
+Bản ghi các lựa chọn phản ảnh giá đầu đã tăng.
 
 In \[45]:
 
@@ -1174,7 +1176,7 @@ choices:
   - 15000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[46]:
 
@@ -1204,7 +1206,7 @@ Execution units:
 TX_7 = b091fa392846d921c89039efad7b373087eeaf6040d0dc1756d4e877c3a6e147
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[47]:
 
@@ -1216,9 +1218,9 @@ echo "https://cardanoscan.io/transaction/$TX_7?tab=utxo"
 https://cardanoscan.io/transaction/b091fa392846d921c89039efad7b373087eeaf6040d0dc1756d4e877c3a6e147?tab=utxo
 ```
 
-### Transaction 8. Mary Herbert deposits 20 ada <a href="#transaction-8.-mary-herbert-deposits-20-ada" id="transaction-8.-mary-herbert-deposits-20-ada"></a>
+### Transaction 8. Mary Herbert nạp 20 ada <a href="#transaction-8.-mary-herbert-deposits-20-ada" id="transaction-8.-mary-herbert-deposits-20-ada"></a>
 
-Their new bid of 25 ada is 20 ada higher than their previous bid.
+Giá đấu mới của Mary cao hơn lần đặt trước 20 adaT.
 
 In \[48]:
 
@@ -1254,7 +1256,7 @@ Warnings:
 Datum size: 845
 ```
 
-The third bidder's account has been updated.
+Tài khoản của người đấu giá thứ 3 đã được cập nhật.
 
 In \[50]:
 
@@ -1285,7 +1287,7 @@ boundValues:
   - 25000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[51]:
 
@@ -1315,7 +1317,7 @@ Execution units:
 TX_8 = bdc1b62ff68486230fd5af2a7e9aa0b3257a8a9b2aaebbd205c12bbd7964b7e6
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[52]:
 
@@ -1327,7 +1329,7 @@ echo "https://cardanoscan.io/transaction/$TX_8?tab=utxo"
 https://cardanoscan.io/transaction/bdc1b62ff68486230fd5af2a7e9aa0b3257a8a9b2aaebbd205c12bbd7964b7e6?tab=utxo
 ```
 
-### Transaction 9. Francis Beaumont bids 30 ada <a href="#transaction-9.-francis-beaumont-bids-30-ada" id="transaction-9.-francis-beaumont-bids-30-ada"></a>
+### Transaction 9. Francis Beaumont đặt giá 30 ada <a href="#transaction-9.-francis-beaumont-bids-30-ada" id="transaction-9.-francis-beaumont-bids-30-ada"></a>
 
 In \[53]:
 
@@ -1361,7 +1363,7 @@ TransactionInput {txInterval = (POSIXTime {getPOSIXTime = 1678574277000},POSIXTi
 Datum size: 604
 ```
 
-The bid is recorded.
+Khoản đặt mới đã được ghi nhận.
 
 In \[55]:
 
@@ -1388,7 +1390,7 @@ choices:
   - 30000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[56]:
 
@@ -1418,7 +1420,7 @@ Execution units:
 TX_9 = e2371fd4a6c9e3a60fdfb9ee20d3bd53ec66151db6077d676be571a376536ad0
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[57]:
 
@@ -1430,9 +1432,9 @@ echo "https://cardanoscan.io/transaction/$TX_9?tab=utxo"
 https://cardanoscan.io/transaction/e2371fd4a6c9e3a60fdfb9ee20d3bd53ec66151db6077d676be571a376536ad0?tab=utxo
 ```
 
-### Transaction 10. Francis Beaumont deposits 32 ada <a href="#transaction-10.-francis-beaumont-deposits-32-ada" id="transaction-10.-francis-beaumont-deposits-32-ada"></a>
+### Transaction 10. Francis Beaumont nạp 32 ada <a href="#transaction-10.-francis-beaumont-deposits-32-ada" id="transaction-10.-francis-beaumont-deposits-32-ada"></a>
 
-They deposit the 30 ada bid and the minimum ada.
+Francis nạp 30 ada đấu giá and 2 ada tối thiểu.
 
 In \[58]:
 
@@ -1468,7 +1470,7 @@ Warnings:
 Datum size: 903
 ```
 
-Their account records their deposit.
+Tài khoản đấu giá của họ đã được ghi nhận khoản nạp.
 
 In \[60]:
 
@@ -1503,7 +1505,7 @@ boundValues:
   - 30000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[61]:
 
@@ -1533,7 +1535,7 @@ Execution units:
 TX_10 = 2f8e134d5db966374e1b910ab08327a32610a8af2dd1c9300333f23bee8275b3
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[62]:
 
@@ -1545,7 +1547,7 @@ echo "https://cardanoscan.io/transaction/$TX_10?tab=utxo"
 https://cardanoscan.io/transaction/2f8e134d5db966374e1b910ab08327a32610a8af2dd1c9300333f23bee8275b3?tab=utxo
 ```
 
-### Transaction 11. Elizabeth Cary bids 40 ada <a href="#transaction-11.-elizabeth-cary-bids-40-ada" id="transaction-11.-elizabeth-cary-bids-40-ada"></a>
+### Transaction 11. Elizabeth Cary đặt 40 ada <a href="#transaction-11.-elizabeth-cary-bids-40-ada" id="transaction-11.-elizabeth-cary-bids-40-ada"></a>
 
 In \[63]:
 
@@ -1579,7 +1581,7 @@ TransactionInput {txInterval = (POSIXTime {getPOSIXTime = 1678574481000},POSIXTi
 Datum size: 618
 ```
 
-Their bid is recorded.
+Khoản đặt giá mới đã được ghi nhận.
 
 In \[65]:
 
@@ -1606,7 +1608,7 @@ choices:
   - 30000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[66]:
 
@@ -1636,7 +1638,7 @@ Execution units:
 TX_11 = e5da014a844a62e6e3f9add823b8a4f5d25a54ce62194846083f9012bf797c1a
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain..
 
 In \[67]:
 
@@ -1648,9 +1650,9 @@ echo "https://cardanoscan.io/transaction/$TX_11?tab=utxo"
 https://cardanoscan.io/transaction/e5da014a844a62e6e3f9add823b8a4f5d25a54ce62194846083f9012bf797c1a?tab=utxo
 ```
 
-### Transaction 12. Elizabeth Cary deposits 25 ada <a href="#transaction-12.-elizabeth-cary-deposits-25-ada" id="transaction-12.-elizabeth-cary-deposits-25-ada"></a>
+### Giao dịch số 12: Elizabeth Cary nạp 25 ada <a href="#transaction-12.-elizabeth-cary-deposits-25-ada" id="transaction-12.-elizabeth-cary-deposits-25-ada"></a>
 
-They had previously deposited 15 ada, so they only need to deposit 25 ada more to match their bid of 40 ada.
+Do Elizabeth đã nạp 15 ada trước đó (giao dịch số 5), nên Eli chỉ cần nạp thêm 25 ada để khớp với khoản 40 ada đặt giá mới.
 
 In \[68]:
 
@@ -1686,7 +1688,7 @@ Warnings:
 Datum size: 903
 ```
 
-Their deposit is recorded.
+Khoản nạp đã được ghi nhận.
 
 In \[70]:
 
@@ -1721,7 +1723,7 @@ boundValues:
   - 40000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[71]:
 
@@ -1751,7 +1753,7 @@ Execution units:
 TX_12 = 4876991aa2b2586bbc86a920a2cc65a73cc53aaf8fcfb9423c77ebbb7fff7b41
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[72]:
 
@@ -1763,7 +1765,7 @@ echo "https://cardanoscan.io/transaction/$TX_12?tab=utxo"
 https://cardanoscan.io/transaction/4876991aa2b2586bbc86a920a2cc65a73cc53aaf8fcfb9423c77ebbb7fff7b41?tab=utxo
 ```
 
-### Transaction 13. Mary Herbert bids 50 ada <a href="#transaction-13.-mary-herbert-bids-50-ada" id="transaction-13.-mary-herbert-bids-50-ada"></a>
+### Giao dịch số 13: Mary Herbert đặt 50 ada <a href="#transaction-13.-mary-herbert-bids-50-ada" id="transaction-13.-mary-herbert-bids-50-ada"></a>
 
 In \[73]:
 
@@ -1797,7 +1799,7 @@ TransactionInput {txInterval = (POSIXTime {getPOSIXTime = 1678574561000},POSIXTi
 Datum size: 630
 ```
 
-Their bid is recorded.
+Khoản đấu giá mới đã được ghi nhận.
 
 In \[75]:
 
@@ -1824,7 +1826,7 @@ choices:
   - 30000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[76]:
 
@@ -1854,7 +1856,7 @@ Execution units:
 TX_13 = fd67859eb6ae0a2a0496460ebca996292a2db3294bd45792d9fcc061294dc55a
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[77]:
 
@@ -1866,11 +1868,11 @@ echo "https://cardanoscan.io/transaction/$TX_13?tab=utxo"
 https://cardanoscan.io/transaction/fd67859eb6ae0a2a0496460ebca996292a2db3294bd45792d9fcc061294dc55a?tab=utxo
 ```
 
-### Transaction 14. Mary Herbert deposits 25 ada, and the bidding is over <a href="#transaction-14.-mary-herbert-deposits-25-ada-and-the-bidding-is-over" id="transaction-14.-mary-herbert-deposits-25-ada-and-the-bidding-is-over"></a>
+### Giao dịch số 14: Mary Herbert nạp 25 ada và phiên đấu giá kết thúc <a href="#transaction-14.-mary-herbert-deposits-25-ada-and-the-bidding-is-over" id="transaction-14.-mary-herbert-deposits-25-ada-and-the-bidding-is-over"></a>
 
-They deposit the additional 25 ada so that their deposits matches their bid plus the minimum ada.
+Mary nạp thêm 25 ADA để số tiền gửi phù hợp với mức đấu giá cộng với yêu cầu về ADA tối thiểu.
 
-The auction was limited to six rounds of bidding.
+Cuộc đấu giá được giới hạn ở sáu vòng đấu giá.
 
 In \[78]:
 
@@ -1906,7 +1908,7 @@ Warnings:
 Datum size: 471
 ```
 
-Their bid is recorded.
+Khoản đặt giá mới được ghi nhận.
 
 In \[80]:
 
@@ -1941,7 +1943,7 @@ boundValues:
   - 50000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[81]:
 
@@ -1971,7 +1973,7 @@ Execution units:
 TX_14 = 7f4a496bfbd83fb68b6637143b8547d607b896d5ebd15d9db9d8f0f22886f199
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[82]:
 
@@ -1983,9 +1985,9 @@ echo "https://cardanoscan.io/transaction/$TX_14?tab=utxo"
 https://cardanoscan.io/transaction/7f4a496bfbd83fb68b6637143b8547d607b896d5ebd15d9db9d8f0f22886f199?tab=utxo
 ```
 
-### Transaction 15. Pay the BearGarden token to Mary Herbert and credit Christopher Marlowe's account with the ada paid for it <a href="#transaction-15.-pay-the-beargarden-token-to-mary-herbert-and-credit-christopher-marlowes-account-wit" id="transaction-15.-pay-the-beargarden-token-to-mary-herbert-and-credit-christopher-marlowes-account-wit"></a>
+### Giao dịch 15. Thanh toán token BearGarden cho Mary Herbert và ghi "_CÓ"_ tài khoản của Christopher Marlowe với số ADA đã thanh toán cho token đó.
 
-Anyone may advance the contract by notifying it. These notifications are necessary to keep the contract's execution below Plutus's execution-cost limit.
+Bất kỳ ai cũng có thể tiến hành hợp đồng bằng cách thông báo cho nó. Những thông báo này là cần thiết để giữ cho chi phí thực thi của hợp đồng dưới giới hạn chi phí thực thi của Plutus.
 
 In \[83]:
 
@@ -2015,7 +2017,7 @@ Payment 2
   8bb3b343d8e404472337966a722150048c768d0a92a9813596c5338d."BearGarden": 1
 ```
 
-The contract contains records of funds owed the parties.
+Hợp đồng chứa các bản ghi về quỹ _nợ_ của các bên.
 
 In \[84]:
 
@@ -2046,7 +2048,7 @@ jq .tx.state.accounts marlowe-15.json | json2yaml
   - 50000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[85]:
 
@@ -2076,7 +2078,7 @@ Execution units:
 TX_15 = e931ff8931b36b2baac930aed5db39d17434cfb22254565572e94b2795e97af7
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[86]:
 
@@ -2088,9 +2090,9 @@ echo "https://cardanoscan.io/transaction/$TX_15?tab=utxo"
 https://cardanoscan.io/transaction/e931ff8931b36b2baac930aed5db39d17434cfb22254565572e94b2795e97af7?tab=utxo
 ```
 
-### Transaction 16. Pay Jane Lumley and John Webster any funds that are owed back to them <a href="#transaction-16.-pay-jane-lumley-and-john-webster-any-funds-that-are-owed-back-to-them" id="transaction-16.-pay-jane-lumley-and-john-webster-any-funds-that-are-owed-back-to-them"></a>
+### Giao dịch số 16: Thanh toán lại cho Jane Lumley và John Webster các khoản ada mà họ đã chuyển. <a href="#transaction-16.-pay-jane-lumley-and-john-webster-any-funds-that-are-owed-back-to-them" id="transaction-16.-pay-jane-lumley-and-john-webster-any-funds-that-are-owed-back-to-them"></a>
 
-Nothing is owed to them, but this notification is still necessary.
+Không có gì _nợ_ họ, nhưng thông báo này vẫn là cần thiết.
 
 In \[87]:
 
@@ -2114,7 +2116,7 @@ Warnings:
 Datum size: 436
 ```
 
-The contract contains records of remaining funds owed the parties.
+Hợp đồng chứa các bản ghi về quỹ còn lại _nợ_ các bên.
 
 In \[88]:
 
@@ -2145,7 +2147,7 @@ jq .tx.state.accounts marlowe-16.json | json2yaml
   - 50000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[89]:
 
@@ -2175,7 +2177,7 @@ Execution units:
 TX_16 = bd87106f6b042a4ba6f2f80cadc7ace74e5a125dcc93755b0bc2677d98db9c98
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[90]:
 
@@ -2187,9 +2189,9 @@ echo "https://cardanoscan.io/transaction/$TX_16?tab=utxo"
 https://cardanoscan.io/transaction/bd87106f6b042a4ba6f2f80cadc7ace74e5a125dcc93755b0bc2677d98db9c98?tab=utxo
 ```
 
-### Transaction 17. Pay Elizabeth Cary and Mary Herbert any funds that are owed back to them <a href="#transaction-17.-pay-elizabeth-cary-and-mary-herbert-any-funds-that-are-owed-back-to-them" id="transaction-17.-pay-elizabeth-cary-and-mary-herbert-any-funds-that-are-owed-back-to-them"></a>
+### Giao dịch số 17: Thanh toán cho Elizabeth Cary và Mary Herbert các khoản ada mà họ đã chuyển. <a href="#transaction-17.-pay-elizabeth-cary-and-mary-herbert-any-funds-that-are-owed-back-to-them" id="transaction-17.-pay-elizabeth-cary-and-mary-herbert-any-funds-that-are-owed-back-to-them"></a>
 
-Elizabeth Cary receives their deposit back and Mary Herbert receives the minimum ada back.
+Elizabeth Cary nhận lại khoản tiền đặt cọc của mình và **Mary Herbert nhận lại số ADA tối thiểu**.
 
 In \[91]:
 
@@ -2218,7 +2220,7 @@ Payment 2
   Ada: Lovelace {getLovelace = 2000000}
 ```
 
-The contract contains records of remaining funds owed the parties.
+Hợp đồng chứa các bản ghi về quỹ còn lại nợ các bên.
 
 In \[92]:
 
@@ -2241,7 +2243,7 @@ jq .tx.state.accounts marlowe-17.json | json2yaml
   - 50000000
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[93]:
 
@@ -2271,7 +2273,7 @@ Execution units:
 TX_17 = be2a009ed29009d814986904290676d8aa453a91bae98c195a6f124e5667bc4e
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[94]:
 
@@ -2283,9 +2285,9 @@ echo "https://cardanoscan.io/transaction/$TX_17?tab=utxo"
 https://cardanoscan.io/transaction/be2a009ed29009d814986904290676d8aa453a91bae98c195a6f124e5667bc4e?tab=utxo
 ```
 
-### Transaction 18. Pay Christopher Marlowe and Francis Beaumont any funds that are owed back to them <a href="#transaction-18.-pay-christopher-marlowe-and-francis-beaumont-any-funds-that-are-owed-back-to-them" id="transaction-18.-pay-christopher-marlowe-and-francis-beaumont-any-funds-that-are-owed-back-to-them"></a>
+### Giao dịch số 18: Thanh toán cho Christopher Marlowe và Francis Beaumont các khoản ada của họ. <a href="#transaction-18.-pay-christopher-marlowe-and-francis-beaumont-any-funds-that-are-owed-back-to-them" id="transaction-18.-pay-christopher-marlowe-and-francis-beaumont-any-funds-that-are-owed-back-to-them"></a>
 
-Christopher Marlowe receives the payment for the `BearGarden` token and the minimum ada they originally deposited. Francis Beaumont receives their deposit back.
+Christopher Marlowe nhận khoản thanh toán cho token `BearGarden` và số ADA tối thiểu mà họ đã gửi ban đầu. Francis Beaumont nhận lại khoản ada đấu giá của mình.
 
 In \[95]:
 
@@ -2318,7 +2320,7 @@ Payment 3
   Ada: Lovelace {getLovelace = 2000000}
 ```
 
-The contract has now closed.
+Hợp đồng đã được đóng.
 
 In \[96]:
 
@@ -2331,7 +2333,7 @@ close
 ...
 ```
 
-Submit the transaction.
+Gửi giao dịch.
 
 In \[97]:
 
@@ -2361,7 +2363,7 @@ Execution units:
 TX_18 = 2ab49e5d1d6afb0f4b66b7854e2602ba041996f1588192a03e95c8d11949072d
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[98]:
 
@@ -2373,9 +2375,9 @@ echo "https://cardanoscan.io/transaction/$TX_18?tab=utxo"
 https://cardanoscan.io/transaction/2ab49e5d1d6afb0f4b66b7854e2602ba041996f1588192a03e95c8d11949072d?tab=utxo
 ```
 
-### Transaction 19. Christopher Marlowe withdraws 50 ada for the role-payout address <a href="#transaction-19.-christopher-marlowe-withdraws-50-ada-for-the-role-payout-address" id="transaction-19.-christopher-marlowe-withdraws-50-ada-for-the-role-payout-address"></a>
+### Giao dịch số 50: Christopher Marlowe rút 50 ada về địa chỉ thanh toán vai trò <a href="#transaction-19.-christopher-marlowe-withdraws-50-ada-for-the-role-payout-address" id="transaction-19.-christopher-marlowe-withdraws-50-ada-for-the-role-payout-address"></a>
 
-The seller receives the 50 ada winning bid .
+Người bán (Christopher) nhận về 50 ada .
 
 In \[99]:
 
@@ -2404,7 +2406,7 @@ Execution units:
 TX_19 = ed8e4c9d04ab99e9265484a4cd72512709e53293c3db3294361b37e72f378e75
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[100]:
 
@@ -2416,9 +2418,9 @@ echo "https://cardanoscan.io/transaction/$TX_19?tab=utxo"
 https://cardanoscan.io/transaction/ed8e4c9d04ab99e9265484a4cd72512709e53293c3db3294361b37e72f378e75?tab=utxo
 ```
 
-### Transaction 20. Francis Beaumont withdraws their 32 ada deposit <a href="#transaction-20.-francis-beaumont-withdraws-their-32-ada-deposit" id="transaction-20.-francis-beaumont-withdraws-their-32-ada-deposit"></a>
+### Giao dịch số 20: Francis Beaumont rút 32 ada đã nạp <a href="#transaction-20.-francis-beaumont-withdraws-their-32-ada-deposit" id="transaction-20.-francis-beaumont-withdraws-their-32-ada-deposit"></a>
 
-They receive their deposit back.
+Francis nhận về khoản nạp của mình.
 
 In \[101]:
 
@@ -2447,7 +2449,7 @@ Execution units:
 TX_20 = fa1145c20ba038163a9a6cca6deae4b42a87d138e0280d92a275ba0c4dfcb2b7
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[102]:
 
@@ -2459,9 +2461,7 @@ echo "https://cardanoscan.io/transaction/$TX_20?tab=utxo"
 https://cardanoscan.io/transaction/fa1145c20ba038163a9a6cca6deae4b42a87d138e0280d92a275ba0c4dfcb2b7?tab=utxo
 ```
 
-### Transaction 21. Elizabeth Cary withdraws their 42 ada deposit <a href="#transaction-21.-elizabeth-cary-withdraws-their-42-ada-deposit" id="transaction-21.-elizabeth-cary-withdraws-their-42-ada-deposit"></a>
-
-They receive their deposit back.
+### Giao dịch số 21: Elizabeth Cary rút 42 ada đã nạp <a href="#transaction-21.-elizabeth-cary-withdraws-their-42-ada-deposit" id="transaction-21.-elizabeth-cary-withdraws-their-42-ada-deposit"></a>
 
 In \[103]:
 
@@ -2490,7 +2490,7 @@ Execution units:
 TX_21 = 5ed6799dd29c92bdca1f208d8a68c33f6e0ddbb1c7c989dce4bc1047e0d25292
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[104]:
 
@@ -2502,9 +2502,9 @@ echo "https://cardanoscan.io/transaction/$TX_21?tab=utxo"
 https://cardanoscan.io/transaction/5ed6799dd29c92bdca1f208d8a68c33f6e0ddbb1c7c989dce4bc1047e0d25292?tab=utxo
 ```
 
-### Transaction 22. Mary Herbert withdraws the BearGarden token, along with the minimum ada <a href="#transaction-22.-mary-herbert-withdraws-the-beargarden-token-along-with-the-minimum-ada" id="transaction-22.-mary-herbert-withdraws-the-beargarden-token-along-with-the-minimum-ada"></a>
+### Giao dịch số 22: Mary Herbert rút token BearGarden cùng với số ada _tối thiểu_ <a href="#transaction-22.-mary-herbert-withdraws-the-beargarden-token-along-with-the-minimum-ada" id="transaction-22.-mary-herbert-withdraws-the-beargarden-token-along-with-the-minimum-ada"></a>
 
-They receive their token and minimum ada.
+Mary nhận token và 2 ada.
 
 In \[105]:
 
@@ -2533,7 +2533,7 @@ Execution units:
 TX_22 = b0544c678cf287fd319edf515ebb0b3c2a7e0ae1f6f0f262aaa4b13a6f1600c5
 ```
 
-View the transaction on a Cardano explorer.
+Xem giao dịch qua trình khám phá dữ liệu blockchain.
 
 In \[106]:
 
@@ -2545,9 +2545,9 @@ echo "https://cardanoscan.io/transaction/$TX_22?tab=utxo"
 https://cardanoscan.io/transaction/b0544c678cf287fd319edf515ebb0b3c2a7e0ae1f6f0f262aaa4b13a6f1600c5?tab=utxo
 ```
 
-### Cleanup <a href="#cleanup" id="cleanup"></a>
+### Dọn dẹp <a href="#cleanup" id="cleanup"></a>
 
-It is convenient to return the `BearGarden` token to the faucet.
+Việc trả lại token BearGarden cho faucet là rất tiện lợi để _dọn dẹp_ hợp đồng
 
 In \[107]:
 
