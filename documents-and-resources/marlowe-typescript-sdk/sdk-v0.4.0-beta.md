@@ -1,0 +1,15 @@
+# SDK v0.4.0-beta
+
+The **Marlowe TS-SDK** is a suite of _TypeScript/JavaScript_ libraries for developing Web-Dapp in the Cardano Blockchain using Marlowe Technologies.
+
+It is composed of the following packages:
+
+| Package                                                                                                                               | Description                                                                                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [@marlowe.io/language-core-v1](https://input-output-hk.github.io/marlowe-ts-sdk/modules/\_marlowe\_io\_language\_core\_v1.html)       | Provides constructors and serialization utilities for the types defined in the [Marlowe Core specification](https://github.com/input-output-hk/marlowe/releases/download/v3/Marlowe.pdf) |
+| [@marlowe.io/wallet](https://input-output-hk.github.io/marlowe-ts-sdk/modules/\_marlowe\_io\_wallet.html)                             | Defines an API of what Marlowe needs from a Wallet and provides a CIP30 implementation                                                                                                   |
+| [@marlowe.io/runtime-core](https://input-output-hk.github.io/marlowe-ts-sdk/modules/\_marlowe\_io\_runtime\_core.html)                | Core domain concepts used throughout the runtime libraries.                                                                                                                              |
+| [@marlowe.io/runtime-rest-client](https://input-output-hk.github.io/marlowe-ts-sdk/modules/\_marlowe\_io\_runtime\_rest\_client.html) | 1 to 1 mapping of the [Runtime Rest API](https://docs.marlowe.iohk.io/api/introduction).                                                                                                 |
+| [@marlowe.io/runtime-lifecycle](https://input-output-hk.github.io/marlowe-ts-sdk/modules/\_marlowe\_io\_runtime\_lifecycle.html)      | High level API that captures the life of "your" contracts. It builds upon the `wallet` and `runtime-rest-client` to solve common use cases                                               |
+| [@marlowe.io/adapter](https://input-output-hk.github.io/marlowe-ts-sdk/modules/\_marlowe\_io\_adapter.html)                           | Supporting set of libraries for Marlowe and Runtime Core Domains.                                                                                                                        |
+| [@marlowe.io/marlowe-object](https://input-output-hk.github.io/marlowe-ts-sdk/modules/\_marlowe\_io\_marlowe\_object.html)            | An extension of the marlowe-core-v1 types that enable the creation of large contracts.                                                                                                   |
