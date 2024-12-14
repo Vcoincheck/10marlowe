@@ -1,6 +1,6 @@
-# Lesson 8: Oracle & tổng kết khóa học
+# Bài số 8: Oracle & tổng kết khóa học
 
-**Slide bài giảng** 👉 [visit here](https://docs.google.com/presentation/d/129IgkaSFMD5Dr640UqxWo2R6GymbCfn4/edit?usp=sharing\&ouid=106187219308748411779\&rtpof=true\&sd=true)
+**Slide bài giảng** 👉 [visit here](https://docs.google.com/presentation/d/1nQn5cQT_9iVaVgBnaaQAD_7JG_KORmgV/edit?usp=drive_link\&ouid=106187219308748411779\&rtpof=true\&sd=true)
 
 **Nội dung sẽ được đề cập trong bài học này:**
 

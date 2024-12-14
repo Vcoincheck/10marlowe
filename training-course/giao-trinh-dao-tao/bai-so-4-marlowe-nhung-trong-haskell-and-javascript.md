@@ -1,6 +1,6 @@
-# Lesson 4: Marlowe nhúng trong Haskell & Javascript
+# Bài số 4: Marlowe nhúng trong Haskell & Javascript
 
-**Slide bài giảng** 👉 [visit here](https://docs.google.com/presentation/d/1Urzy\_c5LvvLIK1mLjbqi5Qm2CN22Q08H/edit?usp=sharing\&ouid=106187219308748411779\&rtpof=true\&sd=true)
+**Slide bài giảng** 👉 [visit here](https://docs.google.com/presentation/d/1TZBHIC_Hf0FfRs4F5MSNH2i8-b6RDCSK/edit?usp=drive_link\&ouid=106187219308748411779\&rtpof=true\&sd=true)
 
 #### Nội dung sẽ được đề cập trong bài học này:
 

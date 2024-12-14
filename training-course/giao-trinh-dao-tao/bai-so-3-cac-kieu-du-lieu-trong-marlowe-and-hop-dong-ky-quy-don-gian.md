@@ -1,6 +1,6 @@
-# Lesson 3: Các kiểu dữ liệu trong Marlowe & hợp đồng ký quỹ đơn giản
+# Bài số 3: Các kiểu dữ liệu trong Marlowe & hợp đồng ký quỹ đơn giản
 
-**Slide bài giảng** 👉 [visit here](https://docs.google.com/presentation/d/1um6BLe2w8g9uk6-geBKAI\_Ly2QNDaHk3/edit?usp=sharing\&ouid=106187219308748411779\&rtpof=true\&sd=true)
+**Slide bài giảng** 👉 [visit here](https://docs.google.com/presentation/d/1aLBqtjZBJtg1oFv-MPcxCna2-3nhk_m6/edit?usp=drive_link\&ouid=106187219308748411779\&rtpof=true\&sd=true)
 
 **Nội dung sẽ được đề cập trong bài học này:**
 
@@ -12,7 +12,7 @@
 
 **Bài tập về nhà**
 
-* Tự học phần “[Potential problems with contracts](https://vcc.gitbook.io/vcc\_marlowe/basic-resources/concepts/potential-problems-with-contracts)”&#x20;
+* Tự học phần “[Potential problems with contracts](https://vcc.gitbook.io/vcc_marlowe/basic-resources/concepts/potential-problems-with-contracts)”&#x20;
 * Thực hành thành thạo với các hợp đồng ký quỹ.
 
 **Tham kháo**

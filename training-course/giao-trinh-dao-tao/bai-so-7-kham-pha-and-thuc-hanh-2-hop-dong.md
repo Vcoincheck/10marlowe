@@ -1,6 +1,6 @@
-# Lesson 7: Khám phá & thực hành 2 hợp đồng
+# Bài số 7: Khám phá & thực hành 2 hợp đồng
 
-**Slide bài giảng** 👉 [visit here](https://docs.google.com/presentation/d/1c-fNGEvN1VCcWHiK9YMtmV-Jbn56lG2V/edit?usp=sharing\&ouid=106187219308748411779\&rtpof=true\&sd=true)
+**Slide bài giảng** 👉 [visit here](https://docs.google.com/presentation/d/1YIQHv7yB5uPiOHezEhcHFSmdQ00m40oY/edit?usp=drive_link\&ouid=106187219308748411779\&rtpof=true\&sd=true)
 
 **Nội dung sẽ được đề cập trong bài học này:**
 
