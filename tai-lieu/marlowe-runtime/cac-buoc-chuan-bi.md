@@ -3,7 +3,7 @@
 ### **Các bước chuẩn bị để sử dụng bộ khởi động Marlowe Stater Kit**
 
 \
-_Trước khi chạy notebook này, bạn có thể muốn sử dụng chức năng "xóa đầu ra" của Jupyter để xóa kết quả của lần thực thi trước đó của notebook này. Điều này sẽ giúp làm rõ hơn những gì đã được thực thi trong phiên làm việc hiện tại._
+&#xNAN;_&#x54;rước khi chạy notebook này, bạn có thể muốn sử dụng chức năng "xóa đầu ra" của Jupyter để xóa kết quả của lần thực thi trước đó của notebook này. Điều này sẽ giúp làm rõ hơn những gì đã được thực thi trong phiên làm việc hiện tại._
 
 Nền tảng phát triển web3 [demeter.run](https://demeter.run/) cung cấp một tiện ích mở rộng Cardano Marlowe Runtime có chứa các công cụ Marlowe và cung cấp các dịch vụ backend Marlowe Runtime cùng với một node Cardano.&#x20;
 

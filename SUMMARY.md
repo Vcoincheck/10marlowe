@@ -8,7 +8,7 @@
 
 ## Tài liệu&#x20;
 
-* [Tổng quan](tai-lieu/editor.md)
+* [Tổng quan](tai-lieu/tong-quan.md)
 * [Marlowe](tai-lieu/marlowe.md)
 * [Concepts](tai-lieu/concepts/README.md)
   * [Mô hình Marlowe](tai-lieu/concepts/mo-hinh-marlowe.md)

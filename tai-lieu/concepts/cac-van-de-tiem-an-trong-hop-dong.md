@@ -85,7 +85,7 @@ When [ Case (Notify TrueObs) contract1
 
 `contract2` không thể tiếp cận, toàn bộ `Case` có thể bị loại bỏ khỏi hợp đồng và hành vi của hợp đồng sẽ không thay đổi. Điều này có thể dẫn đến việc mã trở nên khó hiểu và không cần thiết.
 
-**Thời gian chờ **_**lồng nhau**_** không tăng**
+**Thời gian chờ&#x20;**_**lồng nhau**_**&#x20;không tăng**
 
 ```rust
 When []

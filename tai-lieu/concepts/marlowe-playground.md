@@ -159,7 +159,7 @@ Dù hợp đồng được viết theo cách nào, khi nó được gửi đi đ
 
 Trước khi bắt đầu mô phỏng, bạn cần cung cấp một số thông tin sau:
 
-1. **Thời gian ban đầu(**initial time): Thời gian bắt đầu mà mô phỏng sẽ được thực hiện.
+1. **Thời gian ban đầu(**&#x69;nitial time): Thời gian bắt đầu mà mô phỏng sẽ được thực hiện.
 2. **Các tham số thời gian**(timeout parameters): Tại đây, bạn cung cấp thời gian mà người cho vay phải gửi số tiền, và thời gian mà người vay cần phải trả số tiền đó cùng với lãi suất.
 3. **Các tham số giá trị**(value parameters): Trong trường hợp này, số tiền đã cho vay và số tiền lãi (thêm vào) cần phải trả.
 

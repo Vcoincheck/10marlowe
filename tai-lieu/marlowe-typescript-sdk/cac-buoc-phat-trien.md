@@ -69,7 +69,7 @@ $ npm test
 }
 ```
 
-**Cách tạo Seed Phrase cho một ví **_**trắng**_** ?**
+**Cách tạo Seed Phrase cho một ví&#x20;**_**trắng**_**&#x20;?**
 
 Tại thư mục gốc của dự án :
 
