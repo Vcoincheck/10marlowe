@@ -23,3 +23,13 @@ End time: Tuần 4 - T12
 
 [<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Buổi học 04 - Marlowe sử dụng với Haskell & Javascript](https://www.youtube.com/watch?v=LfpOEN7jbd8)
 
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Buổi học 05 - Triển khai hợp đồng Marlowe & Marlowe Runtime & CLI](https://www.youtube.com/watch?v=5wzFGFR78B0)
+
+<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Buổi học 06 - Marlowe Typescript SDK
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Buổi học 07 - Khám phá & thực hành 2 hợp đồng](https://youtu.be/tGMEItTR9YA?si=49qPsGBI6CezAaLU)
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Buổi học 08 - Oracle & tổng kết khóa](https://youtu.be/cERodgNy14w?si=73FYCmr7gnBBicdL)&#x20;
+
+
+

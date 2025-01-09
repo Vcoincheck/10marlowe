@@ -1,3 +1,7 @@
 # No2
 
-Coming soon
+Clip recorded
+
+
+
+{% embed url="https://youtu.be/s2VjAzyY-U0" %}
