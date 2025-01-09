@@ -26,3 +26,18 @@ End time: 4th week - January
 <img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> [Lesson 01 - Overview](https://youtu.be/OsChBj9WRsQ?si=X0jBDr9OUr-UmCeP)
 
 <img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> [Lesson 02 - Marlowe playground & practice](https://youtu.be/e9PT-yzrf7E?si=jdFedhcDylb956jA)
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 03: Marlowe Data type & Playground & simple escrow contract](https://youtu.be/vCUIZFroAQA?si=p0bhtkQoGmmBZGeE)
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 04: Marlowe embedded in Haskell & Javascript](https://youtu.be/RmgGzbT7NUo?si=ZJUf-H_Ujfzi37Kf)
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 05: Marlowe Runtime & CLI ](https://youtu.be/d8A2KJ7w_rc?si=22sznr-L_KjwnyEN)
+
+<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 06: Marlowe TS-SDK (Coming soon)
+
+<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 07: Explore & Practice (Coming soon)
+
+<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 08: Oracle & Wrap up (Coming soon)
+
+
+

@@ -24,3 +24,12 @@ End time: 4th week - December
 <img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> [Lesson 03: Marlowe Data type & Playgroud & simple escrow contract](https://www.youtube.com/watch?v=98JvkqM-6UE)
 
 <img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> [Lesson 04: Marlowe embedded in Haskell & Javascript](https://www.youtube.com/watch?v=LfpOEN7jbd8)
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 05: Marlowe Runtime & CLI](https://www.youtube.com/watch?v=5wzFGFR78B0)
+
+<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 06: Marlowe TS-SDK
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 07: Explore & Practice](https://youtu.be/tGMEItTR9YA?si=49qPsGBI6CezAaLU)&#x20;
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 08: Oracle & Wrap up](https://youtu.be/cERodgNy14w?si=73FYCmr7gnBBicdL)
+
