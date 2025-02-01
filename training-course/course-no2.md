@@ -33,11 +33,11 @@ End time: 4th week - January
 
 [<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 05: Marlowe Runtime & CLI ](https://youtu.be/d8A2KJ7w_rc?si=22sznr-L_KjwnyEN)
 
-<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 06: Marlowe TS-SDK (Coming soon)
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 06: Marlowe TS-SDK](https://youtu.be/zJQT_FDxrOU)&#x20;
 
-<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 07: Explore & Practice (Coming soon)
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 07: Explore & Practice](https://youtu.be/oEDeim4Clx8)&#x20;
 
-<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 08: Oracle & Wrap up (Coming soon)
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 08: Oracle & Wrap up](https://youtu.be/h9_swP9O55Q)&#x20;
 
 
 
