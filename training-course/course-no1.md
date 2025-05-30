@@ -6,10 +6,30 @@ Start time: 1st week - November
 
 End time: 4th week - December
 
+
+
 ### **Trainee list**
 
-<table><thead><tr><th>Full Name</th><th width="286">Email</th><th>Social contact</th></tr></thead><tbody><tr><td>Vũ Trung Kiên</td><td>tru***ta@gmail.com</td><td>@kj**ju</td></tr><tr><td>Phạm Trịnh Minh Hiếu</td><td>ckt***3@gmail.com</td><td>@m**on</td></tr><tr><td>Nguyễn Minh Sang</td><td>nguye****08@gmail.com</td><td>@ilu**uyen</td></tr><tr><td>Trịnh Quang Trung</td><td>tri****91@gmail.com</td><td>@bn***i</td></tr><tr><td>Nguyen Van Cuong</td><td>ngvan****8@gmail.com</td><td>Cuong Nguyen</td></tr><tr><td>Nguyễn Hà Thanh</td><td>thanhn***n@gmail.com</td><td><a href="https://t.me/thanhnth">https://t.me/th***nth</a></td></tr><tr><td>Hứa Văn Thọ</td><td>thomas****du@gmail.com</td><td>Th**ua</td></tr><tr><td>Nguyễn Kiên</td><td>kie***4@gmail.com</td><td>Nghèo</td></tr><tr><td>Vũ Văn Nam</td><td>nglon***88@gmail.com</td><td>Vũ Nam</td></tr></tbody></table>
+
+
+<table><thead><tr><th>Full Name</th><th width="286">Email</th><th>Social contact (telegram)</th></tr></thead><tbody><tr><td>Vũ Trung Kiên</td><td>trungke***a@gmail.com</td><td>@k***ju</td></tr><tr><td>Phạm Trịnh Minh Hiếu </td><td>tt***3@gmail.com</td><td> @m***ck</td></tr><tr><td>Nguyễn Minh Sang </td><td>nguyen***508@gmail.com</td><td>@ilu***uyen</td></tr><tr><td>Trịnh Quang Trung </td><td>trinhq***ng91@gmail.com</td><td>@b***vi</td></tr><tr><td>Nguyen Van Cuong </td><td>ngva***88@gmail.com</td><td>@Cuo***yen</td></tr><tr><td>Nguyễn Hà Thanh</td><td>than***pvn@gmail.com</td><td><a href="https://t.me/thanhnth">https://t.me/t***th</a></td></tr><tr><td>Hứa Văn Thọ</td><td>tho***n.edu@gmail.com</td><td>@T***a</td></tr><tr><td>Nguyễn Kiên </td><td>kki***v4@gmail.com</td><td>@Ng***o</td></tr><tr><td>Vũ Văn Nam</td><td>hoangl***88@gmail.com</td><td>@V***m</td></tr></tbody></table>
 
 ### Clip recorded
 
-TBA
+\
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 01 - Overview](https://www.youtube.com/watch?v=jKpgirn66Gk)
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 02 - Marlowe playground & practice](https://www.youtube.com/watch?v=FDxOGBqm5WQ)&#x20;
+
+<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> [Lesson 03: Marlowe Data type & Playgroud & simple escrow contract](https://www.youtube.com/watch?v=98JvkqM-6UE)
+
+<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> [Lesson 04: Marlowe embedded in Haskell & Javascript](https://www.youtube.com/watch?v=LfpOEN7jbd8)
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 05: Marlowe Runtime & CLI](https://www.youtube.com/watch?v=5wzFGFR78B0)
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 06: Marlowe TS-SDK](https://youtu.be/r8D7Ngm3a20)
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 07: Explore & Practice](https://youtu.be/tGMEItTR9YA?si=49qPsGBI6CezAaLU)&#x20;
+
+[<img src="https://vcc.gitbook.io/~gitbook/image?url=https%3A%2F%2Fwww.youtube.com%2Fs%2Fdesktop%2F59ec15cc%2Fimg%2Ffavicon_144x144.png&#x26;width=40&#x26;dpr=4&#x26;quality=100&#x26;sign=a9c5d2e0&#x26;sv=1" alt="" data-size="line"> Lesson 08: Oracle & Wrap up](https://youtu.be/cERodgNy14w?si=73FYCmr7gnBBicdL)
+

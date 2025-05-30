@@ -16,7 +16,7 @@ Rules:
 * Funds will be locked until time 100.
 * Only after time 100 funds will be redeemable.
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 Marlowe code:
 
@@ -44,7 +44,7 @@ Rules:
 * Bob can claim payment from time 11 to time 100.
 * Alice can redeem funds after time 100 if Bob did not claim the payment.
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 Marlowe code:
 
@@ -113,7 +113,7 @@ Rules:
 * If Alice chooses to pay or does not make a selection, Bob can claim from time 41 to time 100.
 * Funds are reedemable by Alice after time 100.
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Marlowe code:
 

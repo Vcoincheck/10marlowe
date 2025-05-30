@@ -1,14 +1,16 @@
 # Template No5: Decentralized Three-Party Investment Bet Contract with Oracle-Based Resolution
 
-### **Title:** Decentralized Three-Party Investment Bet Contract with Oracle-Based Resolution
+## **Title:** Decentralized Three-Party Investment Bet Contract with Oracle-Based Resolution <a href="#title-decentralized-three-party-investment-bet-contract-with-oracle-based-resolution" id="title-decentralized-three-party-investment-bet-contract-with-oracle-based-resolution"></a>
 
 ***
 
-### **Overview:**
+### **Overview:** <a href="#overview" id="overview"></a>
 
 This contract models a decentralized conditional investment (or bet) between three parties — `B`, `C`, and `D` — who each deposit an equal amount of ADA into the contract. After deposit, each party makes a private price prediction for a specific asset (e.g., token, stock, crypto). At a designated time, a trusted oracle (`Pricemarket`) submits the actual market price. The contract then evaluates which party's prediction was closest and automatically distributes the combined pool accordingly.
 
-### **Contract Steps (Process Summary):**
+### **Contract Steps (Process Summary):** <a href="#contract-steps-process-summary" id="contract-steps-process-summary"></a>
+
+
 
 1. **Initial Deposits:**
    * Party `B` deposits `SoluongADA` ADA × 1\_000\_000 lovelace.
@@ -31,18 +33,25 @@ This contract models a decentralized conditional investment (or bet) between thr
 6. **Timeout Handling:**
    * If any deposit or choice is not made before respective deadlines (`ThoiHanBnoptien`, `ThoiHanCnoptien`, `ThoiHanDnoptien`, etc.), the contract terminates via `Close`.
 
-#### **Roles Involved:**
 
-* **`B`, `C`, `D`**\
-  Each acts as both an investor and predictor. All three must deposit funds and submit a price prediction.
-* **`Pricemarket` (Oracle)**\
-  A trusted role responsible for submitting the actual market price used for evaluating winner(s).
 
-### Contract flowchart
+**Roles Involved:**
+
+
+
+* **`B`, `C`, `D`** Each acts as both an investor and predictor. All three must deposit funds and submit a price prediction.
+* **`Pricemarket` (Oracle)** A trusted role responsible for submitting the actual market price used for evaluating winner(s).
+
+
+
+### Contract flowchart <a href="#contract-flowchart" id="contract-flowchart"></a>
+
+\
+
 
 <figure><img src="../../.gitbook/assets/deepseek_mermaid_20250530_ba72aa.png" alt=""><figcaption></figcaption></figure>
 
-#### Key Components Explained:
+**Key Components Explained:**
 
 1. **Deposit Phase (Yellow)**:
    * Sequential deposits from B, C, D
@@ -52,34 +61,41 @@ This contract models a decentralized conditional investment (or bet) between thr
    * Participants submit price predictions in sequence
    * B → C → D submission order
    * Time-bound submissions (`ThoiGianXChon`)
-3. **Oracle Phase (Teal)**:
+3. **Oracle Phase (Teal)**
    * Market price oracle submits value
    * Must occur before `ThoiGianLayGiaMarket`
-4. **Winner Determination (Red)**:
-   *   Compares absolute differences:
+4.  **Winner Determination (Red)**:
 
-       CopyDownload
+    * Compares absolute differences:
 
-       ```
-       |Participant Prediction - Oracle Value|
-       ```
-   * Complex tie-breaking logic:
-     * Compares secondary differences
-     * Uses nested conditionals
-5. **Payout Phase (Green)**:
+    _CopyDownload_
+
+    `|Participant Prediction - Oracle Value|`
+
+
+
+* Complex tie-breaking logic:
+  * Compares secondary differences
+  * Uses nested conditionals
+
+1. **Payout Phase (Green)**:
    * Winner receives combined deposits from other two
    * Three possible outcomes:
      * B wins: Receives C+D deposits
      * C wins: Receives B+D deposits
      * D wins: Receives B+C deposits
-6. **Timeout Handling (Red)**:
+2. **Timeout Handling (Red)**:
    * Contract closes if any deadline is missed
    * No partial payments or refunds
    * Strict enforcement at every phase
 
-### Contract in blockly and Marlowe code
 
-#### Contract in blocky
+
+### Contract in blockly and Marlowe code <a href="#contract-in-blockly-and-marlowe-code" id="contract-in-blockly-and-marlowe-code"></a>
+
+
+
+**Contract in blocky**
 
 Fully marlowe code please visit here [Marlowe playground](https://tinyurl.com/p8984sks) (Note: Since the original URL of the Marlowe Playground is very long, I have shortened it.)
 

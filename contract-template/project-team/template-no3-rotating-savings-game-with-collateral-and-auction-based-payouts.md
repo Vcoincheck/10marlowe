@@ -2,8 +2,6 @@
 
 ## **Title: Rotating Savings Game with Collateral and Auction-Based Payouts**
 
-***
-
 ### **Overview:**
 
 This contract simulates a 3-month rotating savings and credit association (ROSCA) game between three players: **NguoiChoiA**, **NguoiChoiB**, and **NguoiChoiC**. A centralized pool account (**QuyCocHui**) holds initial contributions from each player. Each month, players can bid (call for payout) using an auction-style mechanism with starting bid percentages provided by an **Oracle**. The winner receives the pot, while the losers for that round keep their claims for future months. The contract ensures fairness, enforces deadlines, and manages collateral returns at the end of the term.
@@ -58,48 +56,47 @@ This contract simulates a 3-month rotating savings and credit association (ROSCA
 * If players do not act within **TimeParam** deadlines (e.g., submit bid, make deposits), their round is forfeited.
 * At the end of 3 months, **collateral refunds** are issued if all steps were followed correctly.
 
+\
+**Key Components Explained:**
 
+CommentShare feedback on the editor
 
-### Contract flowchart
+1. CommentShare feedback on the editor**Initial Deposits** (Blue):CommentShare feedback on the editor
+   * CommentShare feedback on the editorAll 3 players deposit 10,000,000,000 each into the common fund
+2. CommentShare feedback on the editor**Monthly Auctions** (Orange):CommentShare feedback on the editor
+   * CommentShare feedback on the editor**Oracle Pricing**: Determines discount rate each month
+   * CommentShare feedback on the editor**Bidding**: Players compete to win the pot
+   * CommentShare feedback on the editor**Winner Selection**: First player with unique bid wins
+   * CommentShare feedback on the editor**Payments**: Non-winners pay winner at discounted rate
+3. CommentShare feedback on the editor**Final Settlement** (Purple):CommentShare feedback on the editor
+   * CommentShare feedback on the editorRemaining players make final deposits
+   * CommentShare feedback on the editorLast winner receives full payments
+   * CommentShare feedback on the editorInitial deposits returned to all players
+4. CommentShare feedback on the editor**Timeouts** (Not shown for simplicity):CommentShare feedback on the editor
+   * CommentShare feedback on the editorStrict time parameters at every step
+   * CommentShare feedback on the editorMissed deadlines trigger contract closure with penalties
 
-<figure><img src="../../.gitbook/assets/deepseek_mermaid_20250530_3a8565.png" alt=""><figcaption><p>General contract flow</p></figcaption></figure>
+CommentShare feedback on the editor​CommentShare feedback on the editor
 
-#### Key Components Explained:
+**Auction Detail Flow (Month 1 Example):**
 
-1. **Initial Deposits** (Blue):
-   * All 3 players deposit 10,000,000,000 each into the common fund
-2. **Monthly Auctions** (Orange):
-   * **Oracle Pricing**: Determines discount rate each month
-   * **Bidding**: Players compete to win the pot
-   * **Winner Selection**: First player with unique bid wins
-   * **Payments**: Non-winners pay winner at discounted rate
-3. **Final Settlement** (Purple):
-   * Remaining players make final deposits
-   * Last winner receives full payments
-   * Initial deposits returned to all players
-4. **Timeouts** (Not shown for simplicity):
-   * Strict time parameters at every step
-   * Missed deadlines trigger contract closure with penalties
+CommentShare feedback on the editor![](https://www.gitbook.com/cdn-cgi/image/dpr=2,width=760,onerror=redirect,format=auto/https%3A%2F%2Ffiles.gitbook.com%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2FZZhIaumcNuA9D7nsEEQj%2Fuploads%2FVZ7n4nEoqJR5k9OcXU0u%2Fdeepseek_mermaid_20250530_a17bef.png%3Falt%3Dmedia%26token%3D9ccf86e6-7270-476c-88ad-6cebba1a5cd3)CommentShare feedback on the editor
 
+#### Contract in Blocky and Marlowe format <a href="#contract-in-blocky-and-marlowe-format" id="contract-in-blocky-and-marlowe-format"></a>
 
+CommentShare feedback on the editor
 
-#### Auction Detail Flow (Month 1 Example):
+**Contract in blockly format**
 
-<figure><img src="../../.gitbook/assets/deepseek_mermaid_20250530_a17bef.png" alt=""><figcaption></figcaption></figure>
+CommentShare feedback on the editorFully marlowe code please visit here [Marlowe playground](https://tinyurl.com/3xmh3kuk) (Note: Since the original URL of the Marlowe Playground is very long, I have shortened it.)
 
-### Contract in Blocky and Marlowe format
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-#### Contract in blockly format
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
-Fully marlowe code please visit here [Marlowe playground](https://tinyurl.com/3xmh3kuk) (Note: Since the original URL of the Marlowe Playground is very long, I have shortened it.)
+**Contract in Marlowe code**
 
-<figure><img src="../../.gitbook/assets/Screenshot 2025-05-30 160432.jpg" alt=""><figcaption></figcaption></figure>
-
-<figure><img src="../../.gitbook/assets/Screenshot 2025-05-30 160506.jpg" alt=""><figcaption></figcaption></figure>
-
-#### Contract in Marlowe code
-
-```haskell
+```
 When
     [Case
         (Deposit
@@ -393,3 +390,5 @@ When
                                                                                                                                                     )
 
 ```
+
+\

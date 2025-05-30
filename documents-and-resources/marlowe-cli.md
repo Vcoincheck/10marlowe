@@ -125,7 +125,7 @@ Marlowe CLI supports workflows for specific use cases:
 
 In the high-level workflow for `marlowe-cli`, the user creates a contract from a template, using Marlowe Playground, programmatically, or by hand. The user provides input at each step of contract execution. The tool manages the contract state transitions and handles the construction and submission of transactions.
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 **Examples**
 
