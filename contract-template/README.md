@@ -1,3 +1,6 @@
+---
+description: Đây là trang tổng hợp các mẫu hợp đồng có sẵn.
+---
+
 # CONTRACT TEMPLATE
 
-**This is a page that aggregates available contract templates.**

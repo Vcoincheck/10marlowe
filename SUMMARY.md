@@ -8,7 +8,7 @@
 
 ## DOCUMENTS & RESOURCES
 
-* [Overview](documents-and-resources/overview.md)
+* [Overview](documents-and-resources/editor.md)
 * [Marlowe introducion](documents-and-resources/marlowe-introducion.md)
 * [Concepts](documents-and-resources/concepts/README.md)
   * [Marlowe model](documents-and-resources/concepts/marlowe-model.md)
@@ -36,7 +36,7 @@
   * [SDK v0.4.0-beta](documents-and-resources/marlowe-typescript-sdk/sdk-v0.4.0-beta.md)
   * [Payouts DApp prototype](documents-and-resources/marlowe-typescript-sdk/payouts-dapp-prototype.md)
   * [Token Plan Prototype: A Vesting Contract](documents-and-resources/marlowe-typescript-sdk/token-plan-prototype-a-vesting-contract.md)
-* [Useful & additional resources](documents-and-resources/useful-additional-resources.md)
+* [Useful & additional resources](documents-and-resources/markdown.md)
 
 ***
 
@@ -58,7 +58,8 @@
     * [Pawning NFT for iUSD](contract-template/marlowes-origin-sources/pawning-nft-for-iusd.md)
     * [Token sale with Oracle](contract-template/marlowes-origin-sources/token-sale-with-oracle.md)
     * [Auction an NFT](contract-template/marlowes-origin-sources/auction-an-nft.md)
-  * [Project team](contract-template/project-team.md)
+  * [Project team](contract-template/project-team/README.md)
+    * [Product Sale with Delivery, Fees, and Dispute Resolution in E-comerce platform](contract-template/project-team/product-sale-with-delivery-fees-and-dispute-resolution-in-e-comerce-platform.md)
 * [TRAINING COURSE](training-course/README.md)
   * [Course overview lesson](training-course/course-overview-lesson.md)
   * [Curricullum](training-course/curricullum/README.md)
