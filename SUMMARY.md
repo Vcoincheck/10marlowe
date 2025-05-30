@@ -62,6 +62,7 @@
     * [Template No1: Product Sale with Delivery, Fees, and Dispute Resolution in E-comerce platform](contract-template/project-team/template-no1-product-sale-with-delivery-fees-and-dispute-resolution-in-e-comerce-platform.md)
     * [Template no2: Contract for consulting on the design of a residential house.](contract-template/project-team/template-no2-contract-for-consulting-on-the-design-of-a-residential-house..md)
     * [Template No3: Rotating Savings Game with Collateral and Auction-Based Payouts](contract-template/project-team/template-no3-rotating-savings-game-with-collateral-and-auction-based-payouts.md)
+    * [Template No4: Advanced Payroll Distribution Contract with Tax and Social Insurance Deductions](contract-template/project-team/template-no4-advanced-payroll-distribution-contract-with-tax-and-social-insurance-deductions.md)
 * [TRAINING COURSE](training-course/README.md)
   * [Course overview lesson](training-course/course-overview-lesson.md)
   * [Curricullum](training-course/curricullum/README.md)
