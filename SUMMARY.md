@@ -63,6 +63,7 @@
     * [Template no2: Contract for consulting on the design of a residential house.](contract-template/project-team/template-no2-contract-for-consulting-on-the-design-of-a-residential-house..md)
     * [Template No3: Rotating Savings Game with Collateral and Auction-Based Payouts](contract-template/project-team/template-no3-rotating-savings-game-with-collateral-and-auction-based-payouts.md)
     * [Template No4: Advanced Payroll Distribution Contract with Tax and Social Insurance Deductions](contract-template/project-team/template-no4-advanced-payroll-distribution-contract-with-tax-and-social-insurance-deductions.md)
+    * [Template No5: Decentralized Three-Party Investment Bet Contract with Oracle-Based Resolution](contract-template/project-team/template-no5-decentralized-three-party-investment-bet-contract-with-oracle-based-resolution.md)
 * [TRAINING COURSE](training-course/README.md)
   * [Course overview lesson](training-course/course-overview-lesson.md)
   * [Curricullum](training-course/curricullum/README.md)

@@ -61,7 +61,7 @@ Then the contract performs the following transfers:
 
 
 
-### Contract workflow chart&#x20;
+### Contract flowchart&#x20;
 
 <figure><img src="../../.gitbook/assets/deepseek_mermaid_20250530_832c90.png" alt=""><figcaption><p>Automated Payroll System with Deduction</p></figcaption></figure>
 
