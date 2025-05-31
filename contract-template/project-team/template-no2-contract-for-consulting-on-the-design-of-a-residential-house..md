@@ -56,15 +56,15 @@ CommentShare feedback on the editor
 
 ### Contract flowchart
 
-<figure><img src="broken-reference" alt=""><figcaption><p>Contract flowchart</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/deepseek_mermaid_20250530_b1008d (1).png" alt=""><figcaption><p>Contract flowchart</p></figcaption></figure>
 
 
 
 
 
-<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/deepseek_mermaid_20250530_e2a6c3.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/deepseek_mermaid_20250530_0edb24.png" alt=""><figcaption></figcaption></figure>
 
 ### Contract in blocky and marlowe format
 
@@ -72,9 +72,9 @@ CommentShare feedback on the editor
 
 Fully marlowe code please visit here [Marlowe playground](https://tinyurl.com/yc599pc2) (Note: Since the original URL of the Marlowe Playground is very long, I have shortened it.)
 
-<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2025-05-30 145659.jpg" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2025-05-30 145806.jpg" alt=""><figcaption></figcaption></figure>
 
 #### Contract in marlowe code
 
