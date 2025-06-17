@@ -106,6 +106,12 @@ const total_amount        = 20_000_000
 
 #### Contract in Blocky
 
+Fully marlowe code please visit here [Marlowe playground](https://tinyurl.com/yv7e958m) (Note: Since the original URL of the Marlowe Playground is very long, I have shortened it.)
+
+<figure><img src="../../.gitbook/assets/Charityfund1.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/Charityfund2.png" alt=""><figcaption></figcaption></figure>
+
 #### Contract in Marrlowe code
 
 ```rust
