@@ -124,15 +124,7 @@ This contract design is ideal for long-term estate planning with flexibility and
 
 ### **Multisig Consent Mechanism**:
 
-
-
-<details>
-
-<summary></summary>
-
-
-
-</details>
+<figure><img src="../../.gitbook/assets/deepseek_mermaid_20250618_ea064b.png" alt="" width="563"><figcaption></figcaption></figure>
 
 **Timeline Visualization**:
 
