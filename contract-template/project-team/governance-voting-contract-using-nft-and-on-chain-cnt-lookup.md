@@ -121,7 +121,7 @@ Validations (off-chain):
 
 ### Deadline Enforcement
 
-<figure><img src="../../.gitbook/assets/image (46).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 ### Enhanced Features
 

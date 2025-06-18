@@ -94,9 +94,9 @@ This contract simulates a 3-month rotating savings and credit association (ROSCA
 
 CommentShare feedback on the editorFully marlowe code please visit here [Marlowe playground](https://tinyurl.com/3xmh3kuk) (Note: Since the original URL of the Marlowe Playground is very long, I have shortened it.)
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (2).png" alt=""><figcaption></figcaption></figure>
 
 **Contract in Marlowe code**
 
