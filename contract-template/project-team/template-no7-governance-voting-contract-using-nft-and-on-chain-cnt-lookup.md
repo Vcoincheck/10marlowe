@@ -1,4 +1,4 @@
-# Governance Voting Contract using NFT & On-chain CNT Lookup
+# Template No7: Governance Voting Contract using NFT & On-chain CNT Lookup
 
 ## Governance Voting Contract using NFT & On-chain CNT Lookup
 
