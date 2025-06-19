@@ -48,6 +48,7 @@
   * [No5](workshop-report/no5.md)
   * [No6](workshop-report/no6.md)
   * [No7](workshop-report/no7.md)
+  * [No8](workshop-report/no8.md)
 * [CONTRACT TEMPLATE](contract-template/README.md)
   * [Marlowe's origin sources](contract-template/marlowes-origin-sources/README.md)
     * [A Simple Sale of a Token](contract-template/marlowes-origin-sources/a-simple-sale-of-a-token.md)
