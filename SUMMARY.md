@@ -70,7 +70,7 @@
     * [Template No6: Charity Fund Management Contract](contract-template/project-team/template-no6-charity-fund-management-contract.md)
     * [Template No7: Governance Voting Contract using NFT & On-chain CNT Lookup](contract-template/project-team/template-no7-governance-voting-contract-using-nft-and-on-chain-cnt-lookup.md)
     * [Template No8: Put Option Contract](contract-template/project-team/template-no8-put-option-contract.md)
-    * [Template No9: Royalty Distribution Contract](contract-template/project-team/template-no9-royalty-distribution-contract.md)
+    * [Template No9: Usage-Based Payout Contract](contract-template/project-team/template-no9-usage-based-payout-contract.md)
     * [Template No10: Inheritance Contract with Multisig wallet](contract-template/project-team/template-no10-inheritance-contract-with-multisig-wallet.md)
 * [TRAINING COURSE](training-course/README.md)
   * [Course overview lesson](training-course/course-overview-lesson.md)
