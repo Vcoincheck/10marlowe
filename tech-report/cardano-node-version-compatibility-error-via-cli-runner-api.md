@@ -1,4 +1,6 @@
-# Cardano-node version compatibility error
+# Cardano-node version compatibility error (via CLI, Runner, API)
+
+## Cardano-Cli
 
 ### Introduction
 
@@ -179,3 +181,19 @@ marlowe-cli: DecoderFailure (LocalStateQuery HardForkBlock (': * ByronBlock (': 
 * The issue is caused by a **version mismatch** between `marlowe-cli` (0.2.0.0) and `cardano-node` (10.4.1).
 * To run correctly on Conway era, **marlowe-cli must be upgraded** to a version compatible with Conway.
 * If you continue using the old version, commands like `initialize` and `analyze` will fail to execute.
+
+
+
+## Marlowe Runner
+
+
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+
+
+## Marlowe Runtime Api
+
+
+
+<figure><img src="../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>

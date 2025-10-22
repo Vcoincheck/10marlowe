@@ -113,7 +113,7 @@ Rules:
 * If Alice chooses to pay or does not make a selection, Bob can claim from time 41 to time 100.
 * Funds are reedemable by Alice after time 100.
 
-<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Marlowe code:
 
