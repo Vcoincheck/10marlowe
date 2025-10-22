@@ -1,6 +1,6 @@
 # Cardano-node version compatibility error (via CLI, Runner, API)
 
-## Cardano-Cli
+## Marlowe-Cli
 
 ### Introduction
 
